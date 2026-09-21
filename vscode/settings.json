@@ -180,7 +180,6 @@
     ],
     "git.branchValidationRegex": "^(feature|fix|hotfix|refactor|chore|docs|test|release)/(?:[0-9]+-)?[a-z0-9]+(?:-[a-z0-9]+)*$",
     "git.defaultCloneDirectory": "~/Codespace",
-    "git.detectWorktrees": true,
     "git.diagnosticsCommitHook.enabled": true,
     "git.enableSmartCommit": true,
     "git.fetchOnPull": true,
