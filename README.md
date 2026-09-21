@@ -64,3 +64,17 @@ sleep 1 && open -a Stats
 defaults export eu.exelban.Stats ~/dotfiles/stats/eu.exelban.Stats.plist
 plutil -convert xml1 ~/dotfiles/stats/eu.exelban.Stats.plist
 ```
+
+## Homebrew
+
+### Install packages
+
+```sh
+brew bundle --file ~/dotfiles/homebrew/Brewfile
+```
+
+### Export packages
+
+```sh
+brew bundle dump --force --file ~/dotfiles/homebrew/Brewfile
+```
