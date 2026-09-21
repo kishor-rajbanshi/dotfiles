@@ -5,6 +5,7 @@ davidanson.vscode-markdownlint
 dbaeumer.vscode-eslint
 devsense.composer-php-vscode
 devsense.profiler-php-vscode
+dnicolson.binary-plist
 docker.docker
 editorconfig.editorconfig
 formulahendry.auto-rename-tag
