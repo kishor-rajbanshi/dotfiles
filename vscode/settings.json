@@ -154,7 +154,8 @@
         "composer.json": "composer.lock"
     },
     "files.associations": {
-        "*.css": "tailwindcss"
+        "*.css": "tailwindcss",
+        "LICENSE": "plaintext"
     },
     "files.autoGuessEncoding": true,
     "files.defaultLanguage": "${activeEditorLanguage}",
