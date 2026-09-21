@@ -5,7 +5,7 @@ My dotfiles.
 ## Clone
 
 ```sh
-git clone https://github.com/kishor-rajbanshi/dotfiles.git ~
+git clone https://github.com/kishor-rajbanshi/dotfiles.git ~/dotfiles
 ```
 
 ## Terminal
