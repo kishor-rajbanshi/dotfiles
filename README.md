@@ -33,6 +33,7 @@ U=~/"Library/Application Support/Code/User"
 ln -sf ~/dotfiles/vscode/settings.json    "$U/settings.json"
 ln -sf ~/dotfiles/vscode/keybindings.json "$U/keybindings.json"
 ln -sfn ~/dotfiles/vscode/snippets        "$U/snippets"
+ln -sfn ~/dotfiles/vscode/mcp.json        "$U/mcp.json"
 ```
 
 ### Install extensions
