@@ -47,3 +47,20 @@ xargs -n1 code --install-extension < ~/dotfiles/vscode/extensions.txt
 ```sh
 code --list-extensions > ~/dotfiles/vscode/extensions.txt
 ```
+
+## Stats
+
+### Import settings
+
+```sh
+osascript -e 'quit app "Stats"'
+defaults import eu.exelban.Stats ~/dotfiles/stats/eu.exelban.Stats.plist
+sleep 1 && open -a Stats
+```
+
+### Export settings
+
+```sh
+defaults export eu.exelban.Stats ~/dotfiles/stats/eu.exelban.Stats.plist
+plutil -convert xml1 ~/dotfiles/stats/eu.exelban.Stats.plist
+```
