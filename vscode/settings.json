@@ -78,7 +78,6 @@
     "css.lint.unknownProperties": "error",
     "css.lint.unknownVendorSpecificProperties": "error",
     "css.lint.zeroUnits": "warning",
-    "debug.allowBreakpointsEverywhere": true,
     "debug.breakpointsView.presentation": "tree",
     "debug.closeReadonlyTabsOnEnd": true,
     "debug.hideLauncherWhileDebugging": true,
