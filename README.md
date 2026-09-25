@@ -8,6 +8,20 @@ My dotfiles.
 git clone https://github.com/kishor-rajbanshi/dotfiles.git ~/dotfiles
 ```
 
+## Homebrew
+
+### Install packages
+
+```sh
+brew bundle --file ~/dotfiles/homebrew/Brewfile
+```
+
+### Export packages
+
+```sh
+brew bundle dump --force --file ~/dotfiles/homebrew/Brewfile
+```
+
 ## Terminal
 
 ### Import profile
@@ -63,18 +77,4 @@ sleep 1 && open -a Stats
 ```sh
 defaults export eu.exelban.Stats ~/dotfiles/stats/eu.exelban.Stats.plist
 plutil -convert xml1 ~/dotfiles/stats/eu.exelban.Stats.plist
-```
-
-## Homebrew
-
-### Install packages
-
-```sh
-brew bundle --file ~/dotfiles/homebrew/Brewfile
-```
-
-### Export packages
-
-```sh
-brew bundle dump --force --file ~/dotfiles/homebrew/Brewfile
 ```
