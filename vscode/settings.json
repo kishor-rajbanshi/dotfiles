@@ -7,7 +7,6 @@
         "editor.defaultFormatter": "laravel.vscode-laravel"
     },
     "accessibility.chat.showCheckmarks": true,
-    "accessibility.dimUnfocused.enabled": true,
     "accessibility.hideAccessibleView": true,
     "accessibility.openChatEditedFiles": true,
     "accessibility.underlineLinks": true,
@@ -81,7 +80,6 @@
     "debug.breakpointsView.presentation": "tree",
     "debug.closeReadonlyTabsOnEnd": true,
     "debug.hideLauncherWhileDebugging": true,
-    "debug.javascript.autoAttachFilter": "smart",
     "debug.javascript.breakOnConditionalError": true,
     "debug.javascript.debugByLinkOptions": "always",
     "debug.showBreakpointsInOverviewRuler": true,
