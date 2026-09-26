@@ -1,7 +1,7 @@
 {
     "[csv]": {
         "editor.inlayHints.maximumLength": 0,
-        "editor.inlayHints.padding": ""
+        "editor.inlayHints.padding": false
     },
     "[php]": {
         "editor.defaultFormatter": "laravel.vscode-laravel"
@@ -500,6 +500,7 @@
     "workbench.colorCustomizations": {
         "editorLineNumber.activeForeground": "#29ff03"
     },
+    "workbench.colorTheme": "Pitch Black",
     "workbench.commandPalette.experimental.suggestCommands": true,
     "workbench.editor.alwaysShowEditorActions": true,
     "workbench.editor.customLabels.patterns": {
@@ -539,6 +540,5 @@
         "**/.gitea/workflows/*.yaml",
         "**/.forgejo/workflows/*.yml",
         "**/.forgejo/workflows/*.yaml"
-    ],
-    "workbench.colorTheme": "Pitch Black"
+    ]
 }
