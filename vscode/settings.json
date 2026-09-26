@@ -152,7 +152,9 @@
     },
     "files.associations": {
         "*.css": "tailwindcss",
-        "LICENSE": "plaintext"
+        "LICENSE": "plaintext",
+        "*.neon": "yaml",
+        "*.neon.dist": "yaml"
     },
     "files.autoGuessEncoding": true,
     "files.defaultLanguage": "${activeEditorLanguage}",
