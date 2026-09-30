@@ -78,3 +78,11 @@ sleep 1 && open -a Stats
 defaults export eu.exelban.Stats ~/dotfiles/stats/eu.exelban.Stats.plist
 plutil -convert xml1 ~/dotfiles/stats/eu.exelban.Stats.plist
 ```
+
+## Ghostty
+
+### Symlink
+
+```sh
+ln -s ~/dotfiles/ghostty/config ~/.config/ghostty/config
+```
