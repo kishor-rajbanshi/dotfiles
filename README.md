@@ -84,5 +84,5 @@ plutil -convert xml1 ~/dotfiles/stats/eu.exelban.Stats.plist
 ### Symlink
 
 ```sh
-ln -s ~/dotfiles/ghostty/config ~/.config/ghostty/config
+ln -sf ~/dotfiles/ghostty/config ~/.config/ghostty/config
 ```
