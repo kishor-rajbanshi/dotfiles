@@ -86,3 +86,25 @@ plutil -convert xml1 ~/dotfiles/stats/eu.exelban.Stats.plist
 ```sh
 ln -sf ~/dotfiles/ghostty/config ~/.config/ghostty/config
 ```
+
+## Oh My Posh
+
+### Symlink
+
+```sh
+ln -sf ~/dotfiles/oh-my-posh/config.json ~/.config/oh-my-posh/config.json
+```
+
+### Initialize
+
+zsh (`~/.zshrc`)
+
+```sh
+eval "$(oh-my-posh init zsh --config ~/.config/oh-my-posh/config.json)"
+```
+
+bash (`~/.bashrc`)
+
+```sh
+eval "$(oh-my-posh init bash --config ~/.config/oh-my-posh/config.json)"
+```
