@@ -1,7 +1,7 @@
 tap "jandedobbeleer/oh-my-posh"
 tap "shivammathur/php", trusted: true
 # General-purpose scripting language
-brew "php", restart_service: :changed
+brew "php"
 # Dependency Manager for PHP
 brew "composer"
 # Play, record, convert, and stream select audio and video codecs
@@ -14,10 +14,8 @@ brew "hey"
 brew "imagemagick"
 # Lightweight and flexible command-line JSON processor
 brew "jq"
-# Open source relational database management system
-brew "mysql"
 # HTTP(S) server and reverse proxy, and IMAP/POP3 proxy server
-brew "nginx", restart_service: :changed
+brew "nginx"
 # Manage multiple Node.js versions
 brew "nvm"
 # AI coding agent, built for the terminal
@@ -26,8 +24,6 @@ brew "opencode"
 brew "pie"
 # Package compiler and linker metadata toolkit
 brew "pkgconf"
-# Object-relational database system
-brew "postgresql@18", link: true
 # Static analysis and lint tool, for (ba)sh scripts
 brew "shellcheck"
 # Autoformat shell script source code
@@ -46,6 +42,8 @@ cask "anydesk"
 cask "brave-browser"
 # Open source IDE for exploring and testing APIs
 cask "bruno"
+# Database version management tool
+cask "dbngin"
 # App to build and share containerised applications and microservices
 cask "docker-desktop"
 cask "font-geist-mono-nerd-font"
@@ -64,6 +62,8 @@ cask "pgadmin4"
 cask "qbittorrent"
 # System monitor for the menu bar
 cask "stats"
+# CSV file editor
+cask "table-tool"
 # Native GUI tool for relational databases
 cask "tableplus"
 # Open-source code editor
