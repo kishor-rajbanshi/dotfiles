@@ -91,20 +91,16 @@ ln -sfn ~/dotfiles/ghostty/config ~/.config/ghostty/config
 
 ### Symlink
 
-```sh
-ln -sfn ~/dotfiles/oh-my-posh/config.json ~/.config/oh-my-posh/config.json
-```
-
 ### Initialize
 
-zsh (`~/.zshrc`)
+zsh
 
 ```sh
-eval "$(oh-my-posh init zsh --config ~/.config/oh-my-posh/config.json)"
+echo 'eval "$(oh-my-posh init zsh --config ~/dotfiles/oh-my-posh/config.json)"' >> ~/.zshrc
 ```
 
-bash (`~/.bashrc`)
+bash
 
 ```sh
-eval "$(oh-my-posh init bash --config ~/.config/oh-my-posh/config.json)"
+echo 'eval "$(oh-my-posh init zsh --config ~/dotfiles/oh-my-posh/config.json)"' >> ~/.bashrc
 ```
