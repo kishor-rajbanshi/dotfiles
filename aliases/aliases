@@ -6,3 +6,9 @@
 ...() { cd "../..${1:+/$1}" || return; }
 ....() { cd "../../..${1:+/$1}" || return; }
 .....() { cd "../../../..${1:+/$1}" || return; }
+
+alias cls="clear"
+
+home() { cd "$HOME/${1:-}" || return; }
+cs() { cd "$HOME/Codespace/${1:-}" || return; }
+www() { cd "/var/www/${1:-}" || return; }

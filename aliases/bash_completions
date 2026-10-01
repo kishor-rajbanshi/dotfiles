@@ -14,3 +14,18 @@ _dot_completion() {
 	done < <(compgen -d -- "$base/$cur")
 }
 complete -o nospace -F _dot_completion .. ... .... .....
+
+_dir_completion() {
+	local base cur=${COMP_WORDS[COMP_CWORD]} d
+	case ${COMP_WORDS[0]} in
+	home) base=$HOME ;;
+	cs) base=$HOME/Codespace ;;
+	www) base=/var/www ;;
+	*) return 0 ;;
+	esac
+
+	while IFS= read -r d; do
+		COMPREPLY+=("${d#"$base"/}/")
+	done < <(compgen -d -- "$base/$cur")
+}
+complete -o nospace -F _dir_completion home cs www

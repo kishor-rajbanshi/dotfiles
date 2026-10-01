@@ -17,3 +17,8 @@ _dot_completion() {
 	_path_files -W "$target" -/
 }
 compdef _dot_completion .. ... .... .....
+
+_dir_completion() { _path_files -W "$1" -/; }
+compdef "_dir_completion $HOME" home
+compdef "_dir_completion $HOME/Codespace" cs
+compdef "_dir_completion /var/www" www
