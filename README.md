@@ -89,8 +89,6 @@ ln -sfn ~/dotfiles/ghostty/config ~/.config/ghostty/config
 
 ## Oh My Posh
 
-### Symlink
-
 ### Initialize
 
 zsh
