@@ -44,9 +44,9 @@ defaults write com.apple.Terminal "Startup Window Settings" -string "Pitch Black
 ```sh
 U=~/"Library/Application Support/Code/User"
 
-ln -sf ~/dotfiles/vscode/settings.json    "$U/settings.json"
-ln -sf ~/dotfiles/vscode/keybindings.json "$U/keybindings.json"
-ln -sf ~/dotfiles/vscode/mcp.json        "$U/mcp.json"
+ln -sfn ~/dotfiles/vscode/settings.json    "$U/settings.json"
+ln -sfn ~/dotfiles/vscode/keybindings.json "$U/keybindings.json"
+ln -sfn ~/dotfiles/vscode/mcp.json        "$U/mcp.json"
 ln -sfn ~/dotfiles/vscode/snippets        "$U/snippets"
 ```
 
@@ -84,7 +84,7 @@ plutil -convert xml1 ~/dotfiles/stats/eu.exelban.Stats.plist
 ### Symlink
 
 ```sh
-ln -sf ~/dotfiles/ghostty/config ~/.config/ghostty/config
+ln -sfn ~/dotfiles/ghostty/config ~/.config/ghostty/config
 ```
 
 ## Oh My Posh
@@ -92,7 +92,7 @@ ln -sf ~/dotfiles/ghostty/config ~/.config/ghostty/config
 ### Symlink
 
 ```sh
-ln -sf ~/dotfiles/oh-my-posh/config.json ~/.config/oh-my-posh/config.json
+ln -sfn ~/dotfiles/oh-my-posh/config.json ~/.config/oh-my-posh/config.json
 ```
 
 ### Initialize
