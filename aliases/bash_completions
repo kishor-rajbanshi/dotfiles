@@ -1,0 +1,16 @@
+# shellcheck shell=bash
+
+_dot_completion() {
+	[[ $COMP_CWORD -eq 1 ]] || return 0
+
+	local target=$PWD cur=${COMP_WORDS[COMP_CWORD]} d i
+	for ((i = 1; i < ${#COMP_WORDS[0]}; i++)); do
+		target=${target%/*}
+	done
+
+	local base=${target%/}
+	while IFS= read -r d; do
+		COMPREPLY+=("${d#"$base"/}/")
+	done < <(compgen -d -- "$base/$cur")
+}
+complete -o nospace -F _dot_completion .. ... .... .....

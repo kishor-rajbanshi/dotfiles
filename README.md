@@ -104,3 +104,21 @@ bash
 ```sh
 echo 'eval "$(oh-my-posh init zsh --config ~/dotfiles/oh-my-posh/config.json)"' >> ~/.bashrc
 ```
+
+## Aliases
+
+### Source
+
+zsh
+
+```sh
+echo 'source ~/dotfiles/aliases/aliases' >> ~/.zshrc
+echo 'source ~/dotfiles/aliases/zsh_completions' >> ~/.zshrc
+```
+
+bash
+
+```sh
+echo 'source ~/dotfiles/aliases/aliases' >> ~/.bashrc
+echo 'source ~/dotfiles/aliases/bash_completions' >> ~/.bashrc
+```

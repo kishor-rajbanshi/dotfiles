@@ -1,0 +1,19 @@
+# shellcheck shell=bash
+
+_dot_completion() {
+	((CURRENT == 2)) || return 0
+
+	# shellcheck disable=SC2154
+	local dots="${words[1]}"
+	local levels=$((${#dots} - 1))
+	local target=$PWD
+	local i
+
+	for ((i = 0; i < levels; i++)); do
+		target="${target:h}"
+	done
+
+	[[ -d "$target" ]] || return 0
+	_path_files -W "$target" -/
+}
+compdef _dot_completion .. ... .... .....

@@ -1,0 +1,8 @@
+# shellcheck shell=sh
+
+# navigation
+# shellcheck disable=SC3033
+..() { cd "..${1:+/$1}" || return; }
+...() { cd "../..${1:+/$1}" || return; }
+....() { cd "../../..${1:+/$1}" || return; }
+.....() { cd "../../../..${1:+/$1}" || return; }
