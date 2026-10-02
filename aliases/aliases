@@ -91,6 +91,7 @@ alias gsc="git switch -c"
 ga() { git add "${@:-.}"; }
 gcm() { git commit -m "${*:-WIP}"; }
 alias gca="git commit --amend"
+alias gcan="git commit --amend --no-edit"
 gcln() { git clean "-${1:-fdx}"; }
 gr() { git restore "${@:-.}"; }
 grs() { git restore --staged "${@:-.}"; }
