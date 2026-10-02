@@ -104,3 +104,30 @@ alias gshls="git stash list"
 alias gsha="git stash apply"
 alias gshp="git stash pop"
 alias gshd="git stash drop"
+
+# Docker
+
+alias d="docker"
+alias dc="docker compose"
+alias dcw="docker compose watch"
+alias dcu="docker compose up"
+alias dcud="docker compose up -d"
+alias dcd="docker compose down"
+alias dcub="docker compose up --build"
+alias dcubd="docker compose up --build -d"
+alias dsp="docker system prune -a -f --volumes"
+alias dr="docker run -it"
+alias drr="docker run --rm -it"
+alias dcr="docker compose run -it"
+alias dcrr="docker compose run --rm -it"
+dclean() {
+	[ $# -eq 0 ] && set -- civ
+	for a in $(echo "$*" | tr -d ' ' | grep -o .); do
+		# shellcheck disable=SC2046
+		case $a in
+		c) docker rm -f $(docker ps -aq) 2>/dev/null ;;
+		i) docker rmi -f $(docker images -q) 2>/dev/null ;;
+		v) docker volume rm -f $(docker volume ls -q) 2>/dev/null ;;
+		esac
+	done
+}
