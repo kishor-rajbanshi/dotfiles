@@ -12,6 +12,7 @@ www() { cd "/var/www/${1:-}" || return; }
 
 # Terminal
 alias cls="clear"
+alias prm="/bin/rm -rf"
 
 # Homebrew
 alias b="brew"
@@ -35,12 +36,13 @@ psa() { php -S 0.0.0.0:"${1:-}"; }
 
 # Composer
 alias c="composer"
-alias cu="composer update"
+alias cup="composer update"
 alias cgu="composer global update"
 alias ci="composer install"
 alias cr="composer require"
 alias crd="composer require --dev"
 alias crm="composer remove"
+alias cdev="composer dev"
 
 # Laravel Artisan
 alias a="php artisan"
@@ -57,3 +59,14 @@ alias os="ollama stop"
 alias op="ollama pull"
 alias ol="ollama launch"
 olo() { ollama launch opencode ${1:+--model=$1}; }
+
+# Npm
+alias n="npm"
+alias nup="npm update"
+alias ni="npm install"
+alias nid="npm install --save-dev"
+alias nu="npm uninstall"
+alias nr="npm run"
+alias nrd="npm run dev"
+alias nrb="npm run build"
+alias nrt="npm run test"
