@@ -46,3 +46,14 @@ alias crm="composer remove"
 alias a="php artisan"
 # shellcheck disable=SC3057
 am() { php artisan make:"$1" "${@:2}"; }
+
+# Ollama
+alias o="ollama"
+alias ols="ollama ls"
+alias ops="ollama ps"
+alias orm="ollama rm"
+alias or="ollama run"
+alias os="ollama stop"
+alias op="ollama pull"
+alias ol="ollama launch"
+olo() { ollama launch opencode ${1:+--model=$1}; }
