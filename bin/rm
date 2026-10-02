@@ -1,0 +1,51 @@
+#!/bin/sh
+
+case $(uname) in
+Darwin) t=$HOME/.Trash i= ;;
+*)
+	b=${XDG_DATA_HOME:-$HOME/.local/share}/Trash
+	t=$b/files i=$b/info
+	;;
+esac
+mkdir -p "$t" ${i:+"$i"}
+t=$(cd -P "$t" && pwd)
+
+rc=0
+for f; do
+	case $f in -*) continue ;; esac
+	[ -e "$f" ] || [ -L "$f" ] || continue
+
+	n=$(basename "$f")
+	case $n in . | .. | /) continue ;; esac
+	d=$(cd -P "$(dirname "$f")" && pwd) || continue
+
+	# already in trash: delete for real
+	case $d/$n in
+	"$t" | "$t"/*)
+		/bin/rm -rf -- "$f" || rc=1
+		continue
+		;;
+	esac
+
+	# split extension for files only (not folders or dotfiles)
+	s=$n e=
+	if [ -L "$f" ] || [ ! -d "$f" ]; then
+		case $n in ?*.*) s=${n%.*} e=.${n##*.} ;; esac
+	fi
+
+	# macOS-style clash handling: "name 2.32.05 PM.ext"
+	dest=$t/$n k=0
+	while [ -e "$dest" ] || [ -L "$dest" ]; do
+		k=$((k + 1))
+		[ "$k" -gt 1 ] && x=" $k" || x=
+		dest="$t/$s $(date '+%I.%M.%S %p')$x$e"
+	done
+
+	mv -- "$f" "$dest" || {
+		rc=1
+		continue
+	}
+	[ -n "$i" ] && printf '[Trash Info]\nPath=%s/%s\nDeletionDate=%s\n' \
+		"$d" "$n" "$(date '+%Y-%m-%dT%H:%M:%S')" >"$i/${dest##*/}.trashinfo"
+done
+exit "$rc"

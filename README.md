@@ -120,3 +120,10 @@ bash
 echo 'source ~/dotfiles/aliases/aliases' >> ~/.bashrc
 echo 'source ~/dotfiles/aliases/bash_completions' >> ~/.bashrc
 ```
+
+## rm (wrapper)
+
+```sh
+sudo mkdir -p /usr/local/bin/
+sudo ln -sf ~/dotfiles/bin/rm /usr/local/bin/
+```
