@@ -29,3 +29,13 @@ _dir_completion() {
 	done < <(compgen -d -- "$base/$cur")
 }
 complete -o nospace -F _dir_completion home cs www
+
+_bln_completion() {
+	[[ $COMP_CWORD -eq 1 ]] || return 0
+
+	local cur=${COMP_WORDS[COMP_CWORD]} f
+	while IFS= read -r f; do
+		COMPREPLY+=("$f")
+	done < <(compgen -W "$(brew list --formula -1 2>/dev/null)" -- "$cur")
+}
+complete -F _bln_completion bln

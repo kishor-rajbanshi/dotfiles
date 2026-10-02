@@ -1,12 +1,11 @@
-# shellcheck shell=bash
+# shellcheck disable=all
 
 _dot_completion() {
 	((CURRENT == 2)) || return 0
 
-	# shellcheck disable=SC2154
 	local dots="${words[1]}"
 	local levels=$((${#dots} - 1))
-	local target=$PWD
+	local target="$PWD"
 	local i
 
 	for ((i = 0; i < levels; i++)); do
@@ -22,3 +21,12 @@ _dir_completion() { _path_files -W "$1" -/; }
 compdef "_dir_completion $HOME" home
 compdef "_dir_completion $HOME/Codespace" cs
 compdef "_dir_completion /var/www" www
+
+_bln_completion() {
+	((CURRENT == 2)) || return 0
+
+	local -a formulae
+	formulae=(${(f)"$(brew list --formula -1 2>/dev/null)"})
+	compadd -a formulae
+}
+(($+commands[brew])) && compdef _bln_completion bln
