@@ -26,3 +26,23 @@ alias bsr="brew services restart"
 alias bsst="brew services stop"
 bln() { brew link "$1" --force --overwrite; }
 alias buln="brew unlink"
+
+# PHP
+alias p="php"
+alias pv="php -v"
+psl() { php -S localhost:"${1:-}"; }
+psa() { php -S 0.0.0.0:"${1:-}"; }
+
+# Composer
+alias c="composer"
+alias cu="composer update"
+alias cgu="composer global update"
+alias ci="composer install"
+alias cr="composer require"
+alias crd="composer require --dev"
+alias crm="composer remove"
+
+# Laravel Artisan
+alias a="php artisan"
+# shellcheck disable=SC3057
+am() { php artisan make:"$1" "${@:2}"; }

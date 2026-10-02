@@ -30,3 +30,17 @@ _bln_completion() {
 	compadd -a formulae
 }
 (($+commands[brew])) && compdef _bln_completion bln
+
+_am_completion() {
+	[[ ! -f artisan ]] || ((CURRENT != 2)) && return
+
+	local -a commands
+	commands=()
+
+	while IFS= read -r line; do
+		commands+=("$line")
+	done < <(php artisan list --raw 2>/dev/null | awk '/^make:/{print $1}' | sed 's/^make://')
+
+	compadd -- $commands
+}
+compdef _am_completion am

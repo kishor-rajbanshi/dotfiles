@@ -39,3 +39,16 @@ _bln_completion() {
 	done < <(compgen -W "$(brew list --formula -1 2>/dev/null)" -- "$cur")
 }
 complete -F _bln_completion bln
+
+_am_completion() {
+	[[ -f artisan && $COMP_CWORD -eq 1 ]] || return 0
+
+	local cur=${COMP_WORDS[COMP_CWORD]} c
+	local commands
+	commands=$(php artisan list --raw 2>/dev/null | awk '/^make:/{sub(/^make:/, "", $1); print $1}')
+
+	while IFS= read -r c; do
+		COMPREPLY+=("$c")
+	done < <(compgen -W "$commands" -- "$cur")
+}
+complete -F _am_completion am
