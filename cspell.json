@@ -24,9 +24,16 @@
         "exelban",
         "forgejo",
         "formulahendry",
+        "gcln",
         "georgykurian",
         "ghostty",
         "gitea",
+        "gpso",
+        "grsw",
+        "gsha",
+        "gshd",
+        "gshls",
+        "gshp",
         "intelephense",
         "jandedobbeleer",
         "kishor",
@@ -62,6 +69,7 @@
         "unvalidated",
         "viktorqvarfordt",
         "websearch",
+        "worktree",
         "Worktrees"
     ]
 }
