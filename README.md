@@ -121,6 +121,30 @@ echo 'source ~/dotfiles/aliases/aliases' >> ~/.bashrc
 echo 'source ~/dotfiles/aliases/bash_completions' >> ~/.bashrc
 ```
 
+## Fzf
+
+### Initialize
+
+```sh
+$(brew --prefix)/opt/fzf/install --all
+```
+
+## Zoxide
+
+### Initialize
+
+zsh
+
+```sh
+echo 'eval "$(zoxide init zsh)"' >> ~/.zshrc
+```
+
+bash
+
+```sh
+echo 'eval "$(zoxide init bash)"' >> ~/.bashrc
+```
+
 ## rm (wrapper)
 
 ```sh
