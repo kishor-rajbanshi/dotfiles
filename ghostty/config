@@ -6,3 +6,5 @@ window-width = 120
 window-height = 30
 
 shell-integration-features = ssh-env, ssh-terminfo
+
+macos-option-as-alt = true
