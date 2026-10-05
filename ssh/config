@@ -1,0 +1,29 @@
+Host apple
+	HostName apple.kishorrajbanshi.com.np
+	User kishor-rajbanshi
+	IdentityFile ~/.ssh/id_ed25519
+
+Host banana
+	HostName banana.kishorrajbanshi.com.np
+	User kishor-rajbanshi
+	IdentityFile ~/.ssh/id_ed25519
+
+Host mango
+	HostName mango.kishorrajbanshi.com.np
+	User kishor-rajbanshi
+	IdentityFile ~/.ssh/id_ed25519
+
+Host orange
+	HostName orange.kishorrajbanshi.com.np
+	User kishor-rajbanshi
+	IdentityFile ~/.ssh/id_ed25519
+
+Host papaya
+	HostName papaya.kishorrajbanshi.com.np
+	User kishor-rajbanshi
+	IdentityFile ~/.ssh/id_ed25519
+
+Host watermelon
+	HostName watermelon.kishorrajbanshi.com.np
+	User kishor-rajbanshi
+	IdentityFile ~/.ssh/id_ed25519

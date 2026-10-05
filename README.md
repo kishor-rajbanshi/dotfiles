@@ -43,6 +43,7 @@ defaults write com.apple.Terminal "Startup Window Settings" -string "Pitch Black
 
 ```sh
 U=~/"Library/Application Support/Code/User"
+mkdir -p "$U"
 
 ln -sfn ~/dotfiles/vscode/settings.json    "$U/settings.json"
 ln -sfn ~/dotfiles/vscode/keybindings.json "$U/keybindings.json"
@@ -84,6 +85,7 @@ plutil -convert xml1 ~/dotfiles/stats/eu.exelban.Stats.plist
 ### Symlink
 
 ```sh
+mkdir -p ~/.config/ghostty
 ln -sfn ~/dotfiles/ghostty/config ~/.config/ghostty/config
 ```
 
@@ -100,7 +102,7 @@ echo 'eval "$(oh-my-posh init zsh --config ~/dotfiles/oh-my-posh/config.json)"' 
 bash
 
 ```sh
-echo 'eval "$(oh-my-posh init zsh --config ~/dotfiles/oh-my-posh/config.json)"' >> ~/.bashrc
+echo 'eval "$(oh-my-posh init bash --config ~/dotfiles/oh-my-posh/config.json)"' >> ~/.bashrc
 ```
 
 ## Aliases
@@ -121,7 +123,7 @@ echo 'source ~/dotfiles/aliases/aliases' >> ~/.bashrc
 echo 'source ~/dotfiles/aliases/bash_completions' >> ~/.bashrc
 ```
 
-## Fzf
+## fzf
 
 ### Initialize
 
@@ -129,7 +131,7 @@ echo 'source ~/dotfiles/aliases/bash_completions' >> ~/.bashrc
 $(brew --prefix)/opt/fzf/install --all
 ```
 
-## Zoxide
+## zoxide
 
 ### Initialize
 
@@ -147,7 +149,18 @@ echo 'eval "$(zoxide init bash)"' >> ~/.bashrc
 
 ## rm (wrapper)
 
+### Symlink
+
 ```sh
 sudo mkdir -p /usr/local/bin/
-sudo ln -sf ~/dotfiles/bin/rm /usr/local/bin/
+sudo ln -sfn ~/dotfiles/bin/rm /usr/local/bin/rm
+```
+
+## SSH
+
+### Symlink
+
+```sh
+mkdir -p ~/.ssh && chmod 700 ~/.ssh
+ln -sfn ~/dotfiles/ssh/config ~/.ssh/config
 ```
