@@ -141,6 +141,22 @@ echo 'source ~/dotfiles/aliases/aliases' >> ~/.bashrc
 echo 'source ~/dotfiles/aliases/bash_completions' >> ~/.bashrc
 ```
 
+## qrcode
+
+### Source
+
+zsh
+
+```sh
+echo 'source ~/dotfiles/functions/qrcode' >> ~/.zshrc
+```
+
+bash
+
+```sh
+echo 'source ~/dotfiles/functions/qrcode' >> ~/.bashrc
+```
+
 ## zsh-completions
 
 ### Initialize
