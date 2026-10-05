@@ -1,5 +1,8 @@
 tap "jandedobbeleer/oh-my-posh"
+tap "oven-sh/bun"
 tap "shivammathur/php", trusted: true
+# Clone of cat(1) with syntax highlighting and Git integration
+brew "bat"
 # General-purpose scripting language
 brew "php"
 # Dependency Manager for PHP
@@ -8,6 +11,8 @@ brew "composer"
 brew "ffmpeg"
 # Command-line fuzzy finder written in Go
 brew "fzf"
+# Replace zsh completion selection menu with fzf
+brew "fzf-tab"
 # HTTP load generator, ApacheBench (ab) replacement
 brew "hey"
 # Tools and libraries to manipulate images in select formats
@@ -32,8 +37,16 @@ brew "shfmt"
 brew "yt-dlp"
 # Shell extension to navigate your filesystem faster
 brew "zoxide"
+# Fish-like fast/unobtrusive autosuggestions for zsh
+brew "zsh-autosuggestions"
+# Additional completion definitions for zsh
+brew "zsh-completions"
+# Fish shell like syntax highlighting for zsh
+brew "zsh-syntax-highlighting"
 # Prompt theme engine for any shell
 brew "jandedobbeleer/oh-my-posh/oh-my-posh", trusted: true
+# Incredibly fast JavaScript runtime, bundler, transpiler and package manager - all in one.
+brew "oven-sh/bun/bun", trusted: true
 # General-purpose scripting language
 brew "shivammathur/php/php@7.4", trusted: true
 # Allows connection to a computer remotely

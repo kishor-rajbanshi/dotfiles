@@ -89,6 +89,24 @@ mkdir -p ~/.config/ghostty
 ln -sfn ~/dotfiles/ghostty/config ~/.config/ghostty/config
 ```
 
+## SSH
+
+### Symlink
+
+```sh
+mkdir -p ~/.ssh && chmod 700 ~/.ssh
+ln -sfn ~/dotfiles/ssh/config ~/.ssh/config
+```
+
+## rm (wrapper)
+
+### Symlink
+
+```sh
+sudo mkdir -p /usr/local/bin/
+sudo ln -sfn ~/dotfiles/bin/rm /usr/local/bin/rm
+```
+
 ## Oh My Posh
 
 ### Initialize
@@ -123,12 +141,45 @@ echo 'source ~/dotfiles/aliases/aliases' >> ~/.bashrc
 echo 'source ~/dotfiles/aliases/bash_completions' >> ~/.bashrc
 ```
 
+## zsh-completions
+
+### Initialize
+
+zsh
+
+```sh
+chmod go-w "$(brew --prefix)/share"
+chmod -R go-w "$(brew --prefix)/share/zsh"
+echo 'FPATH=$(brew --prefix)/share/zsh-completions:$FPATH' >> ~/.zshrc
+echo 'autoload -Uz compinit' >> ~/.zshrc
+echo 'compinit' >> ~/.zshrc
+rm -f ~/.zcompdump* && exec zsh
+```
+
 ## fzf
 
 ### Initialize
 
+zsh
+
 ```sh
-$(brew --prefix)/opt/fzf/install --all
+echo 'source <(fzf --zsh)' >> ~/.zshrc
+```
+
+bash
+
+```sh
+echo 'eval "$(fzf --bash)"' >> ~/.bashrc
+```
+
+## fzf-tab
+
+### Source
+
+zsh
+
+```sh
+echo 'source $(brew --prefix)/opt/fzf-tab/share/fzf-tab/fzf-tab.zsh' >> ~/.zshrc
 ```
 
 ## zoxide
@@ -147,20 +198,33 @@ bash
 echo 'eval "$(zoxide init bash)"' >> ~/.bashrc
 ```
 
-## rm (wrapper)
+## zsh-autosuggestions
 
-### Symlink
+### Source
 
-```sh
-sudo mkdir -p /usr/local/bin/
-sudo ln -sfn ~/dotfiles/bin/rm /usr/local/bin/rm
-```
-
-## SSH
-
-### Symlink
+zsh
 
 ```sh
-mkdir -p ~/.ssh && chmod 700 ~/.ssh
-ln -sfn ~/dotfiles/ssh/config ~/.ssh/config
+echo 'source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh' >> ~/.zshrc
 ```
+
+## zsh-syntax-highlighting
+
+### Source
+
+zsh
+
+```sh
+echo 'source $(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh' >> ~/.zshrc
+```
+
+## Notes
+
+### rc order (zsh)
+
+Lines appended to `~/.zshrc` must follow this order:
+
+1. zsh-completions (`compinit`)
+2. fzf, fzf-tab, zoxide
+3. zsh-autosuggestions
+4. zsh-syntax-highlighting (always last)

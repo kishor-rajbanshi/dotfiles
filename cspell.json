@@ -13,6 +13,7 @@
         "cdev",
         "Checkmarks",
         "codesearch",
+        "compinit",
         "containerised",
         "damms",
         "davidanson",
@@ -29,6 +30,7 @@
         "exelban",
         "forgejo",
         "formulahendry",
+        "FPATH",
         "gcan",
         "gcln",
         "georgykurian",
@@ -78,6 +80,7 @@
         "viktorqvarfordt",
         "websearch",
         "worktree",
-        "Worktrees"
+        "Worktrees",
+        "zcompdump"
     ]
 }
