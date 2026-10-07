@@ -73,7 +73,7 @@ alias nrt="npm run test"
 
 # Git
 alias g="git"
-alias gst="git status"
+alias gs="git status"
 alias gl="git log"
 alias glo="git log --oneline"
 alias gf="git fetch"
@@ -86,8 +86,8 @@ alias gpf="git push -f"
 alias gpt="git push --tags"
 gps() { git push --set-upstream "${1:-origin}" "${2:-$(git branch --show-current)}"; }
 alias gc="git clone"
-alias gs="git switch"
-alias gsc="git switch -c"
+alias gsw="git switch"
+alias gswc="git switch -c"
 ga() { git add "${@:-.}"; }
 gcm() { git commit -m "${*:-WIP}"; }
 alias gca="git commit --amend"
