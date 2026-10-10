@@ -151,9 +151,9 @@
     },
     "files.associations": {
         "*.css": "tailwindcss",
-        "LICENSE": "plaintext",
         "*.neon": "yaml",
-        "*.neon.dist": "yaml"
+        "*.neon.dist": "yaml",
+        "LICENSE": "plaintext"
     },
     "files.autoGuessEncoding": true,
     "files.defaultLanguage": "${activeEditorLanguage}",
@@ -207,7 +207,6 @@
     "github.copilot.chat.alternateGptPrompt.enabled": true,
     "github.copilot.chat.anthropic.tools.websearch.enabled": true,
     "github.copilot.chat.claudeOpus5Prompt.enabled": true,
-    "github.copilot.chat.claudeOpusDefaultReasoningEffort": "medium",
     "github.copilot.chat.claudeSonnet5Prompt.enabled": true,
     "github.copilot.chat.codesearch.enabled": true,
     "github.copilot.chat.commitMessageGeneration.instructions": [
@@ -482,6 +481,7 @@
         "commands": "on",
         "unknown": "on"
     },
+    "terminal.integrated.suggest.selectionMode": "always",
     "terminal.integrated.suggest.showStatusBar": false,
     "terminal.integrated.suggest.suggestOnTriggerCharacters": true,
     "terminal.integrated.tabs.defaultColor": "terminal.ansiGreen",
@@ -540,5 +540,6 @@
         "**/.gitea/workflows/*.yaml",
         "**/.forgejo/workflows/*.yml",
         "**/.forgejo/workflows/*.yaml"
-    ]
+    ],
+    "github.copilot.chat.claudeDefaultReasoningEffort": "medium"
 }
