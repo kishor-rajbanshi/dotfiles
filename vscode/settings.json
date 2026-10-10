@@ -481,7 +481,6 @@
         "commands": "on",
         "unknown": "on"
     },
-    "terminal.integrated.suggest.selectionMode": "always",
     "terminal.integrated.suggest.showStatusBar": false,
     "terminal.integrated.suggest.suggestOnTriggerCharacters": true,
     "terminal.integrated.tabs.defaultColor": "terminal.ansiGreen",

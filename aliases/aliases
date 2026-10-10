@@ -16,16 +16,18 @@ alias prm="/bin/rm -rf"
 
 # Homebrew
 alias b="brew"
-alias bcau="brew cleanup && brew autoremove && brew update && brew upgrade"
+alias buac="brew update && brew upgrade && brew autoremove && brew cleanup"
 alias bi="brew install"
-alias bu="brew uninstall --zap"
+alias bic="brew install --cask"
+alias bu="brew uninstall"
+alias buz="brew uninstall --zap"
 alias bls="brew list"
 alias bs="brew services"
 alias bsls="brew services list"
 alias bss="brew services start"
 alias bsr="brew services restart"
 alias bsst="brew services stop"
-bln() { brew link "$1" --force --overwrite; }
+alias bln="brew link --force --overwrite"
 alias buln="brew unlink"
 
 # PHP
