@@ -1,17 +1,17 @@
-# shellcheck shell=bash
+# shellcheck shell=sh
 
 _qrcode_show_message() {
 	echo "Type or paste your text, add a new blank line, and press ^d"
 }
 
 qrcode() {
-	local input="$*"
-	[ -z "$input" ] && _qrcode_show_message && local input="@/dev/stdin"
-	curl -d "$input" https://qrcode.show
+	_i="$*"
+	[ -z "$_i" ] && _qrcode_show_message && _i="@/dev/stdin"
+	curl -d "$_i" https://qrcode.show
 }
 
 qrsvg() {
-	local input="$*"
-	[ -z "$input" ] && _qrcode_show_message && local input="@/dev/stdin"
-	curl -d "$input" https://qrcode.show -H "Accept: image/svg+xml"
+	_i="$*"
+	[ -z "$_i" ] && _qrcode_show_message && _i="@/dev/stdin"
+	curl -d "$_i" https://qrcode.show -H "Accept: image/svg+xml"
 }
