@@ -1,0 +1,45 @@
+#!/usr/bin/env zsh
+# shellcheck disable=all
+
+setopt ERR_EXIT NO_UNSET PIPE_FAIL
+
+SCRIPT_DIR="${0:A:h}"
+REPO_ROOT="${SCRIPT_DIR:h}"
+ALIASES_FILE="${REPO_ROOT}/aliases/aliases"
+
+if [[ ! -f "$ALIASES_FILE" ]]; then
+	print -u2 "Error: Aliases file not found: $ALIASES_FILE"
+	exit 2
+fi
+
+dupes=$(sed -nE 's/^alias ([^=]+)=.*/\1/p; s/^([^ ()#]+)\(\).*/\1/p' "$ALIASES_FILE" | sort | uniq -d)
+if [[ -n $dupes ]]; then
+	print "Duplicate definitions:"
+	printf "  - %s\n" ${(f)dupes}
+fi
+
+zsh -f -c '
+	source "$1" || exit 2
+	setopt NO_ALIASES
+
+	typeset -a conflicts
+	typeset name loc
+
+	for name in ${(k)aliases}; do
+		(( $+builtins[$name] )) && conflicts+=("alias [$name] vs builtin [$name]")
+		loc=$(whence -p -- $name) && conflicts+=("alias [$name] vs executable $loc")
+	done
+
+	for name in ${(k)functions}; do
+		(( $+builtins[$name] )) && conflicts+=("function [$name] vs builtin [$name]")
+		loc=$(whence -p -- $name) && conflicts+=("function [$name] vs executable $loc")
+	done
+
+	if (( $#conflicts )); then
+		print "Shadowed commands:"
+		printf "  - %s\n" $conflicts
+		exit 1
+	fi
+
+	print "No shadowed commands."
+' _ "$ALIASES_FILE"
