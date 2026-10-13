@@ -15,10 +15,10 @@ _dot_completion() {
 	[[ -d "$target" ]] || return 0
 	_path_files -W "$target" -/
 }
-compdef _dot_completion .. ... .... .....
+compdef _dot_completion .. ... .... ..... ......
 
 _dir_completion() { _path_files -W "$1" -/; }
-compdef "_dir_completion $HOME" home
+compdef "_dir_completion $HOME" hm
 compdef "_dir_completion $HOME/Codespace" cs
 compdef "_dir_completion /var/www" www
 

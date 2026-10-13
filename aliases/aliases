@@ -1,129 +1,171 @@
 # shellcheck shell=sh
 
-# Navigation
-# shellcheck disable=SC3033
-..() { cd "..${1:+/$1}" || return; }
-...() { cd "../..${1:+/$1}" || return; }
-....() { cd "../../..${1:+/$1}" || return; }
-.....() { cd "../../../..${1:+/$1}" || return; }
-home() { cd "$HOME/${1:-}" || return; }
-cs() { cd "$HOME/Codespace/${1:-}" || return; }
+## Navigation ##
+hm() { cd "$HOME/${1:-}" || return; }
 www() { cd "/var/www/${1:-}" || return; }
+cs() { cd "$HOME/Codespace/${1:-}" || return; }
+# shellcheck disable=SC3033
+{
+	..() { cd "..${1:+/$1}" || return; }
+	...() { cd "../..${1:+/$1}" || return; }
+	....() { cd "../../..${1:+/$1}" || return; }
+	.....() { cd "../../../..${1:+/$1}" || return; }
+	......() { cd "../../../../..${1:+/$1}" || return; }
+}
 
-# Terminal
+## Terminal ##
+alias l="ls"
+alias la="ls -a"
+alias ll="ls -lh"
+alias lla="ls -lha"
 alias cls="clear"
 alias prm="/bin/rm -rf"
 
-# Homebrew
+## Homebrew ##
 alias b="brew"
-alias buac="brew update && brew upgrade && brew autoremove && brew cleanup"
+alias bl="brew list"
+alias bul="brew unlink"
+alias blf="brew link --force --overwrite"
 alias bi="brew install"
 alias bic="brew install --cask"
 alias bu="brew uninstall"
 alias buz="brew uninstall --zap"
-alias bls="brew list"
 alias bs="brew services"
-alias bsls="brew services list"
+alias bsl="brew services list"
 alias bss="brew services start"
 alias bsr="brew services restart"
 alias bsst="brew services stop"
-alias bln="brew link --force --overwrite"
-alias buln="brew unlink"
+alias bup="brew update && brew upgrade && brew autoremove && brew cleanup"
 
-# PHP
+## PHP ##
 alias p="php"
 alias pv="php -v"
-psl() { php -S localhost:"${1:-}"; }
-psb() { php -S 0.0.0.0:"${1:-}"; }
+pslh() { php -S localhost:"${1:-}"; }
+psn() { php -S 0.0.0.0:"${1:-}"; }
 
-# Composer
+## Composer ##
 alias c="composer"
 alias cup="composer update"
 alias cgu="composer global update"
+alias csu="composer self-update"
 alias ci="composer install"
 alias cr="composer require"
 alias crd="composer require --dev"
 alias crm="composer remove"
-alias cdev="composer dev"
+alias cdv="composer dev"
+alias cl="composer lint"
+alias ct="composer test"
+alias ca="composer analyze"
 
-# Laravel Artisan
+## Laravel Artisan ##
 alias a="php artisan"
-# shellcheck disable=SC3057
-am() { php artisan make:"$1" "${@:2}"; }
+am() {
+	_t=$1
+	shift
+	php artisan "make:$_t" "$@"
+}
 
-# Ollama
+## Ollama ##
 alias o="ollama"
-alias ols="ollama ls"
+alias ol="ollama ls"
 alias ops="ollama ps"
 alias orm="ollama rm"
 alias or="ollama run"
 alias os="ollama stop"
 alias op="ollama pull"
-alias ol="ollama launch"
-olo() { ollama launch opencode ${1:+--model=$1}; }
+alias ola="ollama launch"
+olo() { ollama launch opencode ${1:+"--model=$1"}; }
 
-# Npm
+## Npm ##
 alias n="npm"
-alias nup="npm update"
+alias nu="npm update"
 alias ni="npm install"
 alias nid="npm install --save-dev"
-alias nu="npm uninstall"
+alias nui="npm uninstall"
 alias nr="npm run"
 alias nrd="npm run dev"
 alias nrb="npm run build"
 alias nrt="npm run test"
 
-# Git
+## Git ##
 alias g="git"
-alias gs="git status"
+alias gcl="git clone"
 alias gl="git log"
 alias glo="git log --oneline"
+alias gs="git status"
+alias gpl="git pull"
+alias gco="git checkout"
+alias grv="git revert"
+ga() { git add "${@:--A}"; }
+alias gau="git add -u"
+alias gap="git add --patch"
+alias gai="git add --interactive"
+gcln() { git clean "-${1:-fdx}"; }
 alias gf="git fetch"
 alias gfp="git fetch --prune"
 alias gb="git branch"
 alias gba="git branch -a"
-alias gpu="git pull"
 alias gp="git push"
 alias gpf="git push -f"
-alias gpt="git push --tags"
-gps() { git push --set-upstream "${1:-origin}" "${2:-$(git branch --show-current)}"; }
-alias gc="git clone"
-alias gsw="git switch"
-alias gswc="git switch -c"
-ga() { git add "${@:-.}"; }
-gcm() { git commit -m "${*:-WIP}"; }
+alias gptg="git push --tags"
+gpu() { git push -u "${1:-origin}" "${2:-$(git branch --show-current)}"; }
+gsw() {
+	if git show-ref --verify --quiet "refs/heads/$1"; then
+		git switch "$1"
+	else
+		printf "Branch '%s' does not exist. Create it? [Y/n] " "$1"
+		read -r confirm
+		case "$confirm" in
+		"" | y | Y | yes | YES | Yes)
+			git switch -c "$1"
+			;;
+		*)
+			echo "Cancelled."
+			return 1
+			;;
+		esac
+	fi
+}
+gc() { git commit -m "${*:-WIP}"; }
 alias gca="git commit --amend"
 alias gcan="git commit --amend --no-edit"
-gcln() { git clean "-${1:-fdx}"; }
 gr() { git restore "${@:-.}"; }
 grs() { git restore --staged "${@:-.}"; }
 grsw() { git restore --staged --worktree "${@:-.}"; }
+gre() { git reset ${1:+"HEAD~$1"}; }
+gres() { git reset --soft ${1:+"HEAD~$1"}; }
+greh() { git reset --hard ${1:+"HEAD~$1"}; }
+alias grb="git rebase"
+alias grc="git rebase --continue"
+alias gra="git rebase --abort"
+gri() { git rebase -i ${1:+"HEAD~$1"}; }
 alias gwl="git worktree list"
 alias gwa="git worktree add"
 alias gwr="git worktree remove"
 alias gwp="git worktree prune"
-alias gsh="git stash"
-alias gshls="git stash list"
-alias gsha="git stash apply"
-alias gshp="git stash pop"
-alias gshd="git stash drop"
+alias gst="git stash --keep-index"
+alias gsu="git stash -u --keep-index"
+alias gsal="git stash -a --keep-index"
+alias gsl="git stash list"
+alias gsa="git stash apply --index"
+alias gsp="git stash pop --index"
+alias gsd="git stash drop"
 
-# Docker
-
+## Docker ##
 alias d="docker"
-alias dc="docker compose"
+alias dsp="docker system prune -a -f --volumes"
+alias dcp="docker compose"
 alias dcw="docker compose watch"
 alias dcu="docker compose up"
 alias dcud="docker compose up -d"
 alias dcd="docker compose down"
 alias dcub="docker compose up --build"
 alias dcubd="docker compose up --build -d"
-alias dsp="docker system prune -a -f --volumes"
+alias dcr="docker compose run"
+alias dcrr="docker compose run --rm"
 alias dr="docker run -it"
 alias drr="docker run --rm -it"
-alias dcr="docker compose run -it"
-alias dcrr="docker compose run --rm -it"
-dclean() {
+dcln() {
 	[ $# -eq 0 ] && set -- civ
 	for a in $(echo "$*" | tr -d ' ' | grep -o .); do
 		# shellcheck disable=SC2046

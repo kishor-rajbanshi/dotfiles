@@ -13,7 +13,7 @@ _dot_completion() {
 		COMPREPLY+=("${d#"$base"/}/")
 	done < <(compgen -d -- "$base/$cur")
 }
-complete -o nospace -F _dot_completion .. ... .... .....
+complete -o nospace -F _dot_completion .. ... .... ..... ......
 
 _dir_completion() {
 	local base cur=${COMP_WORDS[COMP_CWORD]} d
@@ -28,7 +28,7 @@ _dir_completion() {
 		COMPREPLY+=("${d#"$base"/}/")
 	done < <(compgen -d -- "$base/$cur")
 }
-complete -o nospace -F _dir_completion home cs www
+complete -o nospace -F _dir_completion hm cs www
 
 _bln_completion() {
 	[[ $COMP_CWORD -eq 1 ]] || return 0
