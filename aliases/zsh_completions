@@ -1,5 +1,10 @@
 # shellcheck disable=all
 
+_dir_completion() { _path_files -W "$1" -/; }
+compdef "_dir_completion $HOME" hm
+compdef "_dir_completion $HOME/Codespace" cs
+compdef "_dir_completion /var/www" www
+
 _dot_completion() {
 	((CURRENT == 2)) || return 0
 
@@ -17,30 +22,14 @@ _dot_completion() {
 }
 compdef _dot_completion .. ... .... ..... ......
 
-_dir_completion() { _path_files -W "$1" -/; }
-compdef "_dir_completion $HOME" hm
-compdef "_dir_completion $HOME/Codespace" cs
-compdef "_dir_completion /var/www" www
-
-_bln_completion() {
-	((CURRENT == 2)) || return 0
-
-	local -a formulae
-	formulae=(${(f)"$(brew list --formula -1 2>/dev/null)"})
-	compadd -a formulae
-}
-(($+commands[brew])) && compdef _bln_completion bln
-
-_am_completion() {
-	[[ ! -f artisan ]] || ((CURRENT != 2)) && return
+_artisan_complete() {
+	[[ -f artisan ]] && ((CURRENT == 2)) || return
 
 	local -a commands
-	commands=()
-
-	while IFS= read -r line; do
-		commands+=("$line")
-	done < <(php artisan list --raw 2>/dev/null | awk '/^make:/{print $1}' | sed 's/^make://')
+	commands=(${(f)"$(php artisan list --raw 2>/dev/null | awk -v p="${1:+$1:}" 'substr($1, 1, length(p)) == p { print substr($1, length(p) + 1) }')"})
 
 	compadd -- $commands
 }
-compdef _am_completion am
+compdef _artisan_complete a
+compdef "_artisan_complete make" am
+compdef "_artisan_complete migrate" amg

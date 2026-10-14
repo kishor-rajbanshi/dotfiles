@@ -58,11 +58,17 @@ alias ct="composer test"
 alias ca="composer analyze"
 
 ## Laravel Artisan ##
-alias a="php artisan"
+a() { php artisan "$@"; }
+alias al="php artisan list"
 am() {
 	_t=$1
-	shift
+	[ -n "$_t" ] && shift
 	php artisan "make:$_t" "$@"
+}
+amg() {
+	_t=$1
+	[ -n "$_t" ] && shift
+	php artisan "migrate${_t:+:$_t}" "$@"
 }
 
 ## Ollama ##
