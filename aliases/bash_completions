@@ -56,3 +56,12 @@ _olo_completion() {
 		awk -v p="$cur" -v n=${#pre} 'NR > 1 && substr($1, 1, length(p)) == p { print substr($1, n + 1) }')
 }
 complete -F _olo_completion olo
+
+_gsw_completion() {
+	((COMP_CWORD == 1)) || return 0
+	local c
+	while IFS= read -r c; do
+		COMPREPLY+=("$c")
+	done < <(compgen -W "$(git for-each-ref --format='%(refname:short)' refs/heads 2>/dev/null)" -- "$2")
+}
+complete -F _gsw_completion gsw
