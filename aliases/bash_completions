@@ -43,3 +43,16 @@ _artisan_completion() {
 		awk -v p="$ns$cur" -v n=$((${#ns} + ${#pre})) 'substr($1, 1, length(p)) == p { print substr($1, n + 1) }')
 }
 complete -F _artisan_completion a am amg
+
+_olo_completion() {
+	local line=${COMP_LINE:0:COMP_POINT} cur pre c
+	[[ $line == *' '* && ${line% *} != *' '* ]] || return 0
+	cur=${line##* }
+	pre=${cur%"${cur##*:}"}
+
+	while IFS= read -r c; do
+		COMPREPLY+=("$c")
+	done < <(ollama ls 2>/dev/null |
+		awk -v p="$cur" -v n=${#pre} 'NR > 1 && substr($1, 1, length(p)) == p { print substr($1, n + 1) }')
+}
+complete -F _olo_completion olo

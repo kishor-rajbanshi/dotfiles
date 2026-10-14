@@ -33,3 +33,11 @@ _artisan_complete() {
 compdef _artisan_complete a
 compdef "_artisan_complete make" am
 compdef "_artisan_complete migrate" amg
+
+_olo_complete() {
+	((CURRENT == 2)) || return 1
+	local -a models
+	models=(${(f)"$(ollama ls 2>/dev/null | awk 'NR > 1 { print $1 }')"})
+	compadd -a models
+}
+compdef _olo_complete olo
