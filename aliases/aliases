@@ -75,9 +75,9 @@ amg() {
 alias o="ollama"
 alias ol="ollama ls"
 alias ops="ollama ps"
-alias orm="ollama rm"
-alias or="ollama run"
-alias os="ollama stop"
+orm() { ollama rm "$@"; }
+or() { ollama run "$@"; }
+os() { ollama stop "$@"; }
 alias op="ollama pull"
 alias ola="ollama launch"
 olo() { ollama launch opencode ${1:+"--model=$1"}; }

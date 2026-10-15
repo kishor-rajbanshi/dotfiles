@@ -44,7 +44,7 @@ _artisan_completion() {
 }
 complete -F _artisan_completion a am amg
 
-_olo_completion() {
+_ollama_completion() {
 	local line=${COMP_LINE:0:COMP_POINT} cur pre c
 	[[ $line == *' '* && ${line% *} != *' '* ]] || return 0
 	cur=${line##* }
@@ -55,7 +55,7 @@ _olo_completion() {
 	done < <(ollama ls 2>/dev/null |
 		awk -v p="$cur" -v n=${#pre} 'NR > 1 && substr($1, 1, length(p)) == p { print substr($1, n + 1) }')
 }
-complete -F _olo_completion olo
+complete -F _ollama_completion orm or os olo
 
 _gsw_completion() {
 	((COMP_CWORD == 1)) || return 0
