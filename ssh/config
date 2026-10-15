@@ -1,9 +1,9 @@
 Host ubuntu-us-east
-	HostName ubuntu-us-east.kishorrajbanshi.com.np
+	HostName 66.175.212.50
 	User kishor-rajbanshi
 	IdentityFile ~/.ssh/id_ed25519
 
 Host ubuntu-ap-south
-	HostName ubuntu-ap-south.kishorrajbanshi.com.np
+	HostName 172.104.171.126
 	User kishor-rajbanshi
 	IdentityFile ~/.ssh/id_ed25519
