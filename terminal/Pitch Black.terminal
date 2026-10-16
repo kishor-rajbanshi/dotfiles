@@ -176,7 +176,7 @@
 	<key>BackgroundSettingsForInactiveWindows</key>
 	<true/>
 	<key>CursorBlink</key>
-	<false/>
+	<true/>
 	<key>CursorType</key>
 	<integer>0</integer>
 	<key>DynamicANSIForegroundColors</key>

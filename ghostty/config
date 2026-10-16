@@ -5,6 +5,8 @@ font-family = JetBrainsMono Nerd Font
 window-width = 120
 window-height = 30
 
-shell-integration-features = ssh-env, ssh-terminfo
+shell-integration-features = ssh-env, ssh-terminfo, no-cursor
 
 macos-option-as-alt = true
+
+cursor-style = block
