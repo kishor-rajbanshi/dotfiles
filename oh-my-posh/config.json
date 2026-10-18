@@ -1,1 +1,1241 @@
-{}
+{
+    "$schema": "https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/schema.json",
+    "version": 4,
+    "streaming": 100,
+    "final_space": true,
+    "shell_integration": true,
+    "tooltips_action": "prepend",
+    "enable_cursor_positioning": true,
+    "console_title_template": "{{ .UserName }} @ {{ .HostName }} :: {{ if eq .PWD \"~/Codespace\" }}Codespace{{ else if hasPrefix \"~/Codespace/\" .PWD }}Codespace :: {{ trimPrefix \"~/Codespace/\" .PWD }}{{ else if eq .PWD \"/var/www\" }}www{{ else if hasPrefix \"/var/www/\" .PWD }}www :: {{ trimPrefix \"/var/www/\" .PWD }}{{ else }}{{ .PWD }}{{ end }}",
+    "upgrade": {
+        "auto": true,
+        "notice": true,
+        "source": "cdn",
+        "interval": "24h"
+    },
+    "maps": {
+        "host_name": {
+            "ubuntu-us-east": "Ubuntu US East",
+            "ubuntu-ap-south": "Ubuntu AP South",
+            "Kishors-MacBook-Pro": "MacBook Pro 16″ (M4 Pro)"
+        },
+        "user_name": {
+            "root": "\uf0e7",
+            "kishor-rajbanshi": "Kishor Rajbanshi"
+        }
+    },
+    "terminal_features": {
+        "progress": [
+            "vscode",
+            "ghostty",
+            "Windows Terminal"
+        ]
+    },
+    "transient_prompt": {
+        "background": "transparent",
+        "right_template": " <#5c6370>\uf017 {{ now | date \"15:04:05\" }}</>",
+        "template": "{{ if .Root }}<#FFA500>{{ .UserName }}</> {{ end }}<#06A4CE>\uf07c  {{ .PWD }}</> <#22a079></> {{ if .Interrupted }}<red>^C</> {{ end }}"
+    },
+    "secondary_prompt": {
+        "template": "\uedfb ",
+        "foreground": "#22da6e",
+        "background": "transparent"
+    },
+    "blocks": [
+        {
+            "type": "prompt",
+            "alignment": "left",
+            "segments": [
+                {
+                    "type": "os",
+                    "style": "diamond",
+                    "background": "#21c7a8",
+                    "foreground": "#ffffff",
+                    "trailing_diamond": "\ue0b0",
+                    "leading_diamond": "\u256d\u2500\ue0b6",
+                    "template": " {{ if .WSL }}WSL at {{ end }}{{.Icon}}  ",
+                    "options": {
+                        "macos": "\uf302"
+                    }
+                },
+                {
+                    "type": "root",
+                    "style": "powerline",
+                    "template": " \uf0e7 ",
+                    "background": "#ef5350",
+                    "foreground": "#ffffff",
+                    "powerline_symbol": "\ue0b0"
+                },
+                {
+                    "type": "path",
+                    "style": "diamond",
+                    "foreground": "#ffffff",
+                    "background": "#06A4CE",
+                    "trailing_diamond": "\ue0b0",
+                    "template": "{{ path .Path .Location }} ",
+                    "leading_diamond": "<transparent,background>\ue0b0</>",
+                    "options": {
+                        "home_icon": " \uf015 ",
+                        "folder_icon": "\uf07c ",
+                        "folder_separator_icon": "\ue0b1 "
+                    }
+                },
+                {
+                    "type": "text",
+                    "style": "powerline",
+                    "foreground": "#ffffff",
+                    "background": "#780a5e",
+                    "powerline_symbol": "\ue0b0",
+                    "template": "{{ $l := readFile \"composer.lock\" }}{{ $re := `(?s).*\"name\": \"laravel/framework\",\\s*\"version\": \"v?([^\"]+)\".*` }}{{ if regexMatch $re $l }} \uf2f7 {{ regexReplaceAll $re $l \"${1}\" }} {{ end }}"
+                },
+                {
+                    "type": "git",
+                    "style": "diamond",
+                    "trailing_diamond": "\ue0b0",
+                    "foreground": "#ffffff",
+                    "background": "#256D85",
+                    "leading_diamond": "<transparent,background>\ue0b0</>",
+                    "background_templates": [
+                        "{{ if and (gt .Ahead 0) (gt .Behind 0) }}#087F5B{{ end }}",
+                        "{{ if or (.Working.Changed) (.Staging.Changed) }}#B7791F{{ end }}",
+                        "{{ if gt .Ahead 0 }}#7C4DAB{{ end }}",
+                        "{{ if gt .Behind 0 }}#C2414B{{ end }}"
+                    ],
+                    "template": " {{ .UpstreamIcon }} {{ .HEAD }}{{ if .BranchStatus }} {{ .BranchStatus }}{{ end }}{{ if .Working.Changed }} \uf044 {{ .Working.String }}{{ end }}{{ if and (.Working.Changed) (.Staging.Changed) }} |{{ end }}{{ if .Staging.Changed }} \uf046 {{ .Staging.String }}{{ end }}{{ if gt .StashCount 0 }} \ueb4b {{ .StashCount }}{{ end }} ",
+                    "options": {
+                        "branch_icon": "\uf126 ",
+                        "mapped_branches": {
+                            "bug/*": "🐛 ",
+                            "feat/*": "🚀 "
+                        }
+                    }
+                },
+                {
+                    "type": "status",
+                    "style": "diamond",
+                    "trailing_diamond": "\ue0b4",
+                    "foreground": "#ffffff",
+                    "background": "#00897b",
+                    "leading_diamond": "<transparent,background>\ue0b0</>",
+                    "template": "{{ if and .Error .Executed }} {{.String}} {{ else }} \ue23a {{ end }}",
+                    "background_templates": [
+                        "{{ if .Executed }}{{ if .Error }}#e91e63{{ end }}{{ end }}"
+                    ],
+                    "options": {
+                        "always_enabled": true
+                    }
+                }
+            ]
+        },
+        {
+            "type": "prompt",
+            "overflow": "hide",
+            "alignment": "right",
+            "segments": [
+                {
+                    "style": "diamond",
+                    "type": "executiontime",
+                    "background": "#575656",
+                    "foreground": "#ffffff",
+                    "leading_diamond": "\ue0b6",
+                    "trailing_diamond": "\ue0d6",
+                    "template": " \ueba2 {{ .FormattedMs }} ",
+                    "options": {
+                        "threshold": 0
+                    }
+                },
+                {
+                    "type": "php",
+                    "style": "diamond",
+                    "background": "#4F5B93",
+                    "foreground": "#ffffff",
+                    "leading_diamond": "\ue0b2",
+                    "trailing_diamond": "\ue0d6",
+                    "template": " \ued6d  {{ if .Error }}{{ .Error }}{{ else }}{{ .Full }}{{ end }} "
+                },
+                {
+                    "type": "bun",
+                    "style": "diamond",
+                    "background": "#5b7b37",
+                    "foreground": "#FBF0DF",
+                    "leading_diamond": "\ue0b2",
+                    "trailing_diamond": "\ue0d6",
+                    "template": " \ue76f {{ if .Error }}{{ .Error }}{{ else }}{{ .Full }}{{ end }} "
+                },
+                {
+                    "type": "node",
+                    "style": "diamond",
+                    "background": "#3C873A",
+                    "foreground": "#ffffff",
+                    "leading_diamond": "\ue0b2",
+                    "trailing_diamond": "\ue0d6",
+                    "template": " \ue718 {{ if .PackageManagerIcon }}{{ .PackageManagerIcon }} {{ end }}{{ .Full }} ",
+                    "options": {
+                        "fetch_package_manager": true,
+                        "npm_icon": "\ued0e",
+                        "bun_icon": "\ue76f",
+                        "yarn_icon": "\ue6a7",
+                        "pnpm_icon": "\ue865"
+                    }
+                },
+                {
+                    "type": "go",
+                    "style": "diamond",
+                    "background": "#00ADD8",
+                    "foreground": "#ffffff",
+                    "leading_diamond": "\ue0b2",
+                    "trailing_diamond": "\ue0d6",
+                    "template": " \ue627 {{ if .Error }}{{ .Error }}{{ else }}{{ .Full }}{{ end }} "
+                },
+                {
+                    "type": "java",
+                    "style": "diamond",
+                    "background": "#ED8B00",
+                    "foreground": "#ffffff",
+                    "leading_diamond": "\ue0b2",
+                    "trailing_diamond": "\ue0d6",
+                    "template": " \ue256 {{ if .Error }}{{ .Error }}{{ else }}{{ .Full }}{{ end }} "
+                },
+                {
+                    "type": "python",
+                    "style": "diamond",
+                    "background": "#306998",
+                    "foreground": "#ffffff",
+                    "leading_diamond": "\ue0b2",
+                    "trailing_diamond": "\ue0d6",
+                    "template": " \ue235 {{ if .Error }}{{ .Error }}{{ else }}{{ if .Venv }}{{ .Venv }} {{ end }}{{ .Full }}{{ end }} "
+                },
+                {
+                    "type": "docker",
+                    "style": "diamond",
+                    "foreground": "#ffffff",
+                    "background": "#0B59E7",
+                    "leading_diamond": "\ue0b2",
+                    "trailing_diamond": "\ue0d6",
+                    "template": " \uf21f {{ if not (has .Context (list \"default\" \"desktop-linux\" \"orbstack\" \"colima\")) }} {{ .Context }}{{ end }} ",
+                    "options": {
+                        "display_mode": "files",
+                        "fetch_context": true
+                    }
+                },
+                {
+                    "type": "sysinfo",
+                    "style": "diamond",
+                    "foreground": "#ffffff",
+                    "background": "#8f43f3",
+                    "leading_diamond": "\ue0b2",
+                    "trailing_diamond": "\ue0b4",
+                    "template": " \ue266 {{ round .PhysicalPercentUsed .Precision }}% ",
+                    "options": {
+                        "precision": 0
+                    }
+                },
+                {
+                    "type": "upgrade",
+                    "style": "diamond",
+                    "foreground": "#111111",
+                    "background": "#FFD664",
+                    "leading_diamond": "\ue0b6",
+                    "trailing_diamond": "\ue0b4",
+                    "options": {
+                        "cache_duration": "24h"
+                    }
+                }
+            ]
+        },
+        {
+            "newline": true,
+            "type": "prompt",
+            "alignment": "left",
+            "segments": [
+                {
+                    "foreground": "#21c7a8",
+                    "style": "plain",
+                    "template": "\u2570\u2500",
+                    "type": "text"
+                },
+                {
+                    "foreground": "#22da6e",
+                    "style": "plain",
+                    "template": "\ue285\ue285",
+                    "type": "text"
+                }
+            ]
+        },
+        {
+            "type": "rprompt",
+            "segments": [
+                {
+                    "type": "shell",
+                    "style": "diamond",
+                    "leading_diamond": "",
+                    "trailing_diamond": "",
+                    "foreground": "#ffffff",
+                    "background": "#0077c2"
+                }
+            ]
+        }
+    ],
+    "tooltips": [
+        {
+            "type": "text",
+            "style": "plain",
+            "tips": [
+                "hm"
+            ],
+            "template": "{{- $n := \"hm\" -}}{{- $f := readFile (printf \"%s/dotfiles/aliases/aliases\" .Env.HOME) -}}{{- $x := regexFind (printf `(?m)^alias %s=.*$` $n) $f -}}{{- if not $x }}{{ $x = regexFind (printf `(?m)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*\\}\\s*$` $n) $f }}{{ end -}}{{- if not $x }}{{ $x = regexFind (printf `(?ms)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*?^\\}` $n) $f }}{{ end -}}{{- $x = regexReplaceAll (printf `^alias %s=|^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{|\\}\\s*$` $n $n) $x `` -}}{{- $x = regexReplaceAll `\\s+` $x ` ` | trim | trimAll `'\"` -}}{{- if $x }} [ <#e5c07b>{{ abbrev 70 $x }}</> ] {{ end -}}"
+        },
+        {
+            "type": "text",
+            "style": "plain",
+            "tips": [
+                "www"
+            ],
+            "template": "{{- $n := \"www\" -}}{{- $f := readFile (printf \"%s/dotfiles/aliases/aliases\" .Env.HOME) -}}{{- $x := regexFind (printf `(?m)^alias %s=.*$` $n) $f -}}{{- if not $x }}{{ $x = regexFind (printf `(?m)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*\\}\\s*$` $n) $f }}{{ end -}}{{- if not $x }}{{ $x = regexFind (printf `(?ms)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*?^\\}` $n) $f }}{{ end -}}{{- $x = regexReplaceAll (printf `^alias %s=|^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{|\\}\\s*$` $n $n) $x `` -}}{{- $x = regexReplaceAll `\\s+` $x ` ` | trim | trimAll `'\"` -}}{{- if $x }} [ <#e5c07b>{{ abbrev 70 $x }}</> ] {{ end -}}"
+        },
+        {
+            "type": "text",
+            "style": "plain",
+            "tips": [
+                "cs"
+            ],
+            "template": "{{- $n := \"cs\" -}}{{- $f := readFile (printf \"%s/dotfiles/aliases/aliases\" .Env.HOME) -}}{{- $x := regexFind (printf `(?m)^alias %s=.*$` $n) $f -}}{{- if not $x }}{{ $x = regexFind (printf `(?m)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*\\}\\s*$` $n) $f }}{{ end -}}{{- if not $x }}{{ $x = regexFind (printf `(?ms)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*?^\\}` $n) $f }}{{ end -}}{{- $x = regexReplaceAll (printf `^alias %s=|^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{|\\}\\s*$` $n $n) $x `` -}}{{- $x = regexReplaceAll `\\s+` $x ` ` | trim | trimAll `'\"` -}}{{- if $x }} [ <#e5c07b>{{ abbrev 70 $x }}</> ] {{ end -}}"
+        },
+        {
+            "type": "text",
+            "style": "plain",
+            "tips": [
+                "l"
+            ],
+            "template": "{{- $n := \"l\" -}}{{- $f := readFile (printf \"%s/dotfiles/aliases/aliases\" .Env.HOME) -}}{{- $x := regexFind (printf `(?m)^alias %s=.*$` $n) $f -}}{{- if not $x }}{{ $x = regexFind (printf `(?m)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*\\}\\s*$` $n) $f }}{{ end -}}{{- if not $x }}{{ $x = regexFind (printf `(?ms)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*?^\\}` $n) $f }}{{ end -}}{{- $x = regexReplaceAll (printf `^alias %s=|^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{|\\}\\s*$` $n $n) $x `` -}}{{- $x = regexReplaceAll `\\s+` $x ` ` | trim | trimAll `'\"` -}}{{- if $x }} [ <#e5c07b>{{ abbrev 70 $x }}</> ] {{ end -}}"
+        },
+        {
+            "type": "text",
+            "style": "plain",
+            "tips": [
+                "la"
+            ],
+            "template": "{{- $n := \"la\" -}}{{- $f := readFile (printf \"%s/dotfiles/aliases/aliases\" .Env.HOME) -}}{{- $x := regexFind (printf `(?m)^alias %s=.*$` $n) $f -}}{{- if not $x }}{{ $x = regexFind (printf `(?m)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*\\}\\s*$` $n) $f }}{{ end -}}{{- if not $x }}{{ $x = regexFind (printf `(?ms)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*?^\\}` $n) $f }}{{ end -}}{{- $x = regexReplaceAll (printf `^alias %s=|^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{|\\}\\s*$` $n $n) $x `` -}}{{- $x = regexReplaceAll `\\s+` $x ` ` | trim | trimAll `'\"` -}}{{- if $x }} [ <#e5c07b>{{ abbrev 70 $x }}</> ] {{ end -}}"
+        },
+        {
+            "type": "text",
+            "style": "plain",
+            "tips": [
+                "ll"
+            ],
+            "template": "{{- $n := \"ll\" -}}{{- $f := readFile (printf \"%s/dotfiles/aliases/aliases\" .Env.HOME) -}}{{- $x := regexFind (printf `(?m)^alias %s=.*$` $n) $f -}}{{- if not $x }}{{ $x = regexFind (printf `(?m)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*\\}\\s*$` $n) $f }}{{ end -}}{{- if not $x }}{{ $x = regexFind (printf `(?ms)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*?^\\}` $n) $f }}{{ end -}}{{- $x = regexReplaceAll (printf `^alias %s=|^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{|\\}\\s*$` $n $n) $x `` -}}{{- $x = regexReplaceAll `\\s+` $x ` ` | trim | trimAll `'\"` -}}{{- if $x }} [ <#e5c07b>{{ abbrev 70 $x }}</> ] {{ end -}}"
+        },
+        {
+            "type": "text",
+            "style": "plain",
+            "tips": [
+                "lla"
+            ],
+            "template": "{{- $n := \"lla\" -}}{{- $f := readFile (printf \"%s/dotfiles/aliases/aliases\" .Env.HOME) -}}{{- $x := regexFind (printf `(?m)^alias %s=.*$` $n) $f -}}{{- if not $x }}{{ $x = regexFind (printf `(?m)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*\\}\\s*$` $n) $f }}{{ end -}}{{- if not $x }}{{ $x = regexFind (printf `(?ms)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*?^\\}` $n) $f }}{{ end -}}{{- $x = regexReplaceAll (printf `^alias %s=|^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{|\\}\\s*$` $n $n) $x `` -}}{{- $x = regexReplaceAll `\\s+` $x ` ` | trim | trimAll `'\"` -}}{{- if $x }} [ <#e5c07b>{{ abbrev 70 $x }}</> ] {{ end -}}"
+        },
+        {
+            "type": "text",
+            "style": "plain",
+            "tips": [
+                "cls"
+            ],
+            "template": "{{- $n := \"cls\" -}}{{- $f := readFile (printf \"%s/dotfiles/aliases/aliases\" .Env.HOME) -}}{{- $x := regexFind (printf `(?m)^alias %s=.*$` $n) $f -}}{{- if not $x }}{{ $x = regexFind (printf `(?m)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*\\}\\s*$` $n) $f }}{{ end -}}{{- if not $x }}{{ $x = regexFind (printf `(?ms)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*?^\\}` $n) $f }}{{ end -}}{{- $x = regexReplaceAll (printf `^alias %s=|^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{|\\}\\s*$` $n $n) $x `` -}}{{- $x = regexReplaceAll `\\s+` $x ` ` | trim | trimAll `'\"` -}}{{- if $x }} [ <#e5c07b>{{ abbrev 70 $x }}</> ] {{ end -}}"
+        },
+        {
+            "type": "text",
+            "style": "plain",
+            "tips": [
+                "prm"
+            ],
+            "template": "{{- $n := \"prm\" -}}{{- $f := readFile (printf \"%s/dotfiles/aliases/aliases\" .Env.HOME) -}}{{- $x := regexFind (printf `(?m)^alias %s=.*$` $n) $f -}}{{- if not $x }}{{ $x = regexFind (printf `(?m)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*\\}\\s*$` $n) $f }}{{ end -}}{{- if not $x }}{{ $x = regexFind (printf `(?ms)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*?^\\}` $n) $f }}{{ end -}}{{- $x = regexReplaceAll (printf `^alias %s=|^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{|\\}\\s*$` $n $n) $x `` -}}{{- $x = regexReplaceAll `\\s+` $x ` ` | trim | trimAll `'\"` -}}{{- if $x }} [ <#e5c07b>{{ abbrev 70 $x }}</> ] {{ end -}}"
+        },
+        {
+            "type": "text",
+            "style": "plain",
+            "tips": [
+                "b"
+            ],
+            "template": "{{- $n := \"b\" -}}{{- $f := readFile (printf \"%s/dotfiles/aliases/aliases\" .Env.HOME) -}}{{- $x := regexFind (printf `(?m)^alias %s=.*$` $n) $f -}}{{- if not $x }}{{ $x = regexFind (printf `(?m)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*\\}\\s*$` $n) $f }}{{ end -}}{{- if not $x }}{{ $x = regexFind (printf `(?ms)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*?^\\}` $n) $f }}{{ end -}}{{- $x = regexReplaceAll (printf `^alias %s=|^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{|\\}\\s*$` $n $n) $x `` -}}{{- $x = regexReplaceAll `\\s+` $x ` ` | trim | trimAll `'\"` -}}{{- if $x }} [ <#e5c07b>{{ abbrev 70 $x }}</> ] {{ end -}}"
+        },
+        {
+            "type": "text",
+            "style": "plain",
+            "tips": [
+                "bl"
+            ],
+            "template": "{{- $n := \"bl\" -}}{{- $f := readFile (printf \"%s/dotfiles/aliases/aliases\" .Env.HOME) -}}{{- $x := regexFind (printf `(?m)^alias %s=.*$` $n) $f -}}{{- if not $x }}{{ $x = regexFind (printf `(?m)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*\\}\\s*$` $n) $f }}{{ end -}}{{- if not $x }}{{ $x = regexFind (printf `(?ms)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*?^\\}` $n) $f }}{{ end -}}{{- $x = regexReplaceAll (printf `^alias %s=|^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{|\\}\\s*$` $n $n) $x `` -}}{{- $x = regexReplaceAll `\\s+` $x ` ` | trim | trimAll `'\"` -}}{{- if $x }} [ <#e5c07b>{{ abbrev 70 $x }}</> ] {{ end -}}"
+        },
+        {
+            "type": "text",
+            "style": "plain",
+            "tips": [
+                "bul"
+            ],
+            "template": "{{- $n := \"bul\" -}}{{- $f := readFile (printf \"%s/dotfiles/aliases/aliases\" .Env.HOME) -}}{{- $x := regexFind (printf `(?m)^alias %s=.*$` $n) $f -}}{{- if not $x }}{{ $x = regexFind (printf `(?m)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*\\}\\s*$` $n) $f }}{{ end -}}{{- if not $x }}{{ $x = regexFind (printf `(?ms)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*?^\\}` $n) $f }}{{ end -}}{{- $x = regexReplaceAll (printf `^alias %s=|^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{|\\}\\s*$` $n $n) $x `` -}}{{- $x = regexReplaceAll `\\s+` $x ` ` | trim | trimAll `'\"` -}}{{- if $x }} [ <#e5c07b>{{ abbrev 70 $x }}</> ] {{ end -}}"
+        },
+        {
+            "type": "text",
+            "style": "plain",
+            "tips": [
+                "blf"
+            ],
+            "template": "{{- $n := \"blf\" -}}{{- $f := readFile (printf \"%s/dotfiles/aliases/aliases\" .Env.HOME) -}}{{- $x := regexFind (printf `(?m)^alias %s=.*$` $n) $f -}}{{- if not $x }}{{ $x = regexFind (printf `(?m)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*\\}\\s*$` $n) $f }}{{ end -}}{{- if not $x }}{{ $x = regexFind (printf `(?ms)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*?^\\}` $n) $f }}{{ end -}}{{- $x = regexReplaceAll (printf `^alias %s=|^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{|\\}\\s*$` $n $n) $x `` -}}{{- $x = regexReplaceAll `\\s+` $x ` ` | trim | trimAll `'\"` -}}{{- if $x }} [ <#e5c07b>{{ abbrev 70 $x }}</> ] {{ end -}}"
+        },
+        {
+            "type": "text",
+            "style": "plain",
+            "tips": [
+                "bi"
+            ],
+            "template": "{{- $n := \"bi\" -}}{{- $f := readFile (printf \"%s/dotfiles/aliases/aliases\" .Env.HOME) -}}{{- $x := regexFind (printf `(?m)^alias %s=.*$` $n) $f -}}{{- if not $x }}{{ $x = regexFind (printf `(?m)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*\\}\\s*$` $n) $f }}{{ end -}}{{- if not $x }}{{ $x = regexFind (printf `(?ms)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*?^\\}` $n) $f }}{{ end -}}{{- $x = regexReplaceAll (printf `^alias %s=|^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{|\\}\\s*$` $n $n) $x `` -}}{{- $x = regexReplaceAll `\\s+` $x ` ` | trim | trimAll `'\"` -}}{{- if $x }} [ <#e5c07b>{{ abbrev 70 $x }}</> ] {{ end -}}"
+        },
+        {
+            "type": "text",
+            "style": "plain",
+            "tips": [
+                "bic"
+            ],
+            "template": "{{- $n := \"bic\" -}}{{- $f := readFile (printf \"%s/dotfiles/aliases/aliases\" .Env.HOME) -}}{{- $x := regexFind (printf `(?m)^alias %s=.*$` $n) $f -}}{{- if not $x }}{{ $x = regexFind (printf `(?m)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*\\}\\s*$` $n) $f }}{{ end -}}{{- if not $x }}{{ $x = regexFind (printf `(?ms)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*?^\\}` $n) $f }}{{ end -}}{{- $x = regexReplaceAll (printf `^alias %s=|^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{|\\}\\s*$` $n $n) $x `` -}}{{- $x = regexReplaceAll `\\s+` $x ` ` | trim | trimAll `'\"` -}}{{- if $x }} [ <#e5c07b>{{ abbrev 70 $x }}</> ] {{ end -}}"
+        },
+        {
+            "type": "text",
+            "style": "plain",
+            "tips": [
+                "bu"
+            ],
+            "template": "{{- $n := \"bu\" -}}{{- $f := readFile (printf \"%s/dotfiles/aliases/aliases\" .Env.HOME) -}}{{- $x := regexFind (printf `(?m)^alias %s=.*$` $n) $f -}}{{- if not $x }}{{ $x = regexFind (printf `(?m)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*\\}\\s*$` $n) $f }}{{ end -}}{{- if not $x }}{{ $x = regexFind (printf `(?ms)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*?^\\}` $n) $f }}{{ end -}}{{- $x = regexReplaceAll (printf `^alias %s=|^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{|\\}\\s*$` $n $n) $x `` -}}{{- $x = regexReplaceAll `\\s+` $x ` ` | trim | trimAll `'\"` -}}{{- if $x }} [ <#e5c07b>{{ abbrev 70 $x }}</> ] {{ end -}}"
+        },
+        {
+            "type": "text",
+            "style": "plain",
+            "tips": [
+                "buz"
+            ],
+            "template": "{{- $n := \"buz\" -}}{{- $f := readFile (printf \"%s/dotfiles/aliases/aliases\" .Env.HOME) -}}{{- $x := regexFind (printf `(?m)^alias %s=.*$` $n) $f -}}{{- if not $x }}{{ $x = regexFind (printf `(?m)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*\\}\\s*$` $n) $f }}{{ end -}}{{- if not $x }}{{ $x = regexFind (printf `(?ms)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*?^\\}` $n) $f }}{{ end -}}{{- $x = regexReplaceAll (printf `^alias %s=|^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{|\\}\\s*$` $n $n) $x `` -}}{{- $x = regexReplaceAll `\\s+` $x ` ` | trim | trimAll `'\"` -}}{{- if $x }} [ <#e5c07b>{{ abbrev 70 $x }}</> ] {{ end -}}"
+        },
+        {
+            "type": "text",
+            "style": "plain",
+            "tips": [
+                "bs"
+            ],
+            "template": "{{- $n := \"bs\" -}}{{- $f := readFile (printf \"%s/dotfiles/aliases/aliases\" .Env.HOME) -}}{{- $x := regexFind (printf `(?m)^alias %s=.*$` $n) $f -}}{{- if not $x }}{{ $x = regexFind (printf `(?m)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*\\}\\s*$` $n) $f }}{{ end -}}{{- if not $x }}{{ $x = regexFind (printf `(?ms)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*?^\\}` $n) $f }}{{ end -}}{{- $x = regexReplaceAll (printf `^alias %s=|^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{|\\}\\s*$` $n $n) $x `` -}}{{- $x = regexReplaceAll `\\s+` $x ` ` | trim | trimAll `'\"` -}}{{- if $x }} [ <#e5c07b>{{ abbrev 70 $x }}</> ] {{ end -}}"
+        },
+        {
+            "type": "text",
+            "style": "plain",
+            "tips": [
+                "bsl"
+            ],
+            "template": "{{- $n := \"bsl\" -}}{{- $f := readFile (printf \"%s/dotfiles/aliases/aliases\" .Env.HOME) -}}{{- $x := regexFind (printf `(?m)^alias %s=.*$` $n) $f -}}{{- if not $x }}{{ $x = regexFind (printf `(?m)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*\\}\\s*$` $n) $f }}{{ end -}}{{- if not $x }}{{ $x = regexFind (printf `(?ms)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*?^\\}` $n) $f }}{{ end -}}{{- $x = regexReplaceAll (printf `^alias %s=|^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{|\\}\\s*$` $n $n) $x `` -}}{{- $x = regexReplaceAll `\\s+` $x ` ` | trim | trimAll `'\"` -}}{{- if $x }} [ <#e5c07b>{{ abbrev 70 $x }}</> ] {{ end -}}"
+        },
+        {
+            "type": "text",
+            "style": "plain",
+            "tips": [
+                "bss"
+            ],
+            "template": "{{- $n := \"bss\" -}}{{- $f := readFile (printf \"%s/dotfiles/aliases/aliases\" .Env.HOME) -}}{{- $x := regexFind (printf `(?m)^alias %s=.*$` $n) $f -}}{{- if not $x }}{{ $x = regexFind (printf `(?m)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*\\}\\s*$` $n) $f }}{{ end -}}{{- if not $x }}{{ $x = regexFind (printf `(?ms)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*?^\\}` $n) $f }}{{ end -}}{{- $x = regexReplaceAll (printf `^alias %s=|^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{|\\}\\s*$` $n $n) $x `` -}}{{- $x = regexReplaceAll `\\s+` $x ` ` | trim | trimAll `'\"` -}}{{- if $x }} [ <#e5c07b>{{ abbrev 70 $x }}</> ] {{ end -}}"
+        },
+        {
+            "type": "text",
+            "style": "plain",
+            "tips": [
+                "bsr"
+            ],
+            "template": "{{- $n := \"bsr\" -}}{{- $f := readFile (printf \"%s/dotfiles/aliases/aliases\" .Env.HOME) -}}{{- $x := regexFind (printf `(?m)^alias %s=.*$` $n) $f -}}{{- if not $x }}{{ $x = regexFind (printf `(?m)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*\\}\\s*$` $n) $f }}{{ end -}}{{- if not $x }}{{ $x = regexFind (printf `(?ms)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*?^\\}` $n) $f }}{{ end -}}{{- $x = regexReplaceAll (printf `^alias %s=|^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{|\\}\\s*$` $n $n) $x `` -}}{{- $x = regexReplaceAll `\\s+` $x ` ` | trim | trimAll `'\"` -}}{{- if $x }} [ <#e5c07b>{{ abbrev 70 $x }}</> ] {{ end -}}"
+        },
+        {
+            "type": "text",
+            "style": "plain",
+            "tips": [
+                "bsst"
+            ],
+            "template": "{{- $n := \"bsst\" -}}{{- $f := readFile (printf \"%s/dotfiles/aliases/aliases\" .Env.HOME) -}}{{- $x := regexFind (printf `(?m)^alias %s=.*$` $n) $f -}}{{- if not $x }}{{ $x = regexFind (printf `(?m)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*\\}\\s*$` $n) $f }}{{ end -}}{{- if not $x }}{{ $x = regexFind (printf `(?ms)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*?^\\}` $n) $f }}{{ end -}}{{- $x = regexReplaceAll (printf `^alias %s=|^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{|\\}\\s*$` $n $n) $x `` -}}{{- $x = regexReplaceAll `\\s+` $x ` ` | trim | trimAll `'\"` -}}{{- if $x }} [ <#e5c07b>{{ abbrev 70 $x }}</> ] {{ end -}}"
+        },
+        {
+            "type": "text",
+            "style": "plain",
+            "tips": [
+                "bup"
+            ],
+            "template": "{{- $n := \"bup\" -}}{{- $f := readFile (printf \"%s/dotfiles/aliases/aliases\" .Env.HOME) -}}{{- $x := regexFind (printf `(?m)^alias %s=.*$` $n) $f -}}{{- if not $x }}{{ $x = regexFind (printf `(?m)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*\\}\\s*$` $n) $f }}{{ end -}}{{- if not $x }}{{ $x = regexFind (printf `(?ms)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*?^\\}` $n) $f }}{{ end -}}{{- $x = regexReplaceAll (printf `^alias %s=|^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{|\\}\\s*$` $n $n) $x `` -}}{{- $x = regexReplaceAll `\\s+` $x ` ` | trim | trimAll `'\"` -}}{{- if $x }} [ <#e5c07b>{{ abbrev 70 $x }}</> ] {{ end -}}"
+        },
+        {
+            "type": "text",
+            "style": "plain",
+            "tips": [
+                "p"
+            ],
+            "template": "{{- $n := \"p\" -}}{{- $f := readFile (printf \"%s/dotfiles/aliases/aliases\" .Env.HOME) -}}{{- $x := regexFind (printf `(?m)^alias %s=.*$` $n) $f -}}{{- if not $x }}{{ $x = regexFind (printf `(?m)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*\\}\\s*$` $n) $f }}{{ end -}}{{- if not $x }}{{ $x = regexFind (printf `(?ms)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*?^\\}` $n) $f }}{{ end -}}{{- $x = regexReplaceAll (printf `^alias %s=|^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{|\\}\\s*$` $n $n) $x `` -}}{{- $x = regexReplaceAll `\\s+` $x ` ` | trim | trimAll `'\"` -}}{{- if $x }} [ <#e5c07b>{{ abbrev 70 $x }}</> ] {{ end -}}"
+        },
+        {
+            "type": "text",
+            "style": "plain",
+            "tips": [
+                "pv"
+            ],
+            "template": "{{- $n := \"pv\" -}}{{- $f := readFile (printf \"%s/dotfiles/aliases/aliases\" .Env.HOME) -}}{{- $x := regexFind (printf `(?m)^alias %s=.*$` $n) $f -}}{{- if not $x }}{{ $x = regexFind (printf `(?m)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*\\}\\s*$` $n) $f }}{{ end -}}{{- if not $x }}{{ $x = regexFind (printf `(?ms)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*?^\\}` $n) $f }}{{ end -}}{{- $x = regexReplaceAll (printf `^alias %s=|^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{|\\}\\s*$` $n $n) $x `` -}}{{- $x = regexReplaceAll `\\s+` $x ` ` | trim | trimAll `'\"` -}}{{- if $x }} [ <#e5c07b>{{ abbrev 70 $x }}</> ] {{ end -}}"
+        },
+        {
+            "type": "text",
+            "style": "plain",
+            "tips": [
+                "pslh"
+            ],
+            "template": "{{- $n := \"pslh\" -}}{{- $f := readFile (printf \"%s/dotfiles/aliases/aliases\" .Env.HOME) -}}{{- $x := regexFind (printf `(?m)^alias %s=.*$` $n) $f -}}{{- if not $x }}{{ $x = regexFind (printf `(?m)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*\\}\\s*$` $n) $f }}{{ end -}}{{- if not $x }}{{ $x = regexFind (printf `(?ms)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*?^\\}` $n) $f }}{{ end -}}{{- $x = regexReplaceAll (printf `^alias %s=|^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{|\\}\\s*$` $n $n) $x `` -}}{{- $x = regexReplaceAll `\\s+` $x ` ` | trim | trimAll `'\"` -}}{{- if $x }} [ <#e5c07b>{{ abbrev 70 $x }}</> ] {{ end -}}"
+        },
+        {
+            "type": "text",
+            "style": "plain",
+            "tips": [
+                "psn"
+            ],
+            "template": "{{- $n := \"psn\" -}}{{- $f := readFile (printf \"%s/dotfiles/aliases/aliases\" .Env.HOME) -}}{{- $x := regexFind (printf `(?m)^alias %s=.*$` $n) $f -}}{{- if not $x }}{{ $x = regexFind (printf `(?m)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*\\}\\s*$` $n) $f }}{{ end -}}{{- if not $x }}{{ $x = regexFind (printf `(?ms)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*?^\\}` $n) $f }}{{ end -}}{{- $x = regexReplaceAll (printf `^alias %s=|^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{|\\}\\s*$` $n $n) $x `` -}}{{- $x = regexReplaceAll `\\s+` $x ` ` | trim | trimAll `'\"` -}}{{- if $x }} [ <#e5c07b>{{ abbrev 70 $x }}</> ] {{ end -}}"
+        },
+        {
+            "type": "text",
+            "style": "plain",
+            "tips": [
+                "c"
+            ],
+            "template": "{{- $n := \"c\" -}}{{- $f := readFile (printf \"%s/dotfiles/aliases/aliases\" .Env.HOME) -}}{{- $x := regexFind (printf `(?m)^alias %s=.*$` $n) $f -}}{{- if not $x }}{{ $x = regexFind (printf `(?m)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*\\}\\s*$` $n) $f }}{{ end -}}{{- if not $x }}{{ $x = regexFind (printf `(?ms)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*?^\\}` $n) $f }}{{ end -}}{{- $x = regexReplaceAll (printf `^alias %s=|^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{|\\}\\s*$` $n $n) $x `` -}}{{- $x = regexReplaceAll `\\s+` $x ` ` | trim | trimAll `'\"` -}}{{- if $x }} [ <#e5c07b>{{ abbrev 70 $x }}</> ] {{ end -}}"
+        },
+        {
+            "type": "text",
+            "style": "plain",
+            "tips": [
+                "cup"
+            ],
+            "template": "{{- $n := \"cup\" -}}{{- $f := readFile (printf \"%s/dotfiles/aliases/aliases\" .Env.HOME) -}}{{- $x := regexFind (printf `(?m)^alias %s=.*$` $n) $f -}}{{- if not $x }}{{ $x = regexFind (printf `(?m)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*\\}\\s*$` $n) $f }}{{ end -}}{{- if not $x }}{{ $x = regexFind (printf `(?ms)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*?^\\}` $n) $f }}{{ end -}}{{- $x = regexReplaceAll (printf `^alias %s=|^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{|\\}\\s*$` $n $n) $x `` -}}{{- $x = regexReplaceAll `\\s+` $x ` ` | trim | trimAll `'\"` -}}{{- if $x }} [ <#e5c07b>{{ abbrev 70 $x }}</> ] {{ end -}}"
+        },
+        {
+            "type": "text",
+            "style": "plain",
+            "tips": [
+                "cgu"
+            ],
+            "template": "{{- $n := \"cgu\" -}}{{- $f := readFile (printf \"%s/dotfiles/aliases/aliases\" .Env.HOME) -}}{{- $x := regexFind (printf `(?m)^alias %s=.*$` $n) $f -}}{{- if not $x }}{{ $x = regexFind (printf `(?m)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*\\}\\s*$` $n) $f }}{{ end -}}{{- if not $x }}{{ $x = regexFind (printf `(?ms)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*?^\\}` $n) $f }}{{ end -}}{{- $x = regexReplaceAll (printf `^alias %s=|^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{|\\}\\s*$` $n $n) $x `` -}}{{- $x = regexReplaceAll `\\s+` $x ` ` | trim | trimAll `'\"` -}}{{- if $x }} [ <#e5c07b>{{ abbrev 70 $x }}</> ] {{ end -}}"
+        },
+        {
+            "type": "text",
+            "style": "plain",
+            "tips": [
+                "csu"
+            ],
+            "template": "{{- $n := \"csu\" -}}{{- $f := readFile (printf \"%s/dotfiles/aliases/aliases\" .Env.HOME) -}}{{- $x := regexFind (printf `(?m)^alias %s=.*$` $n) $f -}}{{- if not $x }}{{ $x = regexFind (printf `(?m)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*\\}\\s*$` $n) $f }}{{ end -}}{{- if not $x }}{{ $x = regexFind (printf `(?ms)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*?^\\}` $n) $f }}{{ end -}}{{- $x = regexReplaceAll (printf `^alias %s=|^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{|\\}\\s*$` $n $n) $x `` -}}{{- $x = regexReplaceAll `\\s+` $x ` ` | trim | trimAll `'\"` -}}{{- if $x }} [ <#e5c07b>{{ abbrev 70 $x }}</> ] {{ end -}}"
+        },
+        {
+            "type": "text",
+            "style": "plain",
+            "tips": [
+                "ci"
+            ],
+            "template": "{{- $n := \"ci\" -}}{{- $f := readFile (printf \"%s/dotfiles/aliases/aliases\" .Env.HOME) -}}{{- $x := regexFind (printf `(?m)^alias %s=.*$` $n) $f -}}{{- if not $x }}{{ $x = regexFind (printf `(?m)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*\\}\\s*$` $n) $f }}{{ end -}}{{- if not $x }}{{ $x = regexFind (printf `(?ms)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*?^\\}` $n) $f }}{{ end -}}{{- $x = regexReplaceAll (printf `^alias %s=|^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{|\\}\\s*$` $n $n) $x `` -}}{{- $x = regexReplaceAll `\\s+` $x ` ` | trim | trimAll `'\"` -}}{{- if $x }} [ <#e5c07b>{{ abbrev 70 $x }}</> ] {{ end -}}"
+        },
+        {
+            "type": "text",
+            "style": "plain",
+            "tips": [
+                "cr"
+            ],
+            "template": "{{- $n := \"cr\" -}}{{- $f := readFile (printf \"%s/dotfiles/aliases/aliases\" .Env.HOME) -}}{{- $x := regexFind (printf `(?m)^alias %s=.*$` $n) $f -}}{{- if not $x }}{{ $x = regexFind (printf `(?m)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*\\}\\s*$` $n) $f }}{{ end -}}{{- if not $x }}{{ $x = regexFind (printf `(?ms)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*?^\\}` $n) $f }}{{ end -}}{{- $x = regexReplaceAll (printf `^alias %s=|^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{|\\}\\s*$` $n $n) $x `` -}}{{- $x = regexReplaceAll `\\s+` $x ` ` | trim | trimAll `'\"` -}}{{- if $x }} [ <#e5c07b>{{ abbrev 70 $x }}</> ] {{ end -}}"
+        },
+        {
+            "type": "text",
+            "style": "plain",
+            "tips": [
+                "crd"
+            ],
+            "template": "{{- $n := \"crd\" -}}{{- $f := readFile (printf \"%s/dotfiles/aliases/aliases\" .Env.HOME) -}}{{- $x := regexFind (printf `(?m)^alias %s=.*$` $n) $f -}}{{- if not $x }}{{ $x = regexFind (printf `(?m)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*\\}\\s*$` $n) $f }}{{ end -}}{{- if not $x }}{{ $x = regexFind (printf `(?ms)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*?^\\}` $n) $f }}{{ end -}}{{- $x = regexReplaceAll (printf `^alias %s=|^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{|\\}\\s*$` $n $n) $x `` -}}{{- $x = regexReplaceAll `\\s+` $x ` ` | trim | trimAll `'\"` -}}{{- if $x }} [ <#e5c07b>{{ abbrev 70 $x }}</> ] {{ end -}}"
+        },
+        {
+            "type": "text",
+            "style": "plain",
+            "tips": [
+                "crm"
+            ],
+            "template": "{{- $n := \"crm\" -}}{{- $f := readFile (printf \"%s/dotfiles/aliases/aliases\" .Env.HOME) -}}{{- $x := regexFind (printf `(?m)^alias %s=.*$` $n) $f -}}{{- if not $x }}{{ $x = regexFind (printf `(?m)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*\\}\\s*$` $n) $f }}{{ end -}}{{- if not $x }}{{ $x = regexFind (printf `(?ms)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*?^\\}` $n) $f }}{{ end -}}{{- $x = regexReplaceAll (printf `^alias %s=|^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{|\\}\\s*$` $n $n) $x `` -}}{{- $x = regexReplaceAll `\\s+` $x ` ` | trim | trimAll `'\"` -}}{{- if $x }} [ <#e5c07b>{{ abbrev 70 $x }}</> ] {{ end -}}"
+        },
+        {
+            "type": "text",
+            "style": "plain",
+            "tips": [
+                "cdv"
+            ],
+            "template": "{{- $n := \"cdv\" -}}{{- $f := readFile (printf \"%s/dotfiles/aliases/aliases\" .Env.HOME) -}}{{- $x := regexFind (printf `(?m)^alias %s=.*$` $n) $f -}}{{- if not $x }}{{ $x = regexFind (printf `(?m)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*\\}\\s*$` $n) $f }}{{ end -}}{{- if not $x }}{{ $x = regexFind (printf `(?ms)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*?^\\}` $n) $f }}{{ end -}}{{- $x = regexReplaceAll (printf `^alias %s=|^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{|\\}\\s*$` $n $n) $x `` -}}{{- $x = regexReplaceAll `\\s+` $x ` ` | trim | trimAll `'\"` -}}{{- if $x }} [ <#e5c07b>{{ abbrev 70 $x }}</> ] {{ end -}}"
+        },
+        {
+            "type": "text",
+            "style": "plain",
+            "tips": [
+                "cl"
+            ],
+            "template": "{{- $n := \"cl\" -}}{{- $f := readFile (printf \"%s/dotfiles/aliases/aliases\" .Env.HOME) -}}{{- $x := regexFind (printf `(?m)^alias %s=.*$` $n) $f -}}{{- if not $x }}{{ $x = regexFind (printf `(?m)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*\\}\\s*$` $n) $f }}{{ end -}}{{- if not $x }}{{ $x = regexFind (printf `(?ms)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*?^\\}` $n) $f }}{{ end -}}{{- $x = regexReplaceAll (printf `^alias %s=|^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{|\\}\\s*$` $n $n) $x `` -}}{{- $x = regexReplaceAll `\\s+` $x ` ` | trim | trimAll `'\"` -}}{{- if $x }} [ <#e5c07b>{{ abbrev 70 $x }}</> ] {{ end -}}"
+        },
+        {
+            "type": "text",
+            "style": "plain",
+            "tips": [
+                "ct"
+            ],
+            "template": "{{- $n := \"ct\" -}}{{- $f := readFile (printf \"%s/dotfiles/aliases/aliases\" .Env.HOME) -}}{{- $x := regexFind (printf `(?m)^alias %s=.*$` $n) $f -}}{{- if not $x }}{{ $x = regexFind (printf `(?m)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*\\}\\s*$` $n) $f }}{{ end -}}{{- if not $x }}{{ $x = regexFind (printf `(?ms)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*?^\\}` $n) $f }}{{ end -}}{{- $x = regexReplaceAll (printf `^alias %s=|^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{|\\}\\s*$` $n $n) $x `` -}}{{- $x = regexReplaceAll `\\s+` $x ` ` | trim | trimAll `'\"` -}}{{- if $x }} [ <#e5c07b>{{ abbrev 70 $x }}</> ] {{ end -}}"
+        },
+        {
+            "type": "text",
+            "style": "plain",
+            "tips": [
+                "ca"
+            ],
+            "template": "{{- $n := \"ca\" -}}{{- $f := readFile (printf \"%s/dotfiles/aliases/aliases\" .Env.HOME) -}}{{- $x := regexFind (printf `(?m)^alias %s=.*$` $n) $f -}}{{- if not $x }}{{ $x = regexFind (printf `(?m)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*\\}\\s*$` $n) $f }}{{ end -}}{{- if not $x }}{{ $x = regexFind (printf `(?ms)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*?^\\}` $n) $f }}{{ end -}}{{- $x = regexReplaceAll (printf `^alias %s=|^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{|\\}\\s*$` $n $n) $x `` -}}{{- $x = regexReplaceAll `\\s+` $x ` ` | trim | trimAll `'\"` -}}{{- if $x }} [ <#e5c07b>{{ abbrev 70 $x }}</> ] {{ end -}}"
+        },
+        {
+            "type": "text",
+            "style": "plain",
+            "tips": [
+                "a"
+            ],
+            "template": "{{- $n := \"a\" -}}{{- $f := readFile (printf \"%s/dotfiles/aliases/aliases\" .Env.HOME) -}}{{- $x := regexFind (printf `(?m)^alias %s=.*$` $n) $f -}}{{- if not $x }}{{ $x = regexFind (printf `(?m)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*\\}\\s*$` $n) $f }}{{ end -}}{{- if not $x }}{{ $x = regexFind (printf `(?ms)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*?^\\}` $n) $f }}{{ end -}}{{- $x = regexReplaceAll (printf `^alias %s=|^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{|\\}\\s*$` $n $n) $x `` -}}{{- $x = regexReplaceAll `\\s+` $x ` ` | trim | trimAll `'\"` -}}{{- if $x }} [ <#e5c07b>{{ abbrev 70 $x }}</> ] {{ end -}}"
+        },
+        {
+            "type": "text",
+            "style": "plain",
+            "tips": [
+                "am"
+            ],
+            "template": "{{- $n := \"am\" -}}{{- $f := readFile (printf \"%s/dotfiles/aliases/aliases\" .Env.HOME) -}}{{- $x := regexFind (printf `(?m)^alias %s=.*$` $n) $f -}}{{- if not $x }}{{ $x = regexFind (printf `(?m)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*\\}\\s*$` $n) $f }}{{ end -}}{{- if not $x }}{{ $x = regexFind (printf `(?ms)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*?^\\}` $n) $f }}{{ end -}}{{- $x = regexReplaceAll (printf `^alias %s=|^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{|\\}\\s*$` $n $n) $x `` -}}{{- $x = regexReplaceAll `\\s+` $x ` ` | trim | trimAll `'\"` -}}{{- if $x }} [ <#e5c07b>{{ abbrev 70 $x }}</> ] {{ end -}}"
+        },
+        {
+            "type": "text",
+            "style": "plain",
+            "tips": [
+                "amg"
+            ],
+            "template": "{{- $n := \"amg\" -}}{{- $f := readFile (printf \"%s/dotfiles/aliases/aliases\" .Env.HOME) -}}{{- $x := regexFind (printf `(?m)^alias %s=.*$` $n) $f -}}{{- if not $x }}{{ $x = regexFind (printf `(?m)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*\\}\\s*$` $n) $f }}{{ end -}}{{- if not $x }}{{ $x = regexFind (printf `(?ms)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*?^\\}` $n) $f }}{{ end -}}{{- $x = regexReplaceAll (printf `^alias %s=|^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{|\\}\\s*$` $n $n) $x `` -}}{{- $x = regexReplaceAll `\\s+` $x ` ` | trim | trimAll `'\"` -}}{{- if $x }} [ <#e5c07b>{{ abbrev 70 $x }}</> ] {{ end -}}"
+        },
+        {
+            "type": "text",
+            "style": "plain",
+            "tips": [
+                "o"
+            ],
+            "template": "{{- $n := \"o\" -}}{{- $f := readFile (printf \"%s/dotfiles/aliases/aliases\" .Env.HOME) -}}{{- $x := regexFind (printf `(?m)^alias %s=.*$` $n) $f -}}{{- if not $x }}{{ $x = regexFind (printf `(?m)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*\\}\\s*$` $n) $f }}{{ end -}}{{- if not $x }}{{ $x = regexFind (printf `(?ms)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*?^\\}` $n) $f }}{{ end -}}{{- $x = regexReplaceAll (printf `^alias %s=|^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{|\\}\\s*$` $n $n) $x `` -}}{{- $x = regexReplaceAll `\\s+` $x ` ` | trim | trimAll `'\"` -}}{{- if $x }} [ <#e5c07b>{{ abbrev 70 $x }}</> ] {{ end -}}"
+        },
+        {
+            "type": "text",
+            "style": "plain",
+            "tips": [
+                "ol"
+            ],
+            "template": "{{- $n := \"ol\" -}}{{- $f := readFile (printf \"%s/dotfiles/aliases/aliases\" .Env.HOME) -}}{{- $x := regexFind (printf `(?m)^alias %s=.*$` $n) $f -}}{{- if not $x }}{{ $x = regexFind (printf `(?m)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*\\}\\s*$` $n) $f }}{{ end -}}{{- if not $x }}{{ $x = regexFind (printf `(?ms)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*?^\\}` $n) $f }}{{ end -}}{{- $x = regexReplaceAll (printf `^alias %s=|^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{|\\}\\s*$` $n $n) $x `` -}}{{- $x = regexReplaceAll `\\s+` $x ` ` | trim | trimAll `'\"` -}}{{- if $x }} [ <#e5c07b>{{ abbrev 70 $x }}</> ] {{ end -}}"
+        },
+        {
+            "type": "text",
+            "style": "plain",
+            "tips": [
+                "ops"
+            ],
+            "template": "{{- $n := \"ops\" -}}{{- $f := readFile (printf \"%s/dotfiles/aliases/aliases\" .Env.HOME) -}}{{- $x := regexFind (printf `(?m)^alias %s=.*$` $n) $f -}}{{- if not $x }}{{ $x = regexFind (printf `(?m)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*\\}\\s*$` $n) $f }}{{ end -}}{{- if not $x }}{{ $x = regexFind (printf `(?ms)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*?^\\}` $n) $f }}{{ end -}}{{- $x = regexReplaceAll (printf `^alias %s=|^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{|\\}\\s*$` $n $n) $x `` -}}{{- $x = regexReplaceAll `\\s+` $x ` ` | trim | trimAll `'\"` -}}{{- if $x }} [ <#e5c07b>{{ abbrev 70 $x }}</> ] {{ end -}}"
+        },
+        {
+            "type": "text",
+            "style": "plain",
+            "tips": [
+                "orm"
+            ],
+            "template": "{{- $n := \"orm\" -}}{{- $f := readFile (printf \"%s/dotfiles/aliases/aliases\" .Env.HOME) -}}{{- $x := regexFind (printf `(?m)^alias %s=.*$` $n) $f -}}{{- if not $x }}{{ $x = regexFind (printf `(?m)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*\\}\\s*$` $n) $f }}{{ end -}}{{- if not $x }}{{ $x = regexFind (printf `(?ms)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*?^\\}` $n) $f }}{{ end -}}{{- $x = regexReplaceAll (printf `^alias %s=|^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{|\\}\\s*$` $n $n) $x `` -}}{{- $x = regexReplaceAll `\\s+` $x ` ` | trim | trimAll `'\"` -}}{{- if $x }} [ <#e5c07b>{{ abbrev 70 $x }}</> ] {{ end -}}"
+        },
+        {
+            "type": "text",
+            "style": "plain",
+            "tips": [
+                "or"
+            ],
+            "template": "{{- $n := \"or\" -}}{{- $f := readFile (printf \"%s/dotfiles/aliases/aliases\" .Env.HOME) -}}{{- $x := regexFind (printf `(?m)^alias %s=.*$` $n) $f -}}{{- if not $x }}{{ $x = regexFind (printf `(?m)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*\\}\\s*$` $n) $f }}{{ end -}}{{- if not $x }}{{ $x = regexFind (printf `(?ms)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*?^\\}` $n) $f }}{{ end -}}{{- $x = regexReplaceAll (printf `^alias %s=|^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{|\\}\\s*$` $n $n) $x `` -}}{{- $x = regexReplaceAll `\\s+` $x ` ` | trim | trimAll `'\"` -}}{{- if $x }} [ <#e5c07b>{{ abbrev 70 $x }}</> ] {{ end -}}"
+        },
+        {
+            "type": "text",
+            "style": "plain",
+            "tips": [
+                "os"
+            ],
+            "template": "{{- $n := \"os\" -}}{{- $f := readFile (printf \"%s/dotfiles/aliases/aliases\" .Env.HOME) -}}{{- $x := regexFind (printf `(?m)^alias %s=.*$` $n) $f -}}{{- if not $x }}{{ $x = regexFind (printf `(?m)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*\\}\\s*$` $n) $f }}{{ end -}}{{- if not $x }}{{ $x = regexFind (printf `(?ms)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*?^\\}` $n) $f }}{{ end -}}{{- $x = regexReplaceAll (printf `^alias %s=|^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{|\\}\\s*$` $n $n) $x `` -}}{{- $x = regexReplaceAll `\\s+` $x ` ` | trim | trimAll `'\"` -}}{{- if $x }} [ <#e5c07b>{{ abbrev 70 $x }}</> ] {{ end -}}"
+        },
+        {
+            "type": "text",
+            "style": "plain",
+            "tips": [
+                "op"
+            ],
+            "template": "{{- $n := \"op\" -}}{{- $f := readFile (printf \"%s/dotfiles/aliases/aliases\" .Env.HOME) -}}{{- $x := regexFind (printf `(?m)^alias %s=.*$` $n) $f -}}{{- if not $x }}{{ $x = regexFind (printf `(?m)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*\\}\\s*$` $n) $f }}{{ end -}}{{- if not $x }}{{ $x = regexFind (printf `(?ms)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*?^\\}` $n) $f }}{{ end -}}{{- $x = regexReplaceAll (printf `^alias %s=|^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{|\\}\\s*$` $n $n) $x `` -}}{{- $x = regexReplaceAll `\\s+` $x ` ` | trim | trimAll `'\"` -}}{{- if $x }} [ <#e5c07b>{{ abbrev 70 $x }}</> ] {{ end -}}"
+        },
+        {
+            "type": "text",
+            "style": "plain",
+            "tips": [
+                "ola"
+            ],
+            "template": "{{- $n := \"ola\" -}}{{- $f := readFile (printf \"%s/dotfiles/aliases/aliases\" .Env.HOME) -}}{{- $x := regexFind (printf `(?m)^alias %s=.*$` $n) $f -}}{{- if not $x }}{{ $x = regexFind (printf `(?m)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*\\}\\s*$` $n) $f }}{{ end -}}{{- if not $x }}{{ $x = regexFind (printf `(?ms)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*?^\\}` $n) $f }}{{ end -}}{{- $x = regexReplaceAll (printf `^alias %s=|^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{|\\}\\s*$` $n $n) $x `` -}}{{- $x = regexReplaceAll `\\s+` $x ` ` | trim | trimAll `'\"` -}}{{- if $x }} [ <#e5c07b>{{ abbrev 70 $x }}</> ] {{ end -}}"
+        },
+        {
+            "type": "text",
+            "style": "plain",
+            "tips": [
+                "olo"
+            ],
+            "template": "{{- $n := \"olo\" -}}{{- $f := readFile (printf \"%s/dotfiles/aliases/aliases\" .Env.HOME) -}}{{- $x := regexFind (printf `(?m)^alias %s=.*$` $n) $f -}}{{- if not $x }}{{ $x = regexFind (printf `(?m)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*\\}\\s*$` $n) $f }}{{ end -}}{{- if not $x }}{{ $x = regexFind (printf `(?ms)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*?^\\}` $n) $f }}{{ end -}}{{- $x = regexReplaceAll (printf `^alias %s=|^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{|\\}\\s*$` $n $n) $x `` -}}{{- $x = regexReplaceAll `\\s+` $x ` ` | trim | trimAll `'\"` -}}{{- if $x }} [ <#e5c07b>{{ abbrev 70 $x }}</> ] {{ end -}}"
+        },
+        {
+            "type": "text",
+            "style": "plain",
+            "tips": [
+                "n"
+            ],
+            "template": "{{- $n := \"n\" -}}{{- $f := readFile (printf \"%s/dotfiles/aliases/aliases\" .Env.HOME) -}}{{- $x := regexFind (printf `(?m)^alias %s=.*$` $n) $f -}}{{- if not $x }}{{ $x = regexFind (printf `(?m)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*\\}\\s*$` $n) $f }}{{ end -}}{{- if not $x }}{{ $x = regexFind (printf `(?ms)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*?^\\}` $n) $f }}{{ end -}}{{- $x = regexReplaceAll (printf `^alias %s=|^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{|\\}\\s*$` $n $n) $x `` -}}{{- $x = regexReplaceAll `\\s+` $x ` ` | trim | trimAll `'\"` -}}{{- if $x }} [ <#e5c07b>{{ abbrev 70 $x }}</> ] {{ end -}}"
+        },
+        {
+            "type": "text",
+            "style": "plain",
+            "tips": [
+                "nu"
+            ],
+            "template": "{{- $n := \"nu\" -}}{{- $f := readFile (printf \"%s/dotfiles/aliases/aliases\" .Env.HOME) -}}{{- $x := regexFind (printf `(?m)^alias %s=.*$` $n) $f -}}{{- if not $x }}{{ $x = regexFind (printf `(?m)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*\\}\\s*$` $n) $f }}{{ end -}}{{- if not $x }}{{ $x = regexFind (printf `(?ms)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*?^\\}` $n) $f }}{{ end -}}{{- $x = regexReplaceAll (printf `^alias %s=|^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{|\\}\\s*$` $n $n) $x `` -}}{{- $x = regexReplaceAll `\\s+` $x ` ` | trim | trimAll `'\"` -}}{{- if $x }} [ <#e5c07b>{{ abbrev 70 $x }}</> ] {{ end -}}"
+        },
+        {
+            "type": "text",
+            "style": "plain",
+            "tips": [
+                "ni"
+            ],
+            "template": "{{- $n := \"ni\" -}}{{- $f := readFile (printf \"%s/dotfiles/aliases/aliases\" .Env.HOME) -}}{{- $x := regexFind (printf `(?m)^alias %s=.*$` $n) $f -}}{{- if not $x }}{{ $x = regexFind (printf `(?m)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*\\}\\s*$` $n) $f }}{{ end -}}{{- if not $x }}{{ $x = regexFind (printf `(?ms)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*?^\\}` $n) $f }}{{ end -}}{{- $x = regexReplaceAll (printf `^alias %s=|^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{|\\}\\s*$` $n $n) $x `` -}}{{- $x = regexReplaceAll `\\s+` $x ` ` | trim | trimAll `'\"` -}}{{- if $x }} [ <#e5c07b>{{ abbrev 70 $x }}</> ] {{ end -}}"
+        },
+        {
+            "type": "text",
+            "style": "plain",
+            "tips": [
+                "nid"
+            ],
+            "template": "{{- $n := \"nid\" -}}{{- $f := readFile (printf \"%s/dotfiles/aliases/aliases\" .Env.HOME) -}}{{- $x := regexFind (printf `(?m)^alias %s=.*$` $n) $f -}}{{- if not $x }}{{ $x = regexFind (printf `(?m)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*\\}\\s*$` $n) $f }}{{ end -}}{{- if not $x }}{{ $x = regexFind (printf `(?ms)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*?^\\}` $n) $f }}{{ end -}}{{- $x = regexReplaceAll (printf `^alias %s=|^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{|\\}\\s*$` $n $n) $x `` -}}{{- $x = regexReplaceAll `\\s+` $x ` ` | trim | trimAll `'\"` -}}{{- if $x }} [ <#e5c07b>{{ abbrev 70 $x }}</> ] {{ end -}}"
+        },
+        {
+            "type": "text",
+            "style": "plain",
+            "tips": [
+                "nui"
+            ],
+            "template": "{{- $n := \"nui\" -}}{{- $f := readFile (printf \"%s/dotfiles/aliases/aliases\" .Env.HOME) -}}{{- $x := regexFind (printf `(?m)^alias %s=.*$` $n) $f -}}{{- if not $x }}{{ $x = regexFind (printf `(?m)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*\\}\\s*$` $n) $f }}{{ end -}}{{- if not $x }}{{ $x = regexFind (printf `(?ms)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*?^\\}` $n) $f }}{{ end -}}{{- $x = regexReplaceAll (printf `^alias %s=|^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{|\\}\\s*$` $n $n) $x `` -}}{{- $x = regexReplaceAll `\\s+` $x ` ` | trim | trimAll `'\"` -}}{{- if $x }} [ <#e5c07b>{{ abbrev 70 $x }}</> ] {{ end -}}"
+        },
+        {
+            "type": "text",
+            "style": "plain",
+            "tips": [
+                "nr"
+            ],
+            "template": "{{- $n := \"nr\" -}}{{- $f := readFile (printf \"%s/dotfiles/aliases/aliases\" .Env.HOME) -}}{{- $x := regexFind (printf `(?m)^alias %s=.*$` $n) $f -}}{{- if not $x }}{{ $x = regexFind (printf `(?m)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*\\}\\s*$` $n) $f }}{{ end -}}{{- if not $x }}{{ $x = regexFind (printf `(?ms)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*?^\\}` $n) $f }}{{ end -}}{{- $x = regexReplaceAll (printf `^alias %s=|^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{|\\}\\s*$` $n $n) $x `` -}}{{- $x = regexReplaceAll `\\s+` $x ` ` | trim | trimAll `'\"` -}}{{- if $x }} [ <#e5c07b>{{ abbrev 70 $x }}</> ] {{ end -}}"
+        },
+        {
+            "type": "text",
+            "style": "plain",
+            "tips": [
+                "nrd"
+            ],
+            "template": "{{- $n := \"nrd\" -}}{{- $f := readFile (printf \"%s/dotfiles/aliases/aliases\" .Env.HOME) -}}{{- $x := regexFind (printf `(?m)^alias %s=.*$` $n) $f -}}{{- if not $x }}{{ $x = regexFind (printf `(?m)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*\\}\\s*$` $n) $f }}{{ end -}}{{- if not $x }}{{ $x = regexFind (printf `(?ms)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*?^\\}` $n) $f }}{{ end -}}{{- $x = regexReplaceAll (printf `^alias %s=|^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{|\\}\\s*$` $n $n) $x `` -}}{{- $x = regexReplaceAll `\\s+` $x ` ` | trim | trimAll `'\"` -}}{{- if $x }} [ <#e5c07b>{{ abbrev 70 $x }}</> ] {{ end -}}"
+        },
+        {
+            "type": "text",
+            "style": "plain",
+            "tips": [
+                "nrb"
+            ],
+            "template": "{{- $n := \"nrb\" -}}{{- $f := readFile (printf \"%s/dotfiles/aliases/aliases\" .Env.HOME) -}}{{- $x := regexFind (printf `(?m)^alias %s=.*$` $n) $f -}}{{- if not $x }}{{ $x = regexFind (printf `(?m)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*\\}\\s*$` $n) $f }}{{ end -}}{{- if not $x }}{{ $x = regexFind (printf `(?ms)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*?^\\}` $n) $f }}{{ end -}}{{- $x = regexReplaceAll (printf `^alias %s=|^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{|\\}\\s*$` $n $n) $x `` -}}{{- $x = regexReplaceAll `\\s+` $x ` ` | trim | trimAll `'\"` -}}{{- if $x }} [ <#e5c07b>{{ abbrev 70 $x }}</> ] {{ end -}}"
+        },
+        {
+            "type": "text",
+            "style": "plain",
+            "tips": [
+                "nrt"
+            ],
+            "template": "{{- $n := \"nrt\" -}}{{- $f := readFile (printf \"%s/dotfiles/aliases/aliases\" .Env.HOME) -}}{{- $x := regexFind (printf `(?m)^alias %s=.*$` $n) $f -}}{{- if not $x }}{{ $x = regexFind (printf `(?m)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*\\}\\s*$` $n) $f }}{{ end -}}{{- if not $x }}{{ $x = regexFind (printf `(?ms)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*?^\\}` $n) $f }}{{ end -}}{{- $x = regexReplaceAll (printf `^alias %s=|^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{|\\}\\s*$` $n $n) $x `` -}}{{- $x = regexReplaceAll `\\s+` $x ` ` | trim | trimAll `'\"` -}}{{- if $x }} [ <#e5c07b>{{ abbrev 70 $x }}</> ] {{ end -}}"
+        },
+        {
+            "type": "text",
+            "style": "plain",
+            "tips": [
+                "g"
+            ],
+            "template": "{{- $n := \"g\" -}}{{- $f := readFile (printf \"%s/dotfiles/aliases/aliases\" .Env.HOME) -}}{{- $x := regexFind (printf `(?m)^alias %s=.*$` $n) $f -}}{{- if not $x }}{{ $x = regexFind (printf `(?m)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*\\}\\s*$` $n) $f }}{{ end -}}{{- if not $x }}{{ $x = regexFind (printf `(?ms)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*?^\\}` $n) $f }}{{ end -}}{{- $x = regexReplaceAll (printf `^alias %s=|^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{|\\}\\s*$` $n $n) $x `` -}}{{- $x = regexReplaceAll `\\s+` $x ` ` | trim | trimAll `'\"` -}}{{- if $x }} [ <#e5c07b>{{ abbrev 70 $x }}</> ] {{ end -}}"
+        },
+        {
+            "type": "text",
+            "style": "plain",
+            "tips": [
+                "gcl"
+            ],
+            "template": "{{- $n := \"gcl\" -}}{{- $f := readFile (printf \"%s/dotfiles/aliases/aliases\" .Env.HOME) -}}{{- $x := regexFind (printf `(?m)^alias %s=.*$` $n) $f -}}{{- if not $x }}{{ $x = regexFind (printf `(?m)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*\\}\\s*$` $n) $f }}{{ end -}}{{- if not $x }}{{ $x = regexFind (printf `(?ms)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*?^\\}` $n) $f }}{{ end -}}{{- $x = regexReplaceAll (printf `^alias %s=|^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{|\\}\\s*$` $n $n) $x `` -}}{{- $x = regexReplaceAll `\\s+` $x ` ` | trim | trimAll `'\"` -}}{{- if $x }} [ <#e5c07b>{{ abbrev 70 $x }}</> ] {{ end -}}"
+        },
+        {
+            "type": "text",
+            "style": "plain",
+            "tips": [
+                "gl"
+            ],
+            "template": "{{- $n := \"gl\" -}}{{- $f := readFile (printf \"%s/dotfiles/aliases/aliases\" .Env.HOME) -}}{{- $x := regexFind (printf `(?m)^alias %s=.*$` $n) $f -}}{{- if not $x }}{{ $x = regexFind (printf `(?m)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*\\}\\s*$` $n) $f }}{{ end -}}{{- if not $x }}{{ $x = regexFind (printf `(?ms)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*?^\\}` $n) $f }}{{ end -}}{{- $x = regexReplaceAll (printf `^alias %s=|^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{|\\}\\s*$` $n $n) $x `` -}}{{- $x = regexReplaceAll `\\s+` $x ` ` | trim | trimAll `'\"` -}}{{- if $x }} [ <#e5c07b>{{ abbrev 70 $x }}</> ] {{ end -}}"
+        },
+        {
+            "type": "text",
+            "style": "plain",
+            "tips": [
+                "glo"
+            ],
+            "template": "{{- $n := \"ca\" -}}{{- $f := readFile (printf \"%s/dotfiles/aliases/aliases\" .Env.HOME) -}}{{- $x := regexFind (printf `(?m)^alias %s=.*$` $n) $f -}}{{- if not $x }}{{ $x = regexFind (printf `(?m)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*\\}\\s*$` $n) $f }}{{ end -}}{{- if not $x }}{{ $x = regexFind (printf `(?ms)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*?^\\}` $n) $f }}{{ end -}}{{- $x = regexReplaceAll (printf `^alias %s=|^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{|\\}\\s*$` $n $n) $x `` -}}{{- $x = regexReplaceAll `\\s+` $x ` ` | trim | trimAll `'\"` -}}{{- if $x }} [ <#e5c07b>{{ abbrev 70 $x }}</> ] {{ end -}}"
+        },
+        {
+            "type": "text",
+            "style": "plain",
+            "tips": [
+                "gs"
+            ],
+            "template": "{{- $n := \"gs\" -}}{{- $f := readFile (printf \"%s/dotfiles/aliases/aliases\" .Env.HOME) -}}{{- $x := regexFind (printf `(?m)^alias %s=.*$` $n) $f -}}{{- if not $x }}{{ $x = regexFind (printf `(?m)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*\\}\\s*$` $n) $f }}{{ end -}}{{- if not $x }}{{ $x = regexFind (printf `(?ms)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*?^\\}` $n) $f }}{{ end -}}{{- $x = regexReplaceAll (printf `^alias %s=|^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{|\\}\\s*$` $n $n) $x `` -}}{{- $x = regexReplaceAll `\\s+` $x ` ` | trim | trimAll `'\"` -}}{{- if $x }} [ <#e5c07b>{{ abbrev 70 $x }}</> ] {{ end -}}"
+        },
+        {
+            "type": "text",
+            "style": "plain",
+            "tips": [
+                "gpl"
+            ],
+            "template": "{{- $n := \"gpl\" -}}{{- $f := readFile (printf \"%s/dotfiles/aliases/aliases\" .Env.HOME) -}}{{- $x := regexFind (printf `(?m)^alias %s=.*$` $n) $f -}}{{- if not $x }}{{ $x = regexFind (printf `(?m)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*\\}\\s*$` $n) $f }}{{ end -}}{{- if not $x }}{{ $x = regexFind (printf `(?ms)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*?^\\}` $n) $f }}{{ end -}}{{- $x = regexReplaceAll (printf `^alias %s=|^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{|\\}\\s*$` $n $n) $x `` -}}{{- $x = regexReplaceAll `\\s+` $x ` ` | trim | trimAll `'\"` -}}{{- if $x }} [ <#e5c07b>{{ abbrev 70 $x }}</> ] {{ end -}}"
+        },
+        {
+            "type": "text",
+            "style": "plain",
+            "tips": [
+                "gco"
+            ],
+            "template": "{{- $n := \"gco\" -}}{{- $f := readFile (printf \"%s/dotfiles/aliases/aliases\" .Env.HOME) -}}{{- $x := regexFind (printf `(?m)^alias %s=.*$` $n) $f -}}{{- if not $x }}{{ $x = regexFind (printf `(?m)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*\\}\\s*$` $n) $f }}{{ end -}}{{- if not $x }}{{ $x = regexFind (printf `(?ms)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*?^\\}` $n) $f }}{{ end -}}{{- $x = regexReplaceAll (printf `^alias %s=|^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{|\\}\\s*$` $n $n) $x `` -}}{{- $x = regexReplaceAll `\\s+` $x ` ` | trim | trimAll `'\"` -}}{{- if $x }} [ <#e5c07b>{{ abbrev 70 $x }}</> ] {{ end -}}"
+        },
+        {
+            "type": "text",
+            "style": "plain",
+            "tips": [
+                "grv"
+            ],
+            "template": "{{- $n := \"grv\" -}}{{- $f := readFile (printf \"%s/dotfiles/aliases/aliases\" .Env.HOME) -}}{{- $x := regexFind (printf `(?m)^alias %s=.*$` $n) $f -}}{{- if not $x }}{{ $x = regexFind (printf `(?m)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*\\}\\s*$` $n) $f }}{{ end -}}{{- if not $x }}{{ $x = regexFind (printf `(?ms)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*?^\\}` $n) $f }}{{ end -}}{{- $x = regexReplaceAll (printf `^alias %s=|^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{|\\}\\s*$` $n $n) $x `` -}}{{- $x = regexReplaceAll `\\s+` $x ` ` | trim | trimAll `'\"` -}}{{- if $x }} [ <#e5c07b>{{ abbrev 70 $x }}</> ] {{ end -}}"
+        },
+        {
+            "type": "text",
+            "style": "plain",
+            "tips": [
+                "ga"
+            ],
+            "template": "{{- $n := \"ga\" -}}{{- $f := readFile (printf \"%s/dotfiles/aliases/aliases\" .Env.HOME) -}}{{- $x := regexFind (printf `(?m)^alias %s=.*$` $n) $f -}}{{- if not $x }}{{ $x = regexFind (printf `(?m)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*\\}\\s*$` $n) $f }}{{ end -}}{{- if not $x }}{{ $x = regexFind (printf `(?ms)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*?^\\}` $n) $f }}{{ end -}}{{- $x = regexReplaceAll (printf `^alias %s=|^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{|\\}\\s*$` $n $n) $x `` -}}{{- $x = regexReplaceAll `\\s+` $x ` ` | trim | trimAll `'\"` -}}{{- if $x }} [ <#e5c07b>{{ abbrev 70 $x }}</> ] {{ end -}}"
+        },
+        {
+            "type": "text",
+            "style": "plain",
+            "tips": [
+                "gau"
+            ],
+            "template": "{{- $n := \"gau\" -}}{{- $f := readFile (printf \"%s/dotfiles/aliases/aliases\" .Env.HOME) -}}{{- $x := regexFind (printf `(?m)^alias %s=.*$` $n) $f -}}{{- if not $x }}{{ $x = regexFind (printf `(?m)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*\\}\\s*$` $n) $f }}{{ end -}}{{- if not $x }}{{ $x = regexFind (printf `(?ms)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*?^\\}` $n) $f }}{{ end -}}{{- $x = regexReplaceAll (printf `^alias %s=|^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{|\\}\\s*$` $n $n) $x `` -}}{{- $x = regexReplaceAll `\\s+` $x ` ` | trim | trimAll `'\"` -}}{{- if $x }} [ <#e5c07b>{{ abbrev 70 $x }}</> ] {{ end -}}"
+        },
+        {
+            "type": "text",
+            "style": "plain",
+            "tips": [
+                "gap"
+            ],
+            "template": "{{- $n := \"gap\" -}}{{- $f := readFile (printf \"%s/dotfiles/aliases/aliases\" .Env.HOME) -}}{{- $x := regexFind (printf `(?m)^alias %s=.*$` $n) $f -}}{{- if not $x }}{{ $x = regexFind (printf `(?m)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*\\}\\s*$` $n) $f }}{{ end -}}{{- if not $x }}{{ $x = regexFind (printf `(?ms)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*?^\\}` $n) $f }}{{ end -}}{{- $x = regexReplaceAll (printf `^alias %s=|^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{|\\}\\s*$` $n $n) $x `` -}}{{- $x = regexReplaceAll `\\s+` $x ` ` | trim | trimAll `'\"` -}}{{- if $x }} [ <#e5c07b>{{ abbrev 70 $x }}</> ] {{ end -}}"
+        },
+        {
+            "type": "text",
+            "style": "plain",
+            "tips": [
+                "gai"
+            ],
+            "template": "{{- $n := \"gai\" -}}{{- $f := readFile (printf \"%s/dotfiles/aliases/aliases\" .Env.HOME) -}}{{- $x := regexFind (printf `(?m)^alias %s=.*$` $n) $f -}}{{- if not $x }}{{ $x = regexFind (printf `(?m)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*\\}\\s*$` $n) $f }}{{ end -}}{{- if not $x }}{{ $x = regexFind (printf `(?ms)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*?^\\}` $n) $f }}{{ end -}}{{- $x = regexReplaceAll (printf `^alias %s=|^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{|\\}\\s*$` $n $n) $x `` -}}{{- $x = regexReplaceAll `\\s+` $x ` ` | trim | trimAll `'\"` -}}{{- if $x }} [ <#e5c07b>{{ abbrev 70 $x }}</> ] {{ end -}}"
+        },
+        {
+            "type": "text",
+            "style": "plain",
+            "tips": [
+                "gcln"
+            ],
+            "template": "{{- $n := \"gcln\" -}}{{- $f := readFile (printf \"%s/dotfiles/aliases/aliases\" .Env.HOME) -}}{{- $x := regexFind (printf `(?m)^alias %s=.*$` $n) $f -}}{{- if not $x }}{{ $x = regexFind (printf `(?m)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*\\}\\s*$` $n) $f }}{{ end -}}{{- if not $x }}{{ $x = regexFind (printf `(?ms)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*?^\\}` $n) $f }}{{ end -}}{{- $x = regexReplaceAll (printf `^alias %s=|^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{|\\}\\s*$` $n $n) $x `` -}}{{- $x = regexReplaceAll `\\s+` $x ` ` | trim | trimAll `'\"` -}}{{- if $x }} [ <#e5c07b>{{ abbrev 70 $x }}</> ] {{ end -}}"
+        },
+        {
+            "type": "text",
+            "style": "plain",
+            "tips": [
+                "gf"
+            ],
+            "template": "{{- $n := \"gf\" -}}{{- $f := readFile (printf \"%s/dotfiles/aliases/aliases\" .Env.HOME) -}}{{- $x := regexFind (printf `(?m)^alias %s=.*$` $n) $f -}}{{- if not $x }}{{ $x = regexFind (printf `(?m)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*\\}\\s*$` $n) $f }}{{ end -}}{{- if not $x }}{{ $x = regexFind (printf `(?ms)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*?^\\}` $n) $f }}{{ end -}}{{- $x = regexReplaceAll (printf `^alias %s=|^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{|\\}\\s*$` $n $n) $x `` -}}{{- $x = regexReplaceAll `\\s+` $x ` ` | trim | trimAll `'\"` -}}{{- if $x }} [ <#e5c07b>{{ abbrev 70 $x }}</> ] {{ end -}}"
+        },
+        {
+            "type": "text",
+            "style": "plain",
+            "tips": [
+                "gfp"
+            ],
+            "template": "{{- $n := \"gfp\" -}}{{- $f := readFile (printf \"%s/dotfiles/aliases/aliases\" .Env.HOME) -}}{{- $x := regexFind (printf `(?m)^alias %s=.*$` $n) $f -}}{{- if not $x }}{{ $x = regexFind (printf `(?m)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*\\}\\s*$` $n) $f }}{{ end -}}{{- if not $x }}{{ $x = regexFind (printf `(?ms)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*?^\\}` $n) $f }}{{ end -}}{{- $x = regexReplaceAll (printf `^alias %s=|^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{|\\}\\s*$` $n $n) $x `` -}}{{- $x = regexReplaceAll `\\s+` $x ` ` | trim | trimAll `'\"` -}}{{- if $x }} [ <#e5c07b>{{ abbrev 70 $x }}</> ] {{ end -}}"
+        },
+        {
+            "type": "text",
+            "style": "plain",
+            "tips": [
+                "gb"
+            ],
+            "template": "{{- $n := \"gb\" -}}{{- $f := readFile (printf \"%s/dotfiles/aliases/aliases\" .Env.HOME) -}}{{- $x := regexFind (printf `(?m)^alias %s=.*$` $n) $f -}}{{- if not $x }}{{ $x = regexFind (printf `(?m)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*\\}\\s*$` $n) $f }}{{ end -}}{{- if not $x }}{{ $x = regexFind (printf `(?ms)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*?^\\}` $n) $f }}{{ end -}}{{- $x = regexReplaceAll (printf `^alias %s=|^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{|\\}\\s*$` $n $n) $x `` -}}{{- $x = regexReplaceAll `\\s+` $x ` ` | trim | trimAll `'\"` -}}{{- if $x }} [ <#e5c07b>{{ abbrev 70 $x }}</> ] {{ end -}}"
+        },
+        {
+            "type": "text",
+            "style": "plain",
+            "tips": [
+                "gba"
+            ],
+            "template": "{{- $n := \"gba\" -}}{{- $f := readFile (printf \"%s/dotfiles/aliases/aliases\" .Env.HOME) -}}{{- $x := regexFind (printf `(?m)^alias %s=.*$` $n) $f -}}{{- if not $x }}{{ $x = regexFind (printf `(?m)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*\\}\\s*$` $n) $f }}{{ end -}}{{- if not $x }}{{ $x = regexFind (printf `(?ms)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*?^\\}` $n) $f }}{{ end -}}{{- $x = regexReplaceAll (printf `^alias %s=|^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{|\\}\\s*$` $n $n) $x `` -}}{{- $x = regexReplaceAll `\\s+` $x ` ` | trim | trimAll `'\"` -}}{{- if $x }} [ <#e5c07b>{{ abbrev 70 $x }}</> ] {{ end -}}"
+        },
+        {
+            "type": "text",
+            "style": "plain",
+            "tips": [
+                "gp"
+            ],
+            "template": "{{- $n := \"gp\" -}}{{- $f := readFile (printf \"%s/dotfiles/aliases/aliases\" .Env.HOME) -}}{{- $x := regexFind (printf `(?m)^alias %s=.*$` $n) $f -}}{{- if not $x }}{{ $x = regexFind (printf `(?m)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*\\}\\s*$` $n) $f }}{{ end -}}{{- if not $x }}{{ $x = regexFind (printf `(?ms)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*?^\\}` $n) $f }}{{ end -}}{{- $x = regexReplaceAll (printf `^alias %s=|^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{|\\}\\s*$` $n $n) $x `` -}}{{- $x = regexReplaceAll `\\s+` $x ` ` | trim | trimAll `'\"` -}}{{- if $x }} [ <#e5c07b>{{ abbrev 70 $x }}</> ] {{ end -}}"
+        },
+        {
+            "type": "text",
+            "style": "plain",
+            "tips": [
+                "gpf"
+            ],
+            "template": "{{- $n := \"gpf\" -}}{{- $f := readFile (printf \"%s/dotfiles/aliases/aliases\" .Env.HOME) -}}{{- $x := regexFind (printf `(?m)^alias %s=.*$` $n) $f -}}{{- if not $x }}{{ $x = regexFind (printf `(?m)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*\\}\\s*$` $n) $f }}{{ end -}}{{- if not $x }}{{ $x = regexFind (printf `(?ms)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*?^\\}` $n) $f }}{{ end -}}{{- $x = regexReplaceAll (printf `^alias %s=|^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{|\\}\\s*$` $n $n) $x `` -}}{{- $x = regexReplaceAll `\\s+` $x ` ` | trim | trimAll `'\"` -}}{{- if $x }} [ <#e5c07b>{{ abbrev 70 $x }}</> ] {{ end -}}"
+        },
+        {
+            "type": "text",
+            "style": "plain",
+            "tips": [
+                "gptg"
+            ],
+            "template": "{{- $n := \"gptg\" -}}{{- $f := readFile (printf \"%s/dotfiles/aliases/aliases\" .Env.HOME) -}}{{- $x := regexFind (printf `(?m)^alias %s=.*$` $n) $f -}}{{- if not $x }}{{ $x = regexFind (printf `(?m)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*\\}\\s*$` $n) $f }}{{ end -}}{{- if not $x }}{{ $x = regexFind (printf `(?ms)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*?^\\}` $n) $f }}{{ end -}}{{- $x = regexReplaceAll (printf `^alias %s=|^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{|\\}\\s*$` $n $n) $x `` -}}{{- $x = regexReplaceAll `\\s+` $x ` ` | trim | trimAll `'\"` -}}{{- if $x }} [ <#e5c07b>{{ abbrev 70 $x }}</> ] {{ end -}}"
+        },
+        {
+            "type": "text",
+            "style": "plain",
+            "tips": [
+                "gpu"
+            ],
+            "template": "{{- $n := \"gpu\" -}}{{- $f := readFile (printf \"%s/dotfiles/aliases/aliases\" .Env.HOME) -}}{{- $x := regexFind (printf `(?m)^alias %s=.*$` $n) $f -}}{{- if not $x }}{{ $x = regexFind (printf `(?m)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*\\}\\s*$` $n) $f }}{{ end -}}{{- if not $x }}{{ $x = regexFind (printf `(?ms)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*?^\\}` $n) $f }}{{ end -}}{{- $x = regexReplaceAll (printf `^alias %s=|^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{|\\}\\s*$` $n $n) $x `` -}}{{- $x = regexReplaceAll `\\s+` $x ` ` | trim | trimAll `'\"` -}}{{- if $x }} [ <#e5c07b>{{ abbrev 70 $x }}</> ] {{ end -}}"
+        },
+        {
+            "type": "text",
+            "style": "plain",
+            "tips": [
+                "gsw"
+            ],
+            "template": "{{- $n := \"gsw\" -}}{{- $f := readFile (printf \"%s/dotfiles/aliases/aliases\" .Env.HOME) -}}{{- $x := regexFind (printf `(?m)^alias %s=.*$` $n) $f -}}{{- if not $x }}{{ $x = regexFind (printf `(?m)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*\\}\\s*$` $n) $f }}{{ end -}}{{- if not $x }}{{ $x = regexFind (printf `(?ms)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*?^\\}` $n) $f }}{{ end -}}{{- $x = regexReplaceAll (printf `^alias %s=|^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{|\\}\\s*$` $n $n) $x `` -}}{{- $x = regexReplaceAll `\\s+` $x ` ` | trim | trimAll `'\"` -}}{{- if $x }} [ <#e5c07b>{{ abbrev 70 $x }}</> ] {{ end -}}"
+        },
+        {
+            "type": "text",
+            "style": "plain",
+            "tips": [
+                "gc"
+            ],
+            "template": "{{- $n := \"gc\" -}}{{- $f := readFile (printf \"%s/dotfiles/aliases/aliases\" .Env.HOME) -}}{{- $x := regexFind (printf `(?m)^alias %s=.*$` $n) $f -}}{{- if not $x }}{{ $x = regexFind (printf `(?m)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*\\}\\s*$` $n) $f }}{{ end -}}{{- if not $x }}{{ $x = regexFind (printf `(?ms)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*?^\\}` $n) $f }}{{ end -}}{{- $x = regexReplaceAll (printf `^alias %s=|^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{|\\}\\s*$` $n $n) $x `` -}}{{- $x = regexReplaceAll `\\s+` $x ` ` | trim | trimAll `'\"` -}}{{- if $x }} [ <#e5c07b>{{ abbrev 70 $x }}</> ] {{ end -}}"
+        },
+        {
+            "type": "text",
+            "style": "plain",
+            "tips": [
+                "gca"
+            ],
+            "template": "{{- $n := \"gca\" -}}{{- $f := readFile (printf \"%s/dotfiles/aliases/aliases\" .Env.HOME) -}}{{- $x := regexFind (printf `(?m)^alias %s=.*$` $n) $f -}}{{- if not $x }}{{ $x = regexFind (printf `(?m)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*\\}\\s*$` $n) $f }}{{ end -}}{{- if not $x }}{{ $x = regexFind (printf `(?ms)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*?^\\}` $n) $f }}{{ end -}}{{- $x = regexReplaceAll (printf `^alias %s=|^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{|\\}\\s*$` $n $n) $x `` -}}{{- $x = regexReplaceAll `\\s+` $x ` ` | trim | trimAll `'\"` -}}{{- if $x }} [ <#e5c07b>{{ abbrev 70 $x }}</> ] {{ end -}}"
+        },
+        {
+            "type": "text",
+            "style": "plain",
+            "tips": [
+                "gcan"
+            ],
+            "template": "{{- $n := \"gcan\" -}}{{- $f := readFile (printf \"%s/dotfiles/aliases/aliases\" .Env.HOME) -}}{{- $x := regexFind (printf `(?m)^alias %s=.*$` $n) $f -}}{{- if not $x }}{{ $x = regexFind (printf `(?m)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*\\}\\s*$` $n) $f }}{{ end -}}{{- if not $x }}{{ $x = regexFind (printf `(?ms)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*?^\\}` $n) $f }}{{ end -}}{{- $x = regexReplaceAll (printf `^alias %s=|^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{|\\}\\s*$` $n $n) $x `` -}}{{- $x = regexReplaceAll `\\s+` $x ` ` | trim | trimAll `'\"` -}}{{- if $x }} [ <#e5c07b>{{ abbrev 70 $x }}</> ] {{ end -}}"
+        },
+        {
+            "type": "text",
+            "style": "plain",
+            "tips": [
+                "gr"
+            ],
+            "template": "{{- $n := \"gr\" -}}{{- $f := readFile (printf \"%s/dotfiles/aliases/aliases\" .Env.HOME) -}}{{- $x := regexFind (printf `(?m)^alias %s=.*$` $n) $f -}}{{- if not $x }}{{ $x = regexFind (printf `(?m)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*\\}\\s*$` $n) $f }}{{ end -}}{{- if not $x }}{{ $x = regexFind (printf `(?ms)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*?^\\}` $n) $f }}{{ end -}}{{- $x = regexReplaceAll (printf `^alias %s=|^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{|\\}\\s*$` $n $n) $x `` -}}{{- $x = regexReplaceAll `\\s+` $x ` ` | trim | trimAll `'\"` -}}{{- if $x }} [ <#e5c07b>{{ abbrev 70 $x }}</> ] {{ end -}}"
+        },
+        {
+            "type": "text",
+            "style": "plain",
+            "tips": [
+                "grs"
+            ],
+            "template": "{{- $n := \"grs\" -}}{{- $f := readFile (printf \"%s/dotfiles/aliases/aliases\" .Env.HOME) -}}{{- $x := regexFind (printf `(?m)^alias %s=.*$` $n) $f -}}{{- if not $x }}{{ $x = regexFind (printf `(?m)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*\\}\\s*$` $n) $f }}{{ end -}}{{- if not $x }}{{ $x = regexFind (printf `(?ms)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*?^\\}` $n) $f }}{{ end -}}{{- $x = regexReplaceAll (printf `^alias %s=|^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{|\\}\\s*$` $n $n) $x `` -}}{{- $x = regexReplaceAll `\\s+` $x ` ` | trim | trimAll `'\"` -}}{{- if $x }} [ <#e5c07b>{{ abbrev 70 $x }}</> ] {{ end -}}"
+        },
+        {
+            "type": "text",
+            "style": "plain",
+            "tips": [
+                "grsw"
+            ],
+            "template": "{{- $n := \"grsw\" -}}{{- $f := readFile (printf \"%s/dotfiles/aliases/aliases\" .Env.HOME) -}}{{- $x := regexFind (printf `(?m)^alias %s=.*$` $n) $f -}}{{- if not $x }}{{ $x = regexFind (printf `(?m)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*\\}\\s*$` $n) $f }}{{ end -}}{{- if not $x }}{{ $x = regexFind (printf `(?ms)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*?^\\}` $n) $f }}{{ end -}}{{- $x = regexReplaceAll (printf `^alias %s=|^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{|\\}\\s*$` $n $n) $x `` -}}{{- $x = regexReplaceAll `\\s+` $x ` ` | trim | trimAll `'\"` -}}{{- if $x }} [ <#e5c07b>{{ abbrev 70 $x }}</> ] {{ end -}}"
+        },
+        {
+            "type": "text",
+            "style": "plain",
+            "tips": [
+                "gre"
+            ],
+            "template": "{{- $n := \"gre\" -}}{{- $f := readFile (printf \"%s/dotfiles/aliases/aliases\" .Env.HOME) -}}{{- $x := regexFind (printf `(?m)^alias %s=.*$` $n) $f -}}{{- if not $x }}{{ $x = regexFind (printf `(?m)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*\\}\\s*$` $n) $f }}{{ end -}}{{- if not $x }}{{ $x = regexFind (printf `(?ms)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*?^\\}` $n) $f }}{{ end -}}{{- $x = regexReplaceAll (printf `^alias %s=|^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{|\\}\\s*$` $n $n) $x `` -}}{{- $x = regexReplaceAll `\\s+` $x ` ` | trim | trimAll `'\"` -}}{{- if $x }} [ <#e5c07b>{{ abbrev 70 $x }}</> ] {{ end -}}"
+        },
+        {
+            "type": "text",
+            "style": "plain",
+            "tips": [
+                "gres"
+            ],
+            "template": "{{- $n := \"gres\" -}}{{- $f := readFile (printf \"%s/dotfiles/aliases/aliases\" .Env.HOME) -}}{{- $x := regexFind (printf `(?m)^alias %s=.*$` $n) $f -}}{{- if not $x }}{{ $x = regexFind (printf `(?m)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*\\}\\s*$` $n) $f }}{{ end -}}{{- if not $x }}{{ $x = regexFind (printf `(?ms)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*?^\\}` $n) $f }}{{ end -}}{{- $x = regexReplaceAll (printf `^alias %s=|^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{|\\}\\s*$` $n $n) $x `` -}}{{- $x = regexReplaceAll `\\s+` $x ` ` | trim | trimAll `'\"` -}}{{- if $x }} [ <#e5c07b>{{ abbrev 70 $x }}</> ] {{ end -}}"
+        },
+        {
+            "type": "text",
+            "style": "plain",
+            "tips": [
+                "greh"
+            ],
+            "template": "{{- $n := \"greh\" -}}{{- $f := readFile (printf \"%s/dotfiles/aliases/aliases\" .Env.HOME) -}}{{- $x := regexFind (printf `(?m)^alias %s=.*$` $n) $f -}}{{- if not $x }}{{ $x = regexFind (printf `(?m)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*\\}\\s*$` $n) $f }}{{ end -}}{{- if not $x }}{{ $x = regexFind (printf `(?ms)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*?^\\}` $n) $f }}{{ end -}}{{- $x = regexReplaceAll (printf `^alias %s=|^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{|\\}\\s*$` $n $n) $x `` -}}{{- $x = regexReplaceAll `\\s+` $x ` ` | trim | trimAll `'\"` -}}{{- if $x }} [ <#e5c07b>{{ abbrev 70 $x }}</> ] {{ end -}}"
+        },
+        {
+            "type": "text",
+            "style": "plain",
+            "tips": [
+                "grb"
+            ],
+            "template": "{{- $n := \"grb\" -}}{{- $f := readFile (printf \"%s/dotfiles/aliases/aliases\" .Env.HOME) -}}{{- $x := regexFind (printf `(?m)^alias %s=.*$` $n) $f -}}{{- if not $x }}{{ $x = regexFind (printf `(?m)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*\\}\\s*$` $n) $f }}{{ end -}}{{- if not $x }}{{ $x = regexFind (printf `(?ms)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*?^\\}` $n) $f }}{{ end -}}{{- $x = regexReplaceAll (printf `^alias %s=|^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{|\\}\\s*$` $n $n) $x `` -}}{{- $x = regexReplaceAll `\\s+` $x ` ` | trim | trimAll `'\"` -}}{{- if $x }} [ <#e5c07b>{{ abbrev 70 $x }}</> ] {{ end -}}"
+        },
+        {
+            "type": "text",
+            "style": "plain",
+            "tips": [
+                "grc"
+            ],
+            "template": "{{- $n := \"grc\" -}}{{- $f := readFile (printf \"%s/dotfiles/aliases/aliases\" .Env.HOME) -}}{{- $x := regexFind (printf `(?m)^alias %s=.*$` $n) $f -}}{{- if not $x }}{{ $x = regexFind (printf `(?m)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*\\}\\s*$` $n) $f }}{{ end -}}{{- if not $x }}{{ $x = regexFind (printf `(?ms)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*?^\\}` $n) $f }}{{ end -}}{{- $x = regexReplaceAll (printf `^alias %s=|^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{|\\}\\s*$` $n $n) $x `` -}}{{- $x = regexReplaceAll `\\s+` $x ` ` | trim | trimAll `'\"` -}}{{- if $x }} [ <#e5c07b>{{ abbrev 70 $x }}</> ] {{ end -}}"
+        },
+        {
+            "type": "text",
+            "style": "plain",
+            "tips": [
+                "gra"
+            ],
+            "template": "{{- $n := \"gra\" -}}{{- $f := readFile (printf \"%s/dotfiles/aliases/aliases\" .Env.HOME) -}}{{- $x := regexFind (printf `(?m)^alias %s=.*$` $n) $f -}}{{- if not $x }}{{ $x = regexFind (printf `(?m)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*\\}\\s*$` $n) $f }}{{ end -}}{{- if not $x }}{{ $x = regexFind (printf `(?ms)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*?^\\}` $n) $f }}{{ end -}}{{- $x = regexReplaceAll (printf `^alias %s=|^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{|\\}\\s*$` $n $n) $x `` -}}{{- $x = regexReplaceAll `\\s+` $x ` ` | trim | trimAll `'\"` -}}{{- if $x }} [ <#e5c07b>{{ abbrev 70 $x }}</> ] {{ end -}}"
+        },
+        {
+            "type": "text",
+            "style": "plain",
+            "tips": [
+                "gri"
+            ],
+            "template": "{{- $n := \"gri\" -}}{{- $f := readFile (printf \"%s/dotfiles/aliases/aliases\" .Env.HOME) -}}{{- $x := regexFind (printf `(?m)^alias %s=.*$` $n) $f -}}{{- if not $x }}{{ $x = regexFind (printf `(?m)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*\\}\\s*$` $n) $f }}{{ end -}}{{- if not $x }}{{ $x = regexFind (printf `(?ms)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*?^\\}` $n) $f }}{{ end -}}{{- $x = regexReplaceAll (printf `^alias %s=|^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{|\\}\\s*$` $n $n) $x `` -}}{{- $x = regexReplaceAll `\\s+` $x ` ` | trim | trimAll `'\"` -}}{{- if $x }} [ <#e5c07b>{{ abbrev 70 $x }}</> ] {{ end -}}"
+        },
+        {
+            "type": "text",
+            "style": "plain",
+            "tips": [
+                "gwl"
+            ],
+            "template": "{{- $n := \"gwl\" -}}{{- $f := readFile (printf \"%s/dotfiles/aliases/aliases\" .Env.HOME) -}}{{- $x := regexFind (printf `(?m)^alias %s=.*$` $n) $f -}}{{- if not $x }}{{ $x = regexFind (printf `(?m)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*\\}\\s*$` $n) $f }}{{ end -}}{{- if not $x }}{{ $x = regexFind (printf `(?ms)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*?^\\}` $n) $f }}{{ end -}}{{- $x = regexReplaceAll (printf `^alias %s=|^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{|\\}\\s*$` $n $n) $x `` -}}{{- $x = regexReplaceAll `\\s+` $x ` ` | trim | trimAll `'\"` -}}{{- if $x }} [ <#e5c07b>{{ abbrev 70 $x }}</> ] {{ end -}}"
+        },
+        {
+            "type": "text",
+            "style": "plain",
+            "tips": [
+                "gwa"
+            ],
+            "template": "{{- $n := \"gwa\" -}}{{- $f := readFile (printf \"%s/dotfiles/aliases/aliases\" .Env.HOME) -}}{{- $x := regexFind (printf `(?m)^alias %s=.*$` $n) $f -}}{{- if not $x }}{{ $x = regexFind (printf `(?m)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*\\}\\s*$` $n) $f }}{{ end -}}{{- if not $x }}{{ $x = regexFind (printf `(?ms)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*?^\\}` $n) $f }}{{ end -}}{{- $x = regexReplaceAll (printf `^alias %s=|^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{|\\}\\s*$` $n $n) $x `` -}}{{- $x = regexReplaceAll `\\s+` $x ` ` | trim | trimAll `'\"` -}}{{- if $x }} [ <#e5c07b>{{ abbrev 70 $x }}</> ] {{ end -}}"
+        },
+        {
+            "type": "text",
+            "style": "plain",
+            "tips": [
+                "gwr"
+            ],
+            "template": "{{- $n := \"gwr\" -}}{{- $f := readFile (printf \"%s/dotfiles/aliases/aliases\" .Env.HOME) -}}{{- $x := regexFind (printf `(?m)^alias %s=.*$` $n) $f -}}{{- if not $x }}{{ $x = regexFind (printf `(?m)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*\\}\\s*$` $n) $f }}{{ end -}}{{- if not $x }}{{ $x = regexFind (printf `(?ms)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*?^\\}` $n) $f }}{{ end -}}{{- $x = regexReplaceAll (printf `^alias %s=|^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{|\\}\\s*$` $n $n) $x `` -}}{{- $x = regexReplaceAll `\\s+` $x ` ` | trim | trimAll `'\"` -}}{{- if $x }} [ <#e5c07b>{{ abbrev 70 $x }}</> ] {{ end -}}"
+        },
+        {
+            "type": "text",
+            "style": "plain",
+            "tips": [
+                "gwp"
+            ],
+            "template": "{{- $n := \"gwp\" -}}{{- $f := readFile (printf \"%s/dotfiles/aliases/aliases\" .Env.HOME) -}}{{- $x := regexFind (printf `(?m)^alias %s=.*$` $n) $f -}}{{- if not $x }}{{ $x = regexFind (printf `(?m)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*\\}\\s*$` $n) $f }}{{ end -}}{{- if not $x }}{{ $x = regexFind (printf `(?ms)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*?^\\}` $n) $f }}{{ end -}}{{- $x = regexReplaceAll (printf `^alias %s=|^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{|\\}\\s*$` $n $n) $x `` -}}{{- $x = regexReplaceAll `\\s+` $x ` ` | trim | trimAll `'\"` -}}{{- if $x }} [ <#e5c07b>{{ abbrev 70 $x }}</> ] {{ end -}}"
+        },
+        {
+            "type": "text",
+            "style": "plain",
+            "tips": [
+                "gst"
+            ],
+            "template": "{{- $n := \"gst\" -}}{{- $f := readFile (printf \"%s/dotfiles/aliases/aliases\" .Env.HOME) -}}{{- $x := regexFind (printf `(?m)^alias %s=.*$` $n) $f -}}{{- if not $x }}{{ $x = regexFind (printf `(?m)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*\\}\\s*$` $n) $f }}{{ end -}}{{- if not $x }}{{ $x = regexFind (printf `(?ms)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*?^\\}` $n) $f }}{{ end -}}{{- $x = regexReplaceAll (printf `^alias %s=|^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{|\\}\\s*$` $n $n) $x `` -}}{{- $x = regexReplaceAll `\\s+` $x ` ` | trim | trimAll `'\"` -}}{{- if $x }} [ <#e5c07b>{{ abbrev 70 $x }}</> ] {{ end -}}"
+        },
+        {
+            "type": "text",
+            "style": "plain",
+            "tips": [
+                "gsu"
+            ],
+            "template": "{{- $n := \"gsu\" -}}{{- $f := readFile (printf \"%s/dotfiles/aliases/aliases\" .Env.HOME) -}}{{- $x := regexFind (printf `(?m)^alias %s=.*$` $n) $f -}}{{- if not $x }}{{ $x = regexFind (printf `(?m)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*\\}\\s*$` $n) $f }}{{ end -}}{{- if not $x }}{{ $x = regexFind (printf `(?ms)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*?^\\}` $n) $f }}{{ end -}}{{- $x = regexReplaceAll (printf `^alias %s=|^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{|\\}\\s*$` $n $n) $x `` -}}{{- $x = regexReplaceAll `\\s+` $x ` ` | trim | trimAll `'\"` -}}{{- if $x }} [ <#e5c07b>{{ abbrev 70 $x }}</> ] {{ end -}}"
+        },
+        {
+            "type": "text",
+            "style": "plain",
+            "tips": [
+                "gsal"
+            ],
+            "template": "{{- $n := \"gsal\" -}}{{- $f := readFile (printf \"%s/dotfiles/aliases/aliases\" .Env.HOME) -}}{{- $x := regexFind (printf `(?m)^alias %s=.*$` $n) $f -}}{{- if not $x }}{{ $x = regexFind (printf `(?m)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*\\}\\s*$` $n) $f }}{{ end -}}{{- if not $x }}{{ $x = regexFind (printf `(?ms)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*?^\\}` $n) $f }}{{ end -}}{{- $x = regexReplaceAll (printf `^alias %s=|^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{|\\}\\s*$` $n $n) $x `` -}}{{- $x = regexReplaceAll `\\s+` $x ` ` | trim | trimAll `'\"` -}}{{- if $x }} [ <#e5c07b>{{ abbrev 70 $x }}</> ] {{ end -}}"
+        },
+        {
+            "type": "text",
+            "style": "plain",
+            "tips": [
+                "gsl"
+            ],
+            "template": "{{- $n := \"gsl\" -}}{{- $f := readFile (printf \"%s/dotfiles/aliases/aliases\" .Env.HOME) -}}{{- $x := regexFind (printf `(?m)^alias %s=.*$` $n) $f -}}{{- if not $x }}{{ $x = regexFind (printf `(?m)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*\\}\\s*$` $n) $f }}{{ end -}}{{- if not $x }}{{ $x = regexFind (printf `(?ms)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*?^\\}` $n) $f }}{{ end -}}{{- $x = regexReplaceAll (printf `^alias %s=|^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{|\\}\\s*$` $n $n) $x `` -}}{{- $x = regexReplaceAll `\\s+` $x ` ` | trim | trimAll `'\"` -}}{{- if $x }} [ <#e5c07b>{{ abbrev 70 $x }}</> ] {{ end -}}"
+        },
+        {
+            "type": "text",
+            "style": "plain",
+            "tips": [
+                "gsa"
+            ],
+            "template": "{{- $n := \"gsa\" -}}{{- $f := readFile (printf \"%s/dotfiles/aliases/aliases\" .Env.HOME) -}}{{- $x := regexFind (printf `(?m)^alias %s=.*$` $n) $f -}}{{- if not $x }}{{ $x = regexFind (printf `(?m)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*\\}\\s*$` $n) $f }}{{ end -}}{{- if not $x }}{{ $x = regexFind (printf `(?ms)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*?^\\}` $n) $f }}{{ end -}}{{- $x = regexReplaceAll (printf `^alias %s=|^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{|\\}\\s*$` $n $n) $x `` -}}{{- $x = regexReplaceAll `\\s+` $x ` ` | trim | trimAll `'\"` -}}{{- if $x }} [ <#e5c07b>{{ abbrev 70 $x }}</> ] {{ end -}}"
+        },
+        {
+            "type": "text",
+            "style": "plain",
+            "tips": [
+                "gsp"
+            ],
+            "template": "{{- $n := \"gsp\" -}}{{- $f := readFile (printf \"%s/dotfiles/aliases/aliases\" .Env.HOME) -}}{{- $x := regexFind (printf `(?m)^alias %s=.*$` $n) $f -}}{{- if not $x }}{{ $x = regexFind (printf `(?m)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*\\}\\s*$` $n) $f }}{{ end -}}{{- if not $x }}{{ $x = regexFind (printf `(?ms)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*?^\\}` $n) $f }}{{ end -}}{{- $x = regexReplaceAll (printf `^alias %s=|^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{|\\}\\s*$` $n $n) $x `` -}}{{- $x = regexReplaceAll `\\s+` $x ` ` | trim | trimAll `'\"` -}}{{- if $x }} [ <#e5c07b>{{ abbrev 70 $x }}</> ] {{ end -}}"
+        },
+        {
+            "type": "text",
+            "style": "plain",
+            "tips": [
+                "gsd"
+            ],
+            "template": "{{- $n := \"gsd\" -}}{{- $f := readFile (printf \"%s/dotfiles/aliases/aliases\" .Env.HOME) -}}{{- $x := regexFind (printf `(?m)^alias %s=.*$` $n) $f -}}{{- if not $x }}{{ $x = regexFind (printf `(?m)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*\\}\\s*$` $n) $f }}{{ end -}}{{- if not $x }}{{ $x = regexFind (printf `(?ms)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*?^\\}` $n) $f }}{{ end -}}{{- $x = regexReplaceAll (printf `^alias %s=|^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{|\\}\\s*$` $n $n) $x `` -}}{{- $x = regexReplaceAll `\\s+` $x ` ` | trim | trimAll `'\"` -}}{{- if $x }} [ <#e5c07b>{{ abbrev 70 $x }}</> ] {{ end -}}"
+        },
+        {
+            "type": "text",
+            "style": "plain",
+            "tips": [
+                "d"
+            ],
+            "template": "{{- $n := \"d\" -}}{{- $f := readFile (printf \"%s/dotfiles/aliases/aliases\" .Env.HOME) -}}{{- $x := regexFind (printf `(?m)^alias %s=.*$` $n) $f -}}{{- if not $x }}{{ $x = regexFind (printf `(?m)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*\\}\\s*$` $n) $f }}{{ end -}}{{- if not $x }}{{ $x = regexFind (printf `(?ms)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*?^\\}` $n) $f }}{{ end -}}{{- $x = regexReplaceAll (printf `^alias %s=|^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{|\\}\\s*$` $n $n) $x `` -}}{{- $x = regexReplaceAll `\\s+` $x ` ` | trim | trimAll `'\"` -}}{{- if $x }} [ <#e5c07b>{{ abbrev 70 $x }}</> ] {{ end -}}"
+        },
+        {
+            "type": "text",
+            "style": "plain",
+            "tips": [
+                "dsp"
+            ],
+            "template": "{{- $n := \"dsp\" -}}{{- $f := readFile (printf \"%s/dotfiles/aliases/aliases\" .Env.HOME) -}}{{- $x := regexFind (printf `(?m)^alias %s=.*$` $n) $f -}}{{- if not $x }}{{ $x = regexFind (printf `(?m)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*\\}\\s*$` $n) $f }}{{ end -}}{{- if not $x }}{{ $x = regexFind (printf `(?ms)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*?^\\}` $n) $f }}{{ end -}}{{- $x = regexReplaceAll (printf `^alias %s=|^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{|\\}\\s*$` $n $n) $x `` -}}{{- $x = regexReplaceAll `\\s+` $x ` ` | trim | trimAll `'\"` -}}{{- if $x }} [ <#e5c07b>{{ abbrev 70 $x }}</> ] {{ end -}}"
+        },
+        {
+            "type": "text",
+            "style": "plain",
+            "tips": [
+                "dcp"
+            ],
+            "template": "{{- $n := \"dcp\" -}}{{- $f := readFile (printf \"%s/dotfiles/aliases/aliases\" .Env.HOME) -}}{{- $x := regexFind (printf `(?m)^alias %s=.*$` $n) $f -}}{{- if not $x }}{{ $x = regexFind (printf `(?m)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*\\}\\s*$` $n) $f }}{{ end -}}{{- if not $x }}{{ $x = regexFind (printf `(?ms)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*?^\\}` $n) $f }}{{ end -}}{{- $x = regexReplaceAll (printf `^alias %s=|^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{|\\}\\s*$` $n $n) $x `` -}}{{- $x = regexReplaceAll `\\s+` $x ` ` | trim | trimAll `'\"` -}}{{- if $x }} [ <#e5c07b>{{ abbrev 70 $x }}</> ] {{ end -}}"
+        },
+        {
+            "type": "text",
+            "style": "plain",
+            "tips": [
+                "dcw"
+            ],
+            "template": "{{- $n := \"dcw\" -}}{{- $f := readFile (printf \"%s/dotfiles/aliases/aliases\" .Env.HOME) -}}{{- $x := regexFind (printf `(?m)^alias %s=.*$` $n) $f -}}{{- if not $x }}{{ $x = regexFind (printf `(?m)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*\\}\\s*$` $n) $f }}{{ end -}}{{- if not $x }}{{ $x = regexFind (printf `(?ms)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*?^\\}` $n) $f }}{{ end -}}{{- $x = regexReplaceAll (printf `^alias %s=|^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{|\\}\\s*$` $n $n) $x `` -}}{{- $x = regexReplaceAll `\\s+` $x ` ` | trim | trimAll `'\"` -}}{{- if $x }} [ <#e5c07b>{{ abbrev 70 $x }}</> ] {{ end -}}"
+        },
+        {
+            "type": "text",
+            "style": "plain",
+            "tips": [
+                "dcu"
+            ],
+            "template": "{{- $n := \"dcu\" -}}{{- $f := readFile (printf \"%s/dotfiles/aliases/aliases\" .Env.HOME) -}}{{- $x := regexFind (printf `(?m)^alias %s=.*$` $n) $f -}}{{- if not $x }}{{ $x = regexFind (printf `(?m)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*\\}\\s*$` $n) $f }}{{ end -}}{{- if not $x }}{{ $x = regexFind (printf `(?ms)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*?^\\}` $n) $f }}{{ end -}}{{- $x = regexReplaceAll (printf `^alias %s=|^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{|\\}\\s*$` $n $n) $x `` -}}{{- $x = regexReplaceAll `\\s+` $x ` ` | trim | trimAll `'\"` -}}{{- if $x }} [ <#e5c07b>{{ abbrev 70 $x }}</> ] {{ end -}}"
+        },
+        {
+            "type": "text",
+            "style": "plain",
+            "tips": [
+                "dcud"
+            ],
+            "template": "{{- $n := \"dcud\" -}}{{- $f := readFile (printf \"%s/dotfiles/aliases/aliases\" .Env.HOME) -}}{{- $x := regexFind (printf `(?m)^alias %s=.*$` $n) $f -}}{{- if not $x }}{{ $x = regexFind (printf `(?m)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*\\}\\s*$` $n) $f }}{{ end -}}{{- if not $x }}{{ $x = regexFind (printf `(?ms)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*?^\\}` $n) $f }}{{ end -}}{{- $x = regexReplaceAll (printf `^alias %s=|^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{|\\}\\s*$` $n $n) $x `` -}}{{- $x = regexReplaceAll `\\s+` $x ` ` | trim | trimAll `'\"` -}}{{- if $x }} [ <#e5c07b>{{ abbrev 70 $x }}</> ] {{ end -}}"
+        },
+        {
+            "type": "text",
+            "style": "plain",
+            "tips": [
+                "dcd"
+            ],
+            "template": "{{- $n := \"dcd\" -}}{{- $f := readFile (printf \"%s/dotfiles/aliases/aliases\" .Env.HOME) -}}{{- $x := regexFind (printf `(?m)^alias %s=.*$` $n) $f -}}{{- if not $x }}{{ $x = regexFind (printf `(?m)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*\\}\\s*$` $n) $f }}{{ end -}}{{- if not $x }}{{ $x = regexFind (printf `(?ms)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*?^\\}` $n) $f }}{{ end -}}{{- $x = regexReplaceAll (printf `^alias %s=|^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{|\\}\\s*$` $n $n) $x `` -}}{{- $x = regexReplaceAll `\\s+` $x ` ` | trim | trimAll `'\"` -}}{{- if $x }} [ <#e5c07b>{{ abbrev 70 $x }}</> ] {{ end -}}"
+        },
+        {
+            "type": "text",
+            "style": "plain",
+            "tips": [
+                "dcub"
+            ],
+            "template": "{{- $n := \"dcub\" -}}{{- $f := readFile (printf \"%s/dotfiles/aliases/aliases\" .Env.HOME) -}}{{- $x := regexFind (printf `(?m)^alias %s=.*$` $n) $f -}}{{- if not $x }}{{ $x = regexFind (printf `(?m)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*\\}\\s*$` $n) $f }}{{ end -}}{{- if not $x }}{{ $x = regexFind (printf `(?ms)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*?^\\}` $n) $f }}{{ end -}}{{- $x = regexReplaceAll (printf `^alias %s=|^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{|\\}\\s*$` $n $n) $x `` -}}{{- $x = regexReplaceAll `\\s+` $x ` ` | trim | trimAll `'\"` -}}{{- if $x }} [ <#e5c07b>{{ abbrev 70 $x }}</> ] {{ end -}}"
+        },
+        {
+            "type": "text",
+            "style": "plain",
+            "tips": [
+                "dcubd"
+            ],
+            "template": "{{- $n := \"dcubd\" -}}{{- $f := readFile (printf \"%s/dotfiles/aliases/aliases\" .Env.HOME) -}}{{- $x := regexFind (printf `(?m)^alias %s=.*$` $n) $f -}}{{- if not $x }}{{ $x = regexFind (printf `(?m)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*\\}\\s*$` $n) $f }}{{ end -}}{{- if not $x }}{{ $x = regexFind (printf `(?ms)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*?^\\}` $n) $f }}{{ end -}}{{- $x = regexReplaceAll (printf `^alias %s=|^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{|\\}\\s*$` $n $n) $x `` -}}{{- $x = regexReplaceAll `\\s+` $x ` ` | trim | trimAll `'\"` -}}{{- if $x }} [ <#e5c07b>{{ abbrev 70 $x }}</> ] {{ end -}}"
+        },
+        {
+            "type": "text",
+            "style": "plain",
+            "tips": [
+                "dcr"
+            ],
+            "template": "{{- $n := \"dcr\" -}}{{- $f := readFile (printf \"%s/dotfiles/aliases/aliases\" .Env.HOME) -}}{{- $x := regexFind (printf `(?m)^alias %s=.*$` $n) $f -}}{{- if not $x }}{{ $x = regexFind (printf `(?m)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*\\}\\s*$` $n) $f }}{{ end -}}{{- if not $x }}{{ $x = regexFind (printf `(?ms)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*?^\\}` $n) $f }}{{ end -}}{{- $x = regexReplaceAll (printf `^alias %s=|^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{|\\}\\s*$` $n $n) $x `` -}}{{- $x = regexReplaceAll `\\s+` $x ` ` | trim | trimAll `'\"` -}}{{- if $x }} [ <#e5c07b>{{ abbrev 70 $x }}</> ] {{ end -}}"
+        },
+        {
+            "type": "text",
+            "style": "plain",
+            "tips": [
+                "dcrr"
+            ],
+            "template": "{{- $n := \"dcrr\" -}}{{- $f := readFile (printf \"%s/dotfiles/aliases/aliases\" .Env.HOME) -}}{{- $x := regexFind (printf `(?m)^alias %s=.*$` $n) $f -}}{{- if not $x }}{{ $x = regexFind (printf `(?m)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*\\}\\s*$` $n) $f }}{{ end -}}{{- if not $x }}{{ $x = regexFind (printf `(?ms)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*?^\\}` $n) $f }}{{ end -}}{{- $x = regexReplaceAll (printf `^alias %s=|^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{|\\}\\s*$` $n $n) $x `` -}}{{- $x = regexReplaceAll `\\s+` $x ` ` | trim | trimAll `'\"` -}}{{- if $x }} [ <#e5c07b>{{ abbrev 70 $x }}</> ] {{ end -}}"
+        },
+        {
+            "type": "text",
+            "style": "plain",
+            "tips": [
+                "dr"
+            ],
+            "template": "{{- $n := \"dr\" -}}{{- $f := readFile (printf \"%s/dotfiles/aliases/aliases\" .Env.HOME) -}}{{- $x := regexFind (printf `(?m)^alias %s=.*$` $n) $f -}}{{- if not $x }}{{ $x = regexFind (printf `(?m)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*\\}\\s*$` $n) $f }}{{ end -}}{{- if not $x }}{{ $x = regexFind (printf `(?ms)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*?^\\}` $n) $f }}{{ end -}}{{- $x = regexReplaceAll (printf `^alias %s=|^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{|\\}\\s*$` $n $n) $x `` -}}{{- $x = regexReplaceAll `\\s+` $x ` ` | trim | trimAll `'\"` -}}{{- if $x }} [ <#e5c07b>{{ abbrev 70 $x }}</> ] {{ end -}}"
+        },
+        {
+            "type": "text",
+            "style": "plain",
+            "tips": [
+                "drr"
+            ],
+            "template": "{{- $n := \"drr\" -}}{{- $f := readFile (printf \"%s/dotfiles/aliases/aliases\" .Env.HOME) -}}{{- $x := regexFind (printf `(?m)^alias %s=.*$` $n) $f -}}{{- if not $x }}{{ $x = regexFind (printf `(?m)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*\\}\\s*$` $n) $f }}{{ end -}}{{- if not $x }}{{ $x = regexFind (printf `(?ms)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*?^\\}` $n) $f }}{{ end -}}{{- $x = regexReplaceAll (printf `^alias %s=|^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{|\\}\\s*$` $n $n) $x `` -}}{{- $x = regexReplaceAll `\\s+` $x ` ` | trim | trimAll `'\"` -}}{{- if $x }} [ <#e5c07b>{{ abbrev 70 $x }}</> ] {{ end -}}"
+        },
+        {
+            "type": "text",
+            "style": "plain",
+            "tips": [
+                "dcln"
+            ],
+            "template": "{{- $n := \"dcln\" -}}{{- $f := readFile (printf \"%s/dotfiles/aliases/aliases\" .Env.HOME) -}}{{- $x := regexFind (printf `(?m)^alias %s=.*$` $n) $f -}}{{- if not $x }}{{ $x = regexFind (printf `(?m)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*\\}\\s*$` $n) $f }}{{ end -}}{{- if not $x }}{{ $x = regexFind (printf `(?ms)^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{.*?^\\}` $n) $f }}{{ end -}}{{- $x = regexReplaceAll (printf `^alias %s=|^(?:function\\s+)?%s\\s*(?:\\(\\))?\\s*\\{|\\}\\s*$` $n $n) $x `` -}}{{- $x = regexReplaceAll `\\s+` $x ` ` | trim | trimAll `'\"` -}}{{- if $x }} [ <#e5c07b>{{ abbrev 70 $x }}</> ] {{ end -}}"
+        }
+    ]
+}
