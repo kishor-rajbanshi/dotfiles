@@ -120,7 +120,7 @@ echo 'eval "$(oh-my-posh init zsh --config ~/dotfiles/oh-my-posh/config.json)"' 
 bash
 
 ```sh
-echo 'eval "$(oh-my-posh init bash --config ~/dotfiles/oh-my-posh/config.json)"' >> ~/.bashrc
+echo 'eval "$(oh-my-posh init bash --strict --config ~/dotfiles/oh-my-posh/config.json)"' >> ~/.bashrc
 ```
 
 ## Aliases
