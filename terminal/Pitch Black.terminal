@@ -254,7 +254,7 @@
 	<key>UseBrightBold</key>
 	<true/>
 	<key>columnCount</key>
-	<integer>130</integer>
+	<integer>150</integer>
 	<key>name</key>
 	<string>Pitch Black</string>
 	<key>noWarnProcesses</key>
@@ -301,7 +301,7 @@
 		</dict>
 	</array>
 	<key>rowCount</key>
-	<integer>30</integer>
+	<integer>35</integer>
 	<key>shellExitAction</key>
 	<integer>1</integer>
 	<key>type</key>
