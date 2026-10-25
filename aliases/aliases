@@ -95,7 +95,34 @@ alias nrt="npm run test"
 
 ## Git ##
 alias g="git"
-alias gcl="git clone"
+gcl() {
+	_repo=$1
+	_dest=$2
+	_username="kishor-rajbanshi"
+
+	case "$_repo" in
+	http://* | https://* | git@*)
+		git clone "$_repo"
+		return $?
+		;;
+	esac
+
+	case "$_repo" in
+	*.git) _repo=${_repo%.git} ;;
+	esac
+
+	_ssh_url="git@github.com:$_username/$_repo.git"
+	_https_url="https://github.com/$_username/$_repo.git"
+
+	echo "Trying SSH..."
+	if git clone "$_ssh_url" "${2:-$1}"; then
+		return 0
+	fi
+
+	echo ""
+	echo "SSH clone failed. Trying HTTPS..."
+	git clone "$_https_url" "${2:-$1}"
+}
 alias gl="git log"
 alias glo="git log --oneline"
 alias gs="git status"
