@@ -299,6 +299,11 @@
 			<key>ProcessName</key>
 			<string>htop</string>
 		</dict>
+		<dict>
+			<key>ProcessName</key>
+			<string>oh-my-posh</string>
+		</dict>
+		<dict/>
 	</array>
 	<key>rowCount</key>
 	<integer>35</integer>
