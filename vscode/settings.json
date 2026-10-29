@@ -206,6 +206,7 @@
     "github.copilot.chat.alternateGeminiModelFPrompt.enabled": true,
     "github.copilot.chat.alternateGptPrompt.enabled": true,
     "github.copilot.chat.anthropic.tools.websearch.enabled": true,
+    "github.copilot.chat.claudeDefaultReasoningEffort": "medium",
     "github.copilot.chat.claudeOpus5Prompt.enabled": true,
     "github.copilot.chat.claudeSonnet5Prompt.enabled": true,
     "github.copilot.chat.codesearch.enabled": true,
@@ -333,10 +334,10 @@
         "https://json-schema.org/": true,
         "https://json.schemastore.org/": true,
         "https://raw.githubusercontent.com/devcontainers/spec/": true,
+        "https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/": true,
         "https://raw.githubusercontent.com/microsoft/vscode/": true,
         "https://schemastore.azurewebsites.net/": true,
-        "https://www.schemastore.org/": true,
-        "https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/": true
+        "https://www.schemastore.org/": true
     },
     "Laravel.pint.runOnSave": true,
     "Laravel.showErrorPopups": true,
@@ -469,7 +470,6 @@
     "terminal.integrated.initialHint": false,
     "terminal.integrated.localEchoEnabled": "auto",
     "terminal.integrated.macOptionIsMeta": true,
-    "terminal.integrated.persistentSessionReviveProcess": "onExitAndWindowClose",
     "terminal.integrated.shellIntegration.environmentReporting": true,
     "terminal.integrated.smoothScrolling": true,
     "terminal.integrated.suggest.inlineSuggestion": "alwaysOnTopExceptExactMatch",
@@ -540,6 +540,5 @@
         "**/.gitea/workflows/*.yaml",
         "**/.forgejo/workflows/*.yml",
         "**/.forgejo/workflows/*.yaml"
-    ],
-    "github.copilot.chat.claudeDefaultReasoningEffort": "medium"
+    ]
 }
