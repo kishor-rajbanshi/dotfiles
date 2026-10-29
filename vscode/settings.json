@@ -468,7 +468,6 @@
     "terminal.integrated.fontLigatures.enabled": true,
     "terminal.integrated.initialHint": false,
     "terminal.integrated.localEchoEnabled": "auto",
-    "terminal.integrated.macOptionIsMeta": true,
     "terminal.integrated.shellIntegration.environmentReporting": true,
     "terminal.integrated.smoothScrolling": true,
     "terminal.integrated.suggest.insertTrailingSpace": true,
