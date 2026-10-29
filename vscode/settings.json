@@ -212,16 +212,7 @@
     "github.copilot.chat.codesearch.enabled": true,
     "github.copilot.chat.commitMessageGeneration.instructions": [
         {
-            "text": "Follow Conventional Commits: <type>(<scope>): <subject>. Types: feat, fix, docs, style, refactor, perf, test, chore, build, ci."
-        },
-        {
-            "text": "Subject line in imperative mood, lowercase, no trailing period, max 72 characters."
-        },
-        {
-            "text": "If the change is non-trivial, add a blank line then a concise body explaining what and why, wrapped at 100 characters."
-        },
-        {
-            "text": "Do not include file names or line numbers in the subject; summarize the intent of the change instead."
+            "text": "Follow the Conventional Commits 1.0.0 spec. Format: <type>(<optional scope>): <description>. Allowed types: feat, fix, docs, style, refactor, perf, test, build, ci, chore, revert. Use lowercase, imperative mood (\"add\", not \"added\"), no trailing period, and keep the subject line under 72 characters. Add a body only if the change needs explanation, separated by a blank line and explaining why rather than what. Use a footer for BREAKING CHANGE: or issue references, and add ! after the type/scope for breaking changes."
         }
     ],
     "github.copilot.chat.exploreAgent.enabled": true,
@@ -238,19 +229,7 @@
     "github.copilot.chat.notebook.followCellExecution.enabled": true,
     "github.copilot.chat.pullRequestDescriptionGeneration.instructions": [
         {
-            "text": "Structure the PR description with these sections: ## Summary, ## Changes, ## Testing."
-        },
-        {
-            "text": "In Summary, briefly explain the purpose/motivation of the PR in 1-3 sentences."
-        },
-        {
-            "text": "In Changes, use a bullet list of the key changes made, grouped logically if there are many."
-        },
-        {
-            "text": "In Testing, describe how the changes were verified (manual steps, test cases, or note if none were added)."
-        },
-        {
-            "text": "Keep the tone concise and factual; avoid restating the diff line by line."
+            "text": "Write the PR title in Conventional Commits format: <type>(<optional scope>): <description>, lowercase, imperative, under 72 characters. For the description use these sections: ## Summary (1-3 sentences on what changed and why), ## Changes (concise bullet list of notable changes grouped logically), ## Testing (how it was verified, or 'Not tested' if unknown), ## Notes (breaking changes, migrations, config or env changes, follow-ups; omit if none). Link issues with 'Closes #123' when referenced. Be concise, do not list every file, and do not invent details not present in the diff or commits."
         }
     ],
     "github.copilot.chat.rateLimitAutoSwitchToAuto": true,
@@ -259,19 +238,7 @@
     "github.copilot.chat.responsesApiContextManagement.enabled": true,
     "github.copilot.chat.reviewSelection.instructions": [
         {
-            "text": "Flag bugs, logic errors, and edge cases that aren't handled."
-        },
-        {
-            "text": "Point out security issues (e.g. unvalidated input, injection risks, exposed secrets)."
-        },
-        {
-            "text": "Note deviations from established conventions in this codebase (naming, structure, error handling)."
-        },
-        {
-            "text": "Suggest improvements for readability or maintainability, but don't nitpick style if a linter/formatter already enforces it."
-        },
-        {
-            "text": "Be concise — comment only where it adds value, skip praise and filler."
+            "text": "Review the selected code for correctness, security, performance, and maintainability. Prioritize real problems over style nitpicks. Check for: bugs and unhandled edge cases, missing input validation or authorization, SQL injection and mass assignment risks, N+1 queries and missing eager loading, missing error handling, and unclear naming or unnecessary complexity. For each issue, state the problem, why it matters, and a concrete fix with a short code snippet. Group findings by severity (critical, warning, suggestion). If the code looks fine, say so briefly instead of inventing issues."
         }
     ],
     "github.copilot.chat.scopeSelection": true,
