@@ -107,6 +107,14 @@ sudo mkdir -p /usr/local/bin/
 sudo ln -sfn ~/dotfiles/bin/rm /usr/local/bin/rm
 ```
 
+## Git
+
+### Symlink
+
+```sh
+ln -sfn ~/dotfiles/git/.gitconfig ~/.gitconfig
+```
+
 ## Oh My Posh
 
 ### Initialize
