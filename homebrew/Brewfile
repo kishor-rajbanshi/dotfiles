@@ -64,6 +64,8 @@ cask "docker-desktop"
 cask "font-jetbrains-mono-nerd-font"
 # Terminal emulator that uses platform-native UI and GPU acceleration
 cask "ghostty"
+# Desktop client for GitHub repositories
+cask "github"
 # Web browser
 cask "google-chrome"
 # Free cross-platform office suite, fresh version
@@ -119,3 +121,5 @@ vscode "timonwong.shellcheck"
 vscode "viktorqvarfordt.vscode-pitch-black-theme"
 vscode "xdebug.php-debug"
 npm "eslint"
+npm "pnpm"
+npm "yarn"
