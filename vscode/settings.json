@@ -432,22 +432,16 @@
     "terminal.integrated.copyOnSelection": true,
     "terminal.integrated.cursorBlinking": true,
     "terminal.integrated.enableImages": true,
+    "terminal.integrated.enableVisualBell": true,
     "terminal.integrated.fontLigatures.enabled": true,
     "terminal.integrated.initialHint": false,
     "terminal.integrated.localEchoEnabled": "auto",
     "terminal.integrated.shellIntegration.environmentReporting": true,
     "terminal.integrated.smoothScrolling": true,
-    "terminal.integrated.suggest.insertTrailingSpace": true,
     "terminal.integrated.suggest.providers": {
         "lsp": true
     },
-    "terminal.integrated.suggest.quickSuggestions": {
-        "arguments": "on",
-        "commands": "on",
-        "unknown": "on"
-    },
     "terminal.integrated.suggest.showStatusBar": false,
-    "terminal.integrated.suggest.suggestOnTriggerCharacters": true,
     "terminal.integrated.tabs.focusMode": "singleClick",
     "terminal.integrated.textBlinking": true,
     "testing.coverageToolbarEnabled": true,
