@@ -11,16 +11,6 @@
     "accessibility.openChatEditedFiles": true,
     "accessibility.underlineLinks": true,
     "chat.agent.sandbox.allowUnsandboxedCommands": false,
-    "chat.agent.sandbox.fileSystem.mac": {
-        "allowRead": [
-            "./**"
-        ],
-        "allowWrite": [
-            "./**"
-        ],
-        "denyRead": [],
-        "denyWrite": []
-    },
     "chat.agentSessionProjection.enabled": true,
     "chat.agentSessions.migrateLegacyCopilotCli": true,
     "chat.checkpoints.showFileChanges": true,
@@ -174,8 +164,7 @@
     "git.autoStash": true,
     "git.blame.editorDecoration.enabled": true,
     "git.branchProtection": [
-        "main",
-        "develop"
+        "main"
     ],
     "git.branchValidationRegex": "^(feature|fix|hotfix|refactor|chore|docs|test|release)/(?:[0-9]+-)?[a-z0-9]+(?:-[a-z0-9]+)*$",
     "git.defaultCloneDirectory": "~/Codespace",
