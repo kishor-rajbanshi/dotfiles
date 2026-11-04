@@ -9,6 +9,9 @@
     "accessibility.chat.showCheckmarks": true,
     "accessibility.hideAccessibleView": true,
     "accessibility.openChatEditedFiles": true,
+    "accessibility.signals.terminalBell": {
+        "sound": "on"
+    },
     "accessibility.underlineLinks": true,
     "chat.agent.sandbox.allowUnsandboxedCommands": false,
     "chat.agentSessionProjection.enabled": true,

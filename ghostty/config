@@ -10,3 +10,5 @@ shell-integration-features = ssh-env, ssh-terminfo, no-cursor
 macos-option-as-alt = true
 
 cursor-style = block
+
+bell-features = system
