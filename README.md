@@ -131,6 +131,21 @@ bash
 echo 'eval "$(oh-my-posh init bash --strict --config ~/dotfiles/oh-my-posh/config.json)"' >> ~/.bashrc
 ```
 
+## zsh-completions
+
+### Initialize
+
+zsh
+
+```sh
+chmod go-w "$HOMEBREW_PREFIX/share"
+chmod -R go-w "$HOMEBREW_PREFIX/share/zsh"
+echo 'FPATH=$HOMEBREW_PREFIX/share/zsh-completions:$FPATH' >> ~/.zshrc
+echo 'autoload -Uz compinit' >> ~/.zshrc
+echo 'compinit' >> ~/.zshrc
+rm -f ~/.zcompdump* && exec zsh
+```
+
 ## Aliases
 
 ### Source
@@ -165,21 +180,6 @@ bash
 echo 'source ~/dotfiles/functions/qrcode' >> ~/.bashrc
 ```
 
-## zsh-completions
-
-### Initialize
-
-zsh
-
-```sh
-chmod go-w "$(brew --prefix)/share"
-chmod -R go-w "$(brew --prefix)/share/zsh"
-echo 'FPATH=$(brew --prefix)/share/zsh-completions:$FPATH' >> ~/.zshrc
-echo 'autoload -Uz compinit' >> ~/.zshrc
-echo 'compinit' >> ~/.zshrc
-rm -f ~/.zcompdump* && exec zsh
-```
-
 ## fzf
 
 ### Initialize
@@ -203,7 +203,7 @@ echo 'eval "$(fzf --bash)"' >> ~/.bashrc
 zsh
 
 ```sh
-echo 'source $(brew --prefix)/opt/fzf-tab/share/fzf-tab/fzf-tab.zsh' >> ~/.zshrc
+echo 'source $HOMEBREW_PREFIX/opt/fzf-tab/share/fzf-tab/fzf-tab.zsh' >> ~/.zshrc
 ```
 
 ## zoxide
@@ -229,7 +229,7 @@ echo 'eval "$(zoxide init bash)"' >> ~/.bashrc
 zsh
 
 ```sh
-echo 'source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh' >> ~/.zshrc
+echo 'source $HOMEBREW_PREFIX/share/zsh-autosuggestions/zsh-autosuggestions.zsh' >> ~/.zshrc
 ```
 
 ## zsh-syntax-highlighting
@@ -239,7 +239,7 @@ echo 'source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh'
 zsh
 
 ```sh
-echo 'source $(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh' >> ~/.zshrc
+echo 'source $HOMEBREW_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh' >> ~/.zshrc
 ```
 
 ## Notes
@@ -249,6 +249,7 @@ echo 'source $(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlight
 Lines appended to `~/.zshrc` must follow this order:
 
 1. zsh-completions (`compinit`)
-2. fzf, fzf-tab, zoxide
-3. zsh-autosuggestions
-4. zsh-syntax-highlighting (always last)
+2. Aliases (`zsh_completions` calls `compdef`)
+3. fzf, fzf-tab, zoxide
+4. zsh-autosuggestions
+5. zsh-syntax-highlighting (always last)
