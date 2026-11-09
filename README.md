@@ -22,6 +22,25 @@ brew bundle --file ~/dotfiles/homebrew/Brewfile
 brew bundle dump --force --file ~/dotfiles/homebrew/Brewfile
 ```
 
+### Auto-upgrade at login
+
+#### Install
+
+```sh
+P=com.brew.upgrade
+mkdir -p ~/Library/LaunchAgents
+install -m 644 ~/dotfiles/homebrew/$P.plist ~/Library/LaunchAgents/
+launchctl bootstrap gui/$(id -u) ~/Library/LaunchAgents/$P.plist
+```
+
+#### Uninstall
+
+```sh
+P=com.brew.upgrade
+launchctl bootout gui/$(id -u)/$P
+rm ~/Library/LaunchAgents/$P.plist
+```
+
 ## Terminal
 
 ### Import profile

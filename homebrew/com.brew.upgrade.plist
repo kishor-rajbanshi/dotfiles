@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Label</key>
+	<string>com.brew.upgrade</string>
+	<key>ProgramArguments</key>
+	<array>
+		<string>/bin/sh</string>
+		<string>-c</string>
+		<string>i=0; until curl -fsS -o /dev/null --max-time 1 https://formulae.brew.sh; do i=$((i+1)); [ "$i" -ge 12 ] &amp;&amp; exit 1; sleep 5; done; date; brew update &amp;&amp; brew upgrade --greedy</string>
+	</array>
+	<key>EnvironmentVariables</key>
+	<dict>
+		<key>PATH</key>
+		<string>/opt/homebrew/bin:/opt/homebrew/sbin:/usr/bin:/bin:/usr/sbin:/sbin</string>
+	</dict>
+	<key>RunAtLoad</key>
+	<true/>
+	<key>ProcessType</key>
+	<string>Background</string>
+	<key>StandardOutPath</key>
+	<string>/tmp/brew-upgrade.log</string>
+	<key>StandardErrorPath</key>
+	<string>/tmp/brew-upgrade.log</string>
+</dict>
+</plist>
