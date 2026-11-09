@@ -23,8 +23,8 @@ brew "imagemagick"
 brew "jq"
 # HTTP(S) server and reverse proxy, and IMAP/POP3 proxy server
 brew "nginx"
-# Manage multiple Node.js versions
-brew "nvm"
+# Open-source, cross-platform JavaScript runtime environment
+brew "node"
 # AI coding agent, built for the terminal
 brew "opencode"
 # PHP Installer for Extensions
@@ -121,5 +121,3 @@ vscode "timonwong.shellcheck"
 vscode "viktorqvarfordt.vscode-pitch-black-theme"
 vscode "xdebug.php-debug"
 npm "eslint"
-npm "pnpm"
-npm "yarn"
