@@ -154,8 +154,6 @@ echo 'eval "$(oh-my-posh init bash --strict --config ~/dotfiles/oh-my-posh/confi
 
 ### Initialize
 
-zsh
-
 ```sh
 chmod go-w "$HOMEBREW_PREFIX/share"
 chmod -R go-w "$HOMEBREW_PREFIX/share/zsh"
@@ -245,8 +243,6 @@ echo 'eval "$(zoxide init bash)"' >> ~/.bashrc
 
 ### Source
 
-zsh
-
 ```sh
 echo 'source $HOMEBREW_PREFIX/share/zsh-autosuggestions/zsh-autosuggestions.zsh' >> ~/.zshrc
 ```
@@ -254,8 +250,6 @@ echo 'source $HOMEBREW_PREFIX/share/zsh-autosuggestions/zsh-autosuggestions.zsh'
 ## zsh-syntax-highlighting
 
 ### Source
-
-zsh
 
 ```sh
 echo 'source $HOMEBREW_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh' >> ~/.zshrc
