@@ -8,7 +8,7 @@
 	<array>
 		<string>/bin/sh</string>
 		<string>-c</string>
-		<string>i=0; until curl -fsS -o /dev/null --max-time 1 https://formulae.brew.sh; do i=$((i+1)); [ "$i" -ge 12 ] &amp;&amp; exit 1; sleep 5; done; date; brew update &amp;&amp; brew upgrade --greedy</string>
+		<string>i=0; until curl -fsS -o /dev/null --max-time 1 https://formulae.brew.sh; do i=$((i+1)); [ "$i" -ge 12 ] &amp;&amp; exit 1; sleep 5; done; date; brew update &amp;&amp; brew upgrade</string>
 	</array>
 	<key>EnvironmentVariables</key>
 	<dict>

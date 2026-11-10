@@ -35,7 +35,7 @@ alias bsl="brew services list"
 alias bss="brew services start"
 alias bsr="brew services restart"
 alias bsst="brew services stop"
-alias bup="brew update && brew upgrade && brew autoremove && brew cleanup"
+alias bup="brew update && brew upgrade --greedy && brew autoremove && brew cleanup"
 
 ## PHP ##
 alias p="php"
