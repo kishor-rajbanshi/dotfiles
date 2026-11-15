@@ -4,5 +4,10 @@
         "key": "ctrl+s",
         "command": "tailwindCSS.sortSelection",
         "when": "editorHasSelection && tailwindCSS.activeTextEditorSupportsClassSorting && resourceScheme == 'file' || editorHasSelection && tailwindCSS.activeTextEditorSupportsClassSorting && resourceScheme == 'vscode-remote'"
+    },
+    {
+        "key": "cmd+enter",
+        "command": "workbench.action.toggleMaximizedPanel",
+        "when": "terminalFocus"
     }
 ]
