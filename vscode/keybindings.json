@@ -6,8 +6,13 @@
         "when": "editorHasSelection && tailwindCSS.activeTextEditorSupportsClassSorting && resourceScheme == 'file' || editorHasSelection && tailwindCSS.activeTextEditorSupportsClassSorting && resourceScheme == 'vscode-remote'"
     },
     {
-        "key": "cmd+enter",
+        "key": "cmd+m",
         "command": "workbench.action.toggleMaximizedPanel",
         "when": "terminalFocus"
+    },
+    {
+        "key": "cmd+enter",
+        "command": "workbench.action.toggleFullScreen",
+        "when": "!isIOS"
     }
 ]
