@@ -96,32 +96,26 @@ alias nrt="npm run test"
 ## Git ##
 alias g="git"
 gcl() {
-	_repo=$1
-	_dest=$2
-	_username="kishor-rajbanshi"
-
-	case "$_repo" in
-	http://* | https://* | git@*)
-		git clone "$_repo"
-		return $?
+	case "$1" in
+	"" | http://* | https://* | ssh://* | git@*)
+		git clone "$@"
+		return
 		;;
 	esac
 
+	_repo=${1%.git}
 	case "$_repo" in
-	*.git) _repo=${_repo%.git} ;;
+	*/*) ;;
+	*) _repo="kishor-rajbanshi/$_repo" ;;
 	esac
-
-	_ssh_url="git@github.com:$_username/$_repo.git"
-	_https_url="https://github.com/$_username/$_repo.git"
+	_dest=${2:-${_repo##*/}}
 
 	echo "Trying SSH..."
-	if git clone "$_ssh_url" "${2:-$1}"; then
-		return 0
-	fi
+	git clone "git@github.com:$_repo.git" "$_dest" && return
 
 	echo ""
 	echo "SSH clone failed. Trying HTTPS..."
-	git clone "$_https_url" "${2:-$1}"
+	git clone "https://github.com/$_repo.git" "$_dest"
 }
 alias gl="git log"
 alias glo="git log --oneline"
@@ -143,9 +137,20 @@ alias gpf="git push -f"
 alias gptg="git push --tags"
 gpu() { git push -u "${1:-origin}" "${2:-$(git branch --show-current)}"; }
 gsw() {
-	git switch "$@" && return
-	case "$1" in -*) return 1 ;; esac
-	git rev-parse --verify --quiet "$1^{commit}" >/dev/null && return 1
+	case "$1" in "" | -*)
+		git switch "$@"
+		return
+		;;
+	esac
+	# Only offer to create when the target doesn't exist locally or on any remote;
+	# otherwise let git switch run and surface its own errors (e.g. dirty tree).
+	if [ $# -gt 1 ] ||
+		! git rev-parse --git-dir >/dev/null 2>&1 ||
+		git rev-parse --verify --quiet "$1^{commit}" >/dev/null ||
+		[ -n "$(git for-each-ref --format=x "refs/remotes/*/$1")" ]; then
+		git switch "$@"
+		return
+	fi
 	printf "Create new branch '%s'? [Y/n] " "$1"
 	read -r confirm
 	case "$confirm" in
