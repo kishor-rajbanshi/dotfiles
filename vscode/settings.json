@@ -296,7 +296,9 @@
         "https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/": true,
         "https://raw.githubusercontent.com/microsoft/vscode/": true,
         "https://schemastore.azurewebsites.net/": true,
-        "https://www.schemastore.org/": true
+        "https://www.schemastore.org/": true,
+        "https://opencode.ai/config.json": true,
+        "https://models.dev/model-schema.json": true
     },
     "Laravel.pint.runOnSave": true,
     "Laravel.showErrorPopups": true,
